@@ -55,11 +55,11 @@ jobs:
         run: |
           mkdir -p ${{ github.workspace }}/metamodule-plugins
           git clone -b ${{ inputs.SDK_branch }} https://github.com/4ms/metamodule-plugin-sdk --recursive ${{ github.workspace }}/metamodule-plugin-sdk
-          cmake -B build -G Ninja -DMETAMODULE_SDK_DIR=${{ github.workspace }}/metamodule-plugin-sdk -DPLUGIN_JSON=${{ github.workspace }}/plugin.json
+          cmake -B build -G Ninja -DMETAMODULE_SDK_DIR=${{ github.workspace }}/metamodule-plugin-sdk
           cmake --build build
           cd ${{ github.workspace }}/metamodule-plugins
           for f in *.mmplugin; do
-            mv "$f" "${f%.mmplugin}-${{ env.CI_REF_NAME }}.mmplugin"
+            mv "$f" "Submit-v2.1.mmplugin"
           done
 
       - name: Release
