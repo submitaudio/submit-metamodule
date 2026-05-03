@@ -1,0 +1,828 @@
+Submit-debug.so:0002bf64 t __adddf3
+Submit-debug.so:0002bf64 t __aeabi_dadd
+Submit-debug.so:0002bf58 t __aeabi_drsub
+Submit-debug.so:0002bf60 t __aeabi_dsub
+Submit-debug.so:0002c220 t __aeabi_f2d
+Submit-debug.so:0002c1fc t __aeabi_i2d
+Submit-debug.so:0002c274 t __aeabi_l2d
+Submit-debug.so:0002c1dc t __aeabi_ui2d
+Submit-debug.so:0002c264 t __aeabi_ul2d
+Submit-debug.so:00029b24 t __errno
+Submit-debug.so:0002da98 r __exp_data
+Submit-debug.so:0002f350 r __exp2f_data
+Submit-debug.so:0002c220 t __extendsfdf2
+Submit-debug.so:0002c274 t __floatdidf
+Submit-debug.so:0002c1fc t __floatsidf
+Submit-debug.so:0002c264 t __floatundidf
+Submit-debug.so:0002c1dc t __floatunsidf
+Submit-debug.so:00028ebc t __fpclassifyf
+Submit-debug.so:0002ad48 t __ieee754_fmodf
+Submit-debug.so:0002aa58 t __ieee754_rem_pio2
+Submit-debug.so:0002f498 r __inv_pio4
+Submit-debug.so:0002a868 t __kernel_cos
+Submit-debug.so:0002b1c8 t __kernel_rem_pio2
+Submit-debug.so:0002a9a0 t __kernel_sin
+Submit-debug.so:000284b0 t __math_check_oflow
+Submit-debug.so:0002849c t __math_check_uflow
+Submit-debug.so:00028450 t __math_divzero
+Submit-debug.so:000299c4 t __math_divzerof
+Submit-debug.so:00028480 t __math_invalid
+Submit-debug.so:000299e8 t __math_invalidf
+Submit-debug.so:000299ac t __math_may_uflowf
+Submit-debug.so:00028440 t __math_oflow
+Submit-debug.so:000299b8 t __math_oflowf
+Submit-debug.so:00028430 t __math_uflow
+Submit-debug.so:000299a0 t __math_uflowf
+Submit-debug.so:0002e308 r __pow_log_data
+Submit-debug.so:0002f7c8 r __powf_log2_data
+Submit-debug.so:0002f4f8 r __sincosf_table
+Submit-debug.so:0002bf60 t __subdf3
+Submit-debug.so:000329e0 a _DYNAMIC
+Submit-debug.so:00008ae0 t _GLOBAL__sub_I_Chain.cpp
+Submit-debug.so:00008914 t _GLOBAL__sub_I_Chrono.cpp
+Submit-debug.so:0000857c t _GLOBAL__sub_I_Drift13.cpp
+Submit-debug.so:00008748 t _GLOBAL__sub_I_Impact.cpp
+Submit-debug.so:00008e94 t _GLOBAL__sub_I_Master.cpp
+Submit-debug.so:00008408 t _GLOBAL__sub_I_plugin.cpp
+Submit-debug.so:00008ce4 t _GLOBAL__sub_I_Shape.cpp
+Submit-debug.so:00009060 t _GLOBAL__sub_I_Squeeze.cpp
+Submit-debug.so:00032a80 a _GLOBAL_OFFSET_TABLE_
+Submit-debug.so:         U _impure_ptr
+Submit-debug.so:00080000 B _stack
+Submit-debug.so:0002b184 T operator delete(void*)
+Submit-debug.so:0002a5b4 T operator delete(void*, unsigned int)
+Submit-debug.so:0002a4bc T __cxxabiv1::__class_type_info::~__class_type_info()
+Submit-debug.so:0002a488 T __cxxabiv1::__class_type_info::~__class_type_info()
+Submit-debug.so:0002a488 T __cxxabiv1::__class_type_info::~__class_type_info()
+Submit-debug.so:0002a624 T __cxxabiv1::__si_class_type_info::~__si_class_type_info()
+Submit-debug.so:0002a5f0 T __cxxabiv1::__si_class_type_info::~__si_class_type_info()
+Submit-debug.so:0002a5f0 T __cxxabiv1::__si_class_type_info::~__si_class_type_info()
+Submit-debug.so:00027ecc T MetaModule::sdk_version()
+Submit-debug.so:00020f78 t ShapeWidget::ShapeWidget(Shape*)
+Submit-debug.so:00020f78 t ShapeWidget::ShapeWidget(Shape*)
+Submit-debug.so:0001e578 t ShapeWidget::~ShapeWidget()
+Submit-debug.so:0001e544 t ShapeWidget::~ShapeWidget()
+Submit-debug.so:0001e544 t ShapeWidget::~ShapeWidget()
+Submit-debug.so:0000f170 t TryMeButton::~TryMeButton()
+Submit-debug.so:0000f13c t TryMeButton::~TryMeButton()
+Submit-debug.so:0000f13c t TryMeButton::~TryMeButton()
+Submit-debug.so:00032db0 b (anonymous namespace)::__new_handler
+Submit-debug.so:000145c0 t ChronoSlider::~ChronoSlider()
+Submit-debug.so:0001458c t ChronoSlider::~ChronoSlider()
+Submit-debug.so:0001458c t ChronoSlider::~ChronoSlider()
+Submit-debug.so:00016730 t ChronoWidget::ChronoWidget(Chrono*)
+Submit-debug.so:00016730 t ChronoWidget::ChronoWidget(Chrono*)
+Submit-debug.so:0001454c t ChronoWidget::~ChronoWidget()
+Submit-debug.so:00014518 t ChronoWidget::~ChronoWidget()
+Submit-debug.so:00014518 t ChronoWidget::~ChronoWidget()
+Submit-debug.so:000116e8 t ImpactWidget::ImpactWidget(Impact*)
+Submit-debug.so:000116e8 t ImpactWidget::ImpactWidget(Impact*)
+Submit-debug.so:0000f014 t ImpactWidget::~ImpactWidget()
+Submit-debug.so:0000efe0 t ImpactWidget::~ImpactWidget()
+Submit-debug.so:0000efe0 t ImpactWidget::~ImpactWidget()
+Submit-debug.so:00023fb8 t MasterWidget::MasterWidget(Master*)
+Submit-debug.so:00023fb8 t MasterWidget::MasterWidget(Master*)
+Submit-debug.so:000221d4 t MasterWidget::~MasterWidget()
+Submit-debug.so:000221a0 t MasterWidget::~MasterWidget()
+Submit-debug.so:000221a0 t MasterWidget::~MasterWidget()
+Submit-debug.so:0001d1c8 t Mix2chWidget::Mix2chWidget(Mix2ch*)
+Submit-debug.so:0001d1c8 t Mix2chWidget::Mix2chWidget(Mix2ch*)
+Submit-debug.so:00019874 t Mix2chWidget::~Mix2chWidget()
+Submit-debug.so:00019840 t Mix2chWidget::~Mix2chWidget()
+Submit-debug.so:00019840 t Mix2chWidget::~Mix2chWidget()
+Submit-debug.so:000198e8 t ChainMMSlider::~ChainMMSlider()
+Submit-debug.so:000198b4 t ChainMMSlider::~ChainMMSlider()
+Submit-debug.so:000198b4 t ChainMMSlider::~ChainMMSlider()
+Submit-debug.so:00009380 t CoreProcessor::get_display_text(int, std::span<char, 4294967295u>)
+Submit-debug.so:0000e108 t Drift13Widget::Drift13Widget(Drift13*)
+Submit-debug.so:0000e108 t Drift13Widget::Drift13Widget(Drift13*)
+Submit-debug.so:0000951c t Drift13Widget::~Drift13Widget()
+Submit-debug.so:000094e8 t Drift13Widget::~Drift13Widget()
+Submit-debug.so:000094e8 t Drift13Widget::~Drift13Widget()
+Submit-debug.so:000270b0 t SqueezeWidget::SqueezeWidget(Squeeze*)
+Submit-debug.so:000270b0 t SqueezeWidget::SqueezeWidget(Squeeze*)
+Submit-debug.so:00024e44 t SqueezeWidget::~SqueezeWidget()
+Submit-debug.so:00024e10 t SqueezeWidget::~SqueezeWidget()
+Submit-debug.so:00024e10 t SqueezeWidget::~SqueezeWidget()
+Submit-debug.so:0001995c t ChainMuteButton::~ChainMuteButton()
+Submit-debug.so:00019928 t ChainMuteButton::~ChainMuteButton()
+Submit-debug.so:00019928 t ChainMuteButton::~ChainMuteButton()
+Submit-debug.so:         U VCVModuleWrapper::mark_input_patched(int)
+Submit-debug.so:         U VCVModuleWrapper::mark_output_patched(int)
+Submit-debug.so:         U VCVModuleWrapper::mark_input_unpatched(int)
+Submit-debug.so:         U VCVModuleWrapper::mark_output_unpatched(int)
+Submit-debug.so:         U VCVModuleWrapper::mark_all_inputs_unpatched()
+Submit-debug.so:         U VCVModuleWrapper::mark_all_outputs_unpatched()
+Submit-debug.so:         U VCVModuleWrapper::update()
+Submit-debug.so:         U VCVModuleWrapper::set_input(int, float)
+Submit-debug.so:         U VCVModuleWrapper::set_param(int, float)
+Submit-debug.so:0001471c t ChronoBreakButton::~ChronoBreakButton()
+Submit-debug.so:000146e8 t ChronoBreakButton::~ChronoBreakButton()
+Submit-debug.so:000146e8 t ChronoBreakButton::~ChronoBreakButton()
+Submit-debug.so:000146a8 t ChronoSurgeButton::~ChronoSurgeButton()
+Submit-debug.so:00014674 t ChronoSurgeButton::~ChronoSurgeButton()
+Submit-debug.so:00014674 t ChronoSurgeButton::~ChronoSurgeButton()
+Submit-debug.so:00014634 t ChronoSliderStepped::~ChronoSliderStepped()
+Submit-debug.so:00014600 t ChronoSliderStepped::~ChronoSliderStepped()
+Submit-debug.so:00014600 t ChronoSliderStepped::~ChronoSliderStepped()
+Submit-debug.so:         U rack::contextGet()
+Submit-debug.so:00021848 t rack::plugin::Model* rack::createModel<Shape, ShapeWidget>(std::basic_string_view<char, std::char_traits<char> >)
+Submit-debug.so:000175c8 t rack::plugin::Model* rack::createModel<Chrono, ChronoWidget>(std::basic_string_view<char, std::char_traits<char> >)
+Submit-debug.so:000128a0 t rack::plugin::Model* rack::createModel<Impact, ImpactWidget>(std::basic_string_view<char, std::char_traits<char> >)
+Submit-debug.so:00024958 t rack::plugin::Model* rack::createModel<Master, MasterWidget>(std::basic_string_view<char, std::char_traits<char> >)
+Submit-debug.so:0001e08c t rack::plugin::Model* rack::createModel<Mix2ch, Mix2chWidget>(std::basic_string_view<char, std::char_traits<char> >)
+Submit-debug.so:0000eb20 t rack::plugin::Model* rack::createModel<Drift13, Drift13Widget>(std::basic_string_view<char, std::char_traits<char> >)
+Submit-debug.so:00027b10 t rack::plugin::Model* rack::createModel<Squeeze, SqueezeWidget>(std::basic_string_view<char, std::char_traits<char> >)
+Submit-debug.so:00016470 t ChronoSlider* rack::createParam<ChronoSlider>(rack::math::Vec, rack::engine::Module*, int)
+Submit-debug.so:000099a4 t rack::componentlibrary::PJ301MPort::~PJ301MPort()
+Submit-debug.so:00009970 t rack::componentlibrary::PJ301MPort::~PJ301MPort()
+Submit-debug.so:00009970 t rack::componentlibrary::PJ301MPort::~PJ301MPort()
+Submit-debug.so:000098bc t rack::componentlibrary::SmallLight<rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~SmallLight()
+Submit-debug.so:00009888 t rack::componentlibrary::SmallLight<rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~SmallLight()
+Submit-debug.so:00009888 t rack::componentlibrary::SmallLight<rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~SmallLight()
+Submit-debug.so:00022330 t rack::componentlibrary::SmallLight<rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~SmallLight()
+Submit-debug.so:000222fc t rack::componentlibrary::SmallLight<rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~SmallLight()
+Submit-debug.so:000222fc t rack::componentlibrary::SmallLight<rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~SmallLight()
+Submit-debug.so:00019ab8 t rack::componentlibrary::MediumLight<rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~MediumLight()
+Submit-debug.so:00019a84 t rack::componentlibrary::MediumLight<rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~MediumLight()
+Submit-debug.so:00019a84 t rack::componentlibrary::MediumLight<rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~MediumLight()
+Submit-debug.so:000097d4 t rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >::~TYellowLight()
+Submit-debug.so:000097a0 t rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >::~TYellowLight()
+Submit-debug.so:000097a0 t rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >::~TYellowLight()
+Submit-debug.so:00009678 t rack::componentlibrary::RoundHugeBlackKnob::~RoundHugeBlackKnob()
+Submit-debug.so:00009644 t rack::componentlibrary::RoundHugeBlackKnob::~RoundHugeBlackKnob()
+Submit-debug.so:00009644 t rack::componentlibrary::RoundHugeBlackKnob::~RoundHugeBlackKnob()
+Submit-debug.so:000199d0 t rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >::~TRedGreenBlueLight()
+Submit-debug.so:0001999c t rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >::~TRedGreenBlueLight()
+Submit-debug.so:0001999c t rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >::~TRedGreenBlueLight()
+Submit-debug.so:0000f088 t rack::componentlibrary::RoundLargeBlackKnob::~RoundLargeBlackKnob()
+Submit-debug.so:0000f054 t rack::componentlibrary::RoundLargeBlackKnob::~RoundLargeBlackKnob()
+Submit-debug.so:0000f054 t rack::componentlibrary::RoundLargeBlackKnob::~RoundLargeBlackKnob()
+Submit-debug.so:00009604 t rack::componentlibrary::RoundSmallBlackKnob::~RoundSmallBlackKnob()
+Submit-debug.so:000095d0 t rack::componentlibrary::RoundSmallBlackKnob::~RoundSmallBlackKnob()
+Submit-debug.so:000095d0 t rack::componentlibrary::RoundSmallBlackKnob::~RoundSmallBlackKnob()
+Submit-debug.so:00009760 t rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget>::~TGrayModuleLightWidget()
+Submit-debug.so:0000972c t rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget>::~TGrayModuleLightWidget()
+Submit-debug.so:0000972c t rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget>::~TGrayModuleLightWidget()
+Submit-debug.so:000096ec t rack::componentlibrary::CKSS::~CKSS()
+Submit-debug.so:000096b8 t rack::componentlibrary::CKSS::~CKSS()
+Submit-debug.so:000096b8 t rack::componentlibrary::CKSS::~CKSS()
+Submit-debug.so:0000f0fc t rack::componentlibrary::CKSSThree::~CKSSThree()
+Submit-debug.so:0000f0c8 t rack::componentlibrary::CKSSThree::~CKSSThree()
+Submit-debug.so:0000f0c8 t rack::componentlibrary::CKSSThree::~CKSSThree()
+Submit-debug.so:00009590 t rack::componentlibrary::RoundKnob::~RoundKnob()
+Submit-debug.so:0000955c t rack::componentlibrary::RoundKnob::~RoundKnob()
+Submit-debug.so:0000955c t rack::componentlibrary::RoundKnob::~RoundKnob()
+Submit-debug.so:00022248 t rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >::~TRedLight()
+Submit-debug.so:00022214 t rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >::~TRedLight()
+Submit-debug.so:00022214 t rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >::~TRedLight()
+Submit-debug.so:00009848 t rack::componentlibrary::TSvgLight<rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~TSvgLight()
+Submit-debug.so:00009814 t rack::componentlibrary::TSvgLight<rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~TSvgLight()
+Submit-debug.so:00009814 t rack::componentlibrary::TSvgLight<rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~TSvgLight()
+Submit-debug.so:00019a44 t rack::componentlibrary::TSvgLight<rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~TSvgLight()
+Submit-debug.so:00019a10 t rack::componentlibrary::TSvgLight<rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~TSvgLight()
+Submit-debug.so:00019a10 t rack::componentlibrary::TSvgLight<rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~TSvgLight()
+Submit-debug.so:000222bc t rack::componentlibrary::TSvgLight<rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~TSvgLight()
+Submit-debug.so:00022288 t rack::componentlibrary::TSvgLight<rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~TSvgLight()
+Submit-debug.so:00022288 t rack::componentlibrary::TSvgLight<rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >::~TSvgLight()
+Submit-debug.so:00032d9c b rack::componentlibrary::SCHEME_RED
+Submit-debug.so:00032d84 b rack::componentlibrary::SCHEME_RED
+Submit-debug.so:00032d64 b rack::componentlibrary::SCHEME_BLUE
+Submit-debug.so:00032d74 b rack::componentlibrary::SCHEME_GREEN
+Submit-debug.so:00032d50 b rack::componentlibrary::SCHEME_YELLOW
+Submit-debug.so:00032d38 b rack::componentlibrary::SCHEME_YELLOW
+Submit-debug.so:00032d24 b rack::componentlibrary::SCHEME_YELLOW
+Submit-debug.so:00021780 t std::unique_ptr<CoreProcessor, std::default_delete<CoreProcessor> > rack::create_vcv_module<Shape, ShapeWidget>()
+Submit-debug.so:00019670 t std::unique_ptr<CoreProcessor, std::default_delete<CoreProcessor> > rack::create_vcv_module<Chrono, ChronoWidget>()
+Submit-debug.so:00014344 t std::unique_ptr<CoreProcessor, std::default_delete<CoreProcessor> > rack::create_vcv_module<Impact, ImpactWidget>()
+Submit-debug.so:00024890 t std::unique_ptr<CoreProcessor, std::default_delete<CoreProcessor> > rack::create_vcv_module<Master, MasterWidget>()
+Submit-debug.so:0001dfc4 t std::unique_ptr<CoreProcessor, std::default_delete<CoreProcessor> > rack::create_vcv_module<Mix2ch, Mix2chWidget>()
+Submit-debug.so:0000ea58 t std::unique_ptr<CoreProcessor, std::default_delete<CoreProcessor> > rack::create_vcv_module<Drift13, Drift13Widget>()
+Submit-debug.so:00027a48 t std::unique_ptr<CoreProcessor, std::default_delete<CoreProcessor> > rack::create_vcv_module<Squeeze, SqueezeWidget>()
+Submit-debug.so:0000d860 t rack::componentlibrary::PJ301MPort* rack::createInputCentered<rack::componentlibrary::PJ301MPort>(rack::math::Vec, rack::engine::Module*, int)
+Submit-debug.so:0000db78 t rack::componentlibrary::SmallLight<rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >* rack::createLightCentered<rack::componentlibrary::SmallLight<rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > > >(rack::math::Vec, rack::engine::Module*, int)
+Submit-debug.so:0001ce80 t rack::componentlibrary::MediumLight<rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >* rack::createLightCentered<rack::componentlibrary::MediumLight<rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > > >(rack::math::Vec, rack::engine::Module*, int)
+Submit-debug.so:0001cbdc t ChainMuteButton* rack::createParamCentered<ChainMuteButton>(rack::math::Vec, rack::engine::Module*, int)
+Submit-debug.so:0000d2a8 t rack::componentlibrary::RoundHugeBlackKnob* rack::createParamCentered<rack::componentlibrary::RoundHugeBlackKnob>(rack::math::Vec, rack::engine::Module*, int)
+Submit-debug.so:00011408 t rack::componentlibrary::RoundLargeBlackKnob* rack::createParamCentered<rack::componentlibrary::RoundLargeBlackKnob>(rack::math::Vec, rack::engine::Module*, int)
+Submit-debug.so:0000d584 t rack::componentlibrary::RoundSmallBlackKnob* rack::createParamCentered<rack::componentlibrary::RoundSmallBlackKnob>(rack::math::Vec, rack::engine::Module*, int)
+Submit-debug.so:0000de74 t rack::componentlibrary::CKSS* rack::createParamCentered<rack::componentlibrary::CKSS>(rack::math::Vec, rack::engine::Module*, int)
+Submit-debug.so:0000d9ec t rack::componentlibrary::PJ301MPort* rack::createOutputCentered<rack::componentlibrary::PJ301MPort>(rack::math::Vec, rack::engine::Module*, int)
+Submit-debug.so:         U rack::app::PortWidget::onDragDrop(rack::widget::Widget::DragDropEvent const&)
+Submit-debug.so:         U rack::app::PortWidget::onDragEnter(rack::widget::Widget::DragEnterEvent const&)
+Submit-debug.so:         U rack::app::PortWidget::onDragLeave(rack::widget::Widget::DragLeaveEvent const&)
+Submit-debug.so:         U rack::app::PortWidget::onDragStart(rack::widget::Widget::DragStartEvent const&)
+Submit-debug.so:000093dc t rack::app::PortWidget::appendContextMenu(rack::ui::Menu*)
+Submit-debug.so:         U rack::app::PortWidget::draw(rack::widget::Widget::DrawArgs const&)
+Submit-debug.so:         U rack::app::PortWidget::step()
+Submit-debug.so:         U rack::app::PortWidget::onEnter(rack::widget::Widget::EnterEvent const&)
+Submit-debug.so:         U rack::app::PortWidget::onLeave(rack::widget::Widget::LeaveEvent const&)
+Submit-debug.so:         U rack::app::PortWidget::onButton(rack::widget::Widget::ButtonEvent const&)
+Submit-debug.so:         U rack::app::PortWidget::onDragEnd(rack::widget::Widget::DragEndEvent const&)
+Submit-debug.so:         U rack::app::PortWidget::~PortWidget()
+Submit-debug.so:         U rack::app::SliderKnob::onHover(rack::widget::Widget::HoverEvent const&)
+Submit-debug.so:         U rack::app::SliderKnob::onButton(rack::widget::Widget::ButtonEvent const&)
+Submit-debug.so:         U rack::app::LightWidget::drawBackground(rack::widget::Widget::DrawArgs const&)
+Submit-debug.so:         U rack::app::LightWidget::draw(rack::widget::Widget::DrawArgs const&)
+Submit-debug.so:         U rack::app::LightWidget::drawHalo(rack::widget::Widget::DrawArgs const&)
+Submit-debug.so:         U rack::app::LightWidget::drawLayer(rack::widget::Widget::DrawArgs const&, int)
+Submit-debug.so:         U rack::app::LightWidget::drawLight(rack::widget::Widget::DrawArgs const&)
+Submit-debug.so:         U rack::app::ParamWidget::onDoubleClick(rack::widget::Widget::DoubleClickEvent const&)
+Submit-debug.so:00009378 t rack::app::ParamWidget::appendContextMenu(rack::ui::Menu*)
+Submit-debug.so:         U rack::app::ParamWidget::draw(rack::widget::Widget::DrawArgs const&)
+Submit-debug.so:         U rack::app::ParamWidget::step()
+Submit-debug.so:         U rack::app::ParamWidget::onEnter(rack::widget::Widget::EnterEvent const&)
+Submit-debug.so:         U rack::app::ParamWidget::onLeave(rack::widget::Widget::LeaveEvent const&)
+Submit-debug.so:         U rack::app::ParamWidget::onButton(rack::widget::Widget::ButtonEvent const&)
+Submit-debug.so:         U rack::app::ModuleWidget::onDragMove(rack::widget::Widget::DragMoveEvent const&)
+Submit-debug.so:         U rack::app::ModuleWidget::onHoverKey(rack::widget::Widget::HoverKeyEvent const&)
+Submit-debug.so:         U rack::app::ModuleWidget::addSvgLight(std::basic_string_view<char, std::char_traits<char> >, rack::app::ModuleLightWidget*)
+Submit-debug.so:         U rack::app::ModuleWidget::onDragHover(rack::widget::Widget::DragHoverEvent const&)
+Submit-debug.so:         U rack::app::ModuleWidget::onDragStart(rack::widget::Widget::DragStartEvent const&)
+Submit-debug.so:000093e0 t rack::app::ModuleWidget::appendContextMenu(rack::ui::Menu*)
+Submit-debug.so:         U rack::app::ModuleWidget::draw(rack::widget::Widget::DrawArgs const&)
+Submit-debug.so:         U rack::app::ModuleWidget::onHover(rack::widget::Widget::HoverEvent const&)
+Submit-debug.so:         U rack::app::ModuleWidget::addInput(rack::app::SvgPort*)
+Submit-debug.so:         U rack::app::ModuleWidget::addParam(rack::app::SvgKnob*)
+Submit-debug.so:         U rack::app::ModuleWidget::addParam(rack::app::SvgSlider*)
+Submit-debug.so:         U rack::app::ModuleWidget::addParam(rack::app::SvgSwitch*)
+Submit-debug.so:         U rack::app::ModuleWidget::onButton(rack::widget::Widget::ButtonEvent const&)
+Submit-debug.so:         U rack::app::ModuleWidget::setModel(rack::plugin::Model*)
+Submit-debug.so:         U rack::app::ModuleWidget::setPanel(rack::app::SvgPanel*)
+Submit-debug.so:         U rack::app::ModuleWidget::addOutput(rack::app::SvgPort*)
+Submit-debug.so:         U rack::app::ModuleWidget::drawLayer(rack::widget::Widget::DrawArgs const&, int)
+Submit-debug.so:         U rack::app::ModuleWidget::onDragEnd(rack::widget::Widget::DragEndEvent const&)
+Submit-debug.so:         U rack::app::ModuleWidget::setModule(rack::engine::Module*)
+Submit-debug.so:         U rack::app::ModuleWidget::ModuleWidget()
+Submit-debug.so:         U rack::app::ModuleWidget::~ModuleWidget()
+Submit-debug.so:         U rack::app::MultiLightWidget::addBaseColor(NVGcolor)
+Submit-debug.so:         U rack::app::ModuleLightWidget::step()
+Submit-debug.so:         U rack::app::ModuleLightWidget::onEnter(rack::widget::Widget::EnterEvent const&)
+Submit-debug.so:         U rack::app::ModuleLightWidget::onHover(rack::widget::Widget::HoverEvent const&)
+Submit-debug.so:         U rack::app::ModuleLightWidget::onLeave(rack::widget::Widget::LeaveEvent const&)
+Submit-debug.so:         U rack::app::ModuleLightWidget::ModuleLightWidget()
+Submit-debug.so:         U rack::app::ModuleLightWidget::~ModuleLightWidget()
+Submit-debug.so:         U rack::app::Knob::onDragMove(rack::widget::Widget::DragMoveEvent const&)
+Submit-debug.so:         U rack::app::Knob::onDragLeave(rack::widget::Widget::DragLeaveEvent const&)
+Submit-debug.so:         U rack::app::Knob::onDragStart(rack::widget::Widget::DragStartEvent const&)
+Submit-debug.so:         U rack::app::Knob::onHoverScroll(rack::widget::Widget::HoverScrollEvent const&)
+Submit-debug.so:         U rack::app::Knob::initParamQuantity()
+Submit-debug.so:         U rack::app::Knob::onHover(rack::widget::Widget::HoverEvent const&)
+Submit-debug.so:         U rack::app::Knob::onLeave(rack::widget::Widget::LeaveEvent const&)
+Submit-debug.so:0000937c t rack::app::Knob::onAction(rack::widget::Widget::ActionEvent const&)
+Submit-debug.so:         U rack::app::Knob::onButton(rack::widget::Widget::ButtonEvent const&)
+Submit-debug.so:         U rack::app::Knob::onDragEnd(rack::widget::Widget::DragEndEvent const&)
+Submit-debug.so:         U rack::app::Knob::~Knob()
+Submit-debug.so:         U rack::app::Switch::onDoubleClick(rack::widget::Widget::DoubleClickEvent const&)
+Submit-debug.so:         U rack::app::Switch::initParamQuantity()
+Submit-debug.so:         U rack::app::Switch::step()
+Submit-debug.so:         U rack::app::SvgKnob::setSvg(std::shared_ptr<rack::window::Svg>)
+Submit-debug.so:         U rack::app::SvgKnob::onChange(rack::widget::Widget::ChangeEvent const&)
+Submit-debug.so:         U rack::app::SvgKnob::SvgKnob()
+Submit-debug.so:         U rack::app::SvgPort::setSvg(std::shared_ptr<rack::window::Svg>)
+Submit-debug.so:         U rack::app::SvgPort::SvgPort()
+Submit-debug.so:00009930 t rack::app::SvgPort::~SvgPort()
+Submit-debug.so:000098fc t rack::app::SvgPort::~SvgPort()
+Submit-debug.so:000098fc t rack::app::SvgPort::~SvgPort()
+Submit-debug.so:         U rack::app::SvgPanel::setBackground(std::shared_ptr<rack::window::Svg>)
+Submit-debug.so:         U rack::app::SvgPanel::SvgPanel()
+Submit-debug.so:         U rack::app::SvgSlider::setHandleSvg(std::shared_ptr<rack::window::Svg>)
+Submit-debug.so:         U rack::app::SvgSlider::setBackgroundSvg(std::shared_ptr<rack::window::Svg>)
+Submit-debug.so:         U rack::app::SvgSlider::setHandlePosCentered(rack::math::Vec, rack::math::Vec)
+Submit-debug.so:         U rack::app::SvgSlider::onChange(rack::widget::Widget::ChangeEvent const&)
+Submit-debug.so:         U rack::app::SvgSlider::SvgSlider()
+Submit-debug.so:         U rack::app::SvgSlider::~SvgSlider()
+Submit-debug.so:         U rack::app::SvgSwitch::onDragStart(rack::widget::Widget::DragStartEvent const&)
+Submit-debug.so:         U rack::app::SvgSwitch::addFrame(std::shared_ptr<rack::window::Svg>)
+Submit-debug.so:         U rack::app::SvgSwitch::onChange(rack::widget::Widget::ChangeEvent const&)
+Submit-debug.so:         U rack::app::SvgSwitch::onDragEnd(rack::widget::Widget::DragEndEvent const&)
+Submit-debug.so:         U rack::app::SvgSwitch::SvgSwitch()
+Submit-debug.so:         U rack::app::SvgSwitch::~SvgSwitch()
+Submit-debug.so:         U rack::asset::plugin(rack::plugin::Plugin*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+Submit-debug.so:         U rack::asset::system(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+Submit-debug.so:         U rack::engine::Engine::getSampleRate()
+Submit-debug.so:0001440c t rack::engine::Module::dataToJson()
+Submit-debug.so:         U rack::engine::Module::load_state(std::basic_string_view<char, std::char_traits<char> >)
+Submit-debug.so:000093b0 t rack::engine::Module::onUnBypass(rack::engine::Module::UnBypassEvent const&)
+Submit-debug.so:         U rack::engine::Module::save_state[abi:cxx11]()
+Submit-debug.so:00015f60 t rack::engine::PortInfo* rack::engine::Module::configInput<rack::engine::PortInfo>(int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [clone .isra.0]
+Submit-debug.so:0001a614 t rack::engine::PortInfo* rack::engine::Module::configInput<rack::engine::PortInfo>(int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [clone .isra.0]
+Submit-debug.so:0000af9c t rack::engine::PortInfo* rack::engine::Module::configInput<rack::engine::PortInfo>(int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [clone .isra.0]
+Submit-debug.so:00010700 t rack::engine::PortInfo* rack::engine::Module::configInput<rack::engine::PortInfo>(int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [clone .isra.0]
+Submit-debug.so:000108fc t rack::engine::ParamQuantity* rack::engine::Module::configParam<rack::engine::ParamQuantity>(int, float, float, float, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, float, float, float) [clone .isra.0]
+Submit-debug.so:0001615c t rack::engine::ParamQuantity* rack::engine::Module::configParam<rack::engine::ParamQuantity>(int, float, float, float, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, float, float, float) [clone .isra.0]
+Submit-debug.so:0001aa10 t rack::engine::ParamQuantity* rack::engine::Module::configParam<rack::engine::ParamQuantity>(int, float, float, float, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, float, float, float) [clone .isra.0]
+Submit-debug.so:0000b398 t rack::engine::ParamQuantity* rack::engine::Module::configParam<rack::engine::ParamQuantity>(int, float, float, float, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, float, float, float) [clone .isra.0]
+Submit-debug.so:         U rack::engine::Module::onRandomize(rack::engine::Module::RandomizeEvent const&)
+Submit-debug.so:000093d4 t rack::engine::Module::onRandomize()
+Submit-debug.so:000093c0 t rack::engine::Module::onSetMaster(rack::engine::Module::SetMasterEvent const&)
+Submit-debug.so:0000b198 t rack::engine::PortInfo* rack::engine::Module::configOutput<rack::engine::PortInfo>(int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [clone .isra.0]
+Submit-debug.so:0001a810 t rack::engine::PortInfo* rack::engine::Module::configOutput<rack::engine::PortInfo>(int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [clone .isra.0]
+Submit-debug.so:0001ad20 t rack::engine::SwitchQuantity* rack::engine::Module::configSwitch<rack::engine::SwitchQuantity>(int, float, float, float, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >) [clone .isra.0]
+Submit-debug.so:00010c0c t rack::engine::SwitchQuantity* rack::engine::Module::configSwitch<rack::engine::SwitchQuantity>(int, float, float, float, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >) [clone .isra.0]
+Submit-debug.so:0000b6a8 t rack::engine::SwitchQuantity* rack::engine::Module::configSwitch<rack::engine::SwitchQuantity>(int, float, float, float, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >) [clone .isra.0]
+Submit-debug.so:00014414 t rack::engine::Module::dataFromJson(json_t*)
+Submit-debug.so:000093b4 t rack::engine::Module::onPortChange(rack::engine::Module::PortChangeEvent const&)
+Submit-debug.so:         U rack::engine::Module::paramsToJson()
+Submit-debug.so:000093c4 t rack::engine::Module::onUnsetMaster(rack::engine::Module::UnsetMasterEvent const&)
+Submit-debug.so:         U rack::engine::Module::processBypass(VCVModuleWrapper::ProcessArgs const&)
+Submit-debug.so:         U rack::engine::Module::paramsFromJson(json_t*)
+Submit-debug.so:         U rack::engine::Module::set_samplerate(float)
+Submit-debug.so:000093b8 t rack::engine::Module::onExpanderChange(rack::engine::Module::ExpanderChangeEvent const&)
+Submit-debug.so:00009a44 t rack::engine::Module::onSampleRateChange(rack::engine::Module::SampleRateChangeEvent const&)
+Submit-debug.so:000093d8 t rack::engine::Module::onSampleRateChange()
+Submit-debug.so:         U rack::engine::Module::draw_graphic_display(int)
+Submit-debug.so:         U rack::engine::Module::hide_graphic_display(int)
+Submit-debug.so:         U rack::engine::Module::show_graphic_display(int, std::span<unsigned long, 4294967295u>, unsigned int, _lv_obj_t*)
+Submit-debug.so:000093a8 t rack::engine::Module::step()
+Submit-debug.so:000099ec t rack::engine::Module::onAdd(rack::engine::Module::AddEvent const&)
+Submit-debug.so:000093c8 t rack::engine::Module::onAdd()
+Submit-debug.so:         U rack::engine::Module::config(int, int, int, int)
+Submit-debug.so:000093bc t rack::engine::Module::onSave(rack::engine::Module::SaveEvent const&)
+Submit-debug.so:         U rack::engine::Module::toJson()
+Submit-debug.so:         U rack::engine::Module::update(VCVModuleWrapper::ProcessArgs const&, bool)
+Submit-debug.so:         U rack::engine::Module::onReset(rack::engine::Module::ResetEvent const&)
+Submit-debug.so:000093d0 t rack::engine::Module::onReset()
+Submit-debug.so:         U rack::engine::Module::fromJson(json_t*)
+Submit-debug.so:000093ac t rack::engine::Module::onBypass(rack::engine::Module::BypassEvent const&)
+Submit-debug.so:00009a18 t rack::engine::Module::onRemove(rack::engine::Module::RemoveEvent const&)
+Submit-debug.so:000093cc t rack::engine::Module::onRemove()
+Submit-debug.so:         U rack::engine::Module::Module()
+Submit-debug.so:         U rack::engine::Module::~Module()
+Submit-debug.so:0000a560 t rack::engine::PortInfo::~PortInfo()
+Submit-debug.so:0000d240 t rack::engine::PortInfo::~PortInfo()
+Submit-debug.so:0000d240 t rack::engine::PortInfo::~PortInfo()
+Submit-debug.so:00009398 t rack::plugin::Model::createModule()
+Submit-debug.so:000093a0 t rack::plugin::Model::createModuleWidget(rack::engine::Module*)
+Submit-debug.so:0000aaac t rack::plugin::Model::~Model()
+Submit-debug.so:0000a5d4 t rack::plugin::Model::~Model()
+Submit-debug.so:0000a5d4 t rack::plugin::Model::~Model()
+Submit-debug.so:         U rack::plugin::Plugin::addModel(rack::plugin::Model*)
+Submit-debug.so:00009364 t rack::widget::OpaqueWidget::onHoverKey(rack::widget::Widget::HoverKeyEvent const&)
+Submit-debug.so:00009374 t rack::widget::OpaqueWidget::onPathDrop(rack::widget::Widget::PathDropEvent const&)
+Submit-debug.so:00009370 t rack::widget::OpaqueWidget::onDragHover(rack::widget::Widget::DragHoverEvent const&)
+Submit-debug.so:00009368 t rack::widget::OpaqueWidget::onHoverText(rack::widget::Widget::HoverTextEvent const&)
+Submit-debug.so:0000936c t rack::widget::OpaqueWidget::onHoverScroll(rack::widget::Widget::HoverScrollEvent const&)
+Submit-debug.so:00009360 t rack::widget::OpaqueWidget::onHover(rack::widget::Widget::HoverEvent const&)
+Submit-debug.so:         U rack::widget::FramebufferWidget::FramebufferWidget()
+Submit-debug.so:0000934c t rack::widget::TransparentWidget::onHoverKey(rack::widget::Widget::HoverKeyEvent const&)
+Submit-debug.so:0000935c t rack::widget::TransparentWidget::onPathDrop(rack::widget::Widget::PathDropEvent const&)
+Submit-debug.so:00009358 t rack::widget::TransparentWidget::onDragHover(rack::widget::Widget::DragHoverEvent const&)
+Submit-debug.so:00009350 t rack::widget::TransparentWidget::onHoverText(rack::widget::Widget::HoverTextEvent const&)
+Submit-debug.so:00009354 t rack::widget::TransparentWidget::onHoverScroll(rack::widget::Widget::HoverScrollEvent const&)
+Submit-debug.so:00009348 t rack::widget::TransparentWidget::onButton(rack::widget::Widget::ButtonEvent const&)
+Submit-debug.so:000092f4 t rack::widget::Widget::onDeselect(rack::widget::Widget::DeselectEvent const&)
+Submit-debug.so:00009314 t rack::widget::Widget::onDragDrop(rack::widget::Widget::DragDropEvent const&)
+Submit-debug.so:00009308 t rack::widget::Widget::onDragMove(rack::widget::Widget::DragMoveEvent const&)
+Submit-debug.so:00009318 t rack::widget::Widget::onPathDrop(rack::widget::Widget::PathDropEvent const&)
+Submit-debug.so:         U rack::widget::Widget::getViewport(rack::math::Rect)
+Submit-debug.so:0000930c t rack::widget::Widget::onDragEnter(rack::widget::Widget::DragEnterEvent const&)
+Submit-debug.so:00009310 t rack::widget::Widget::onDragLeave(rack::widget::Widget::DragLeaveEvent const&)
+Submit-debug.so:00009300 t rack::widget::Widget::onDragStart(rack::widget::Widget::DragStartEvent const&)
+Submit-debug.so:000092e0 t rack::widget::Widget::onHoverText(rack::widget::Widget::HoverTextEvent const&)
+Submit-debug.so:000092f8 t rack::widget::Widget::onSelectKey(rack::widget::Widget::SelectKeyEvent const&)
+Submit-debug.so:00009328 t rack::widget::Widget::onReposition(rack::widget::Widget::RepositionEvent const&)
+Submit-debug.so:000092fc t rack::widget::Widget::onSelectText(rack::widget::Widget::SelectTextEvent const&)
+Submit-debug.so:         U rack::widget::Widget::addChildBelow(rack::widget::Widget*, rack::widget::Widget*)
+Submit-debug.so:000092dc t rack::widget::Widget::onDoubleClick(rack::widget::Widget::DoubleClickEvent const&)
+Submit-debug.so:000092e4 t rack::widget::Widget::onHoverScroll(rack::widget::Widget::HoverScrollEvent const&)
+Submit-debug.so:         U rack::widget::Widget::getRelativeZoom(rack::widget::Widget*)
+Submit-debug.so:00009340 t rack::widget::Widget::onContextCreate(rack::widget::Widget::ContextCreateEvent const&)
+Submit-debug.so:00009344 t rack::widget::Widget::onContextDestroy(rack::widget::Widget::ContextDestroyEvent const&)
+Submit-debug.so:         U rack::widget::Widget::getRelativeOffset(rack::math::Vec, rack::widget::Widget*)
+Submit-debug.so:         U rack::widget::Widget::getChildrenBoundingBox()
+Submit-debug.so:         U rack::widget::Widget::getVisibleChildrenBoundingBox()
+Submit-debug.so:         U rack::widget::Widget::step()
+Submit-debug.so:00009330 t rack::widget::Widget::onAdd(rack::widget::Widget::AddEvent const&)
+Submit-debug.so:0000933c t rack::widget::Widget::onHide(rack::widget::Widget::HideEvent const&)
+Submit-debug.so:00009338 t rack::widget::Widget::onShow(rack::widget::Widget::ShowEvent const&)
+Submit-debug.so:00009324 t rack::widget::Widget::onDirty(rack::widget::Widget::DirtyEvent const&)
+Submit-debug.so:000092e8 t rack::widget::Widget::onEnter(rack::widget::Widget::EnterEvent const&)
+Submit-debug.so:000092ec t rack::widget::Widget::onLeave(rack::widget::Widget::LeaveEvent const&)
+Submit-debug.so:         U rack::widget::Widget::addChild(rack::widget::Widget*)
+Submit-debug.so:0000931c t rack::widget::Widget::onAction(rack::widget::Widget::ActionEvent const&)
+Submit-debug.so:00009320 t rack::widget::Widget::onChange(rack::widget::Widget::ChangeEvent const&)
+Submit-debug.so:00009334 t rack::widget::Widget::onRemove(rack::widget::Widget::RemoveEvent const&)
+Submit-debug.so:0000932c t rack::widget::Widget::onResize(rack::widget::Widget::ResizeEvent const&)
+Submit-debug.so:000092f0 t rack::widget::Widget::onSelect(rack::widget::Widget::SelectEvent const&)
+Submit-debug.so:         U rack::widget::Widget::drawLayer(rack::widget::Widget::DrawArgs const&, int)
+Submit-debug.so:00009304 t rack::widget::Widget::onDragEnd(rack::widget::Widget::DragEndEvent const&)
+Submit-debug.so:         U rack::widget::SvgWidget::setSvg(std::shared_ptr<rack::window::Svg>)
+Submit-debug.so:         U rack::widget::SvgWidget::SvgWidget()
+Submit-debug.so:         U rack::window::Svg::load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+Submit-debug.so:         U rack::window::Svg::filename()
+Submit-debug.so:000206b8 t Shape::updateFilters(bool)
+Submit-debug.so:00020c68 t Shape::onSampleRateChange()
+Submit-debug.so:00020c90 t Shape::process(VCVModuleWrapper::ProcessArgs const&)
+Submit-debug.so:0001eaa4 t Shape::Shape()
+Submit-debug.so:0001eaa4 t Shape::Shape()
+Submit-debug.so:0001e4a8 t Shape::~Shape()
+Submit-debug.so:0001e474 t Shape::~Shape()
+Submit-debug.so:0001e474 t Shape::~Shape()
+Submit-debug.so:000147f8 t Chrono::process(VCVModuleWrapper::ProcessArgs const&)
+Submit-debug.so:00017988 t Chrono::Chrono()
+Submit-debug.so:00017988 t Chrono::Chrono()
+Submit-debug.so:00014478 t Chrono::~Chrono()
+Submit-debug.so:00014444 t Chrono::~Chrono()
+Submit-debug.so:00014444 t Chrono::~Chrono()
+Submit-debug.so:0000eef4 t Impact::dataToJson()
+Submit-debug.so:0000eedc t Impact::dataFromJson(json_t*)
+Submit-debug.so:0000f248 t Impact::process(VCVModuleWrapper::ProcessArgs const&)
+Submit-debug.so:00012d40 t Impact::Impact()
+Submit-debug.so:00012d40 t Impact::Impact()
+Submit-debug.so:0000ef44 t Impact::~Impact()
+Submit-debug.so:0000ef10 t Impact::~Impact()
+Submit-debug.so:0000ef10 t Impact::~Impact()
+Submit-debug.so:00021c18 t Master::onSampleRateChange()
+Submit-debug.so:00021c38 t Master::process(VCVModuleWrapper::ProcessArgs const&)
+Submit-debug.so:0002285c t Master::Master()
+Submit-debug.so:0002285c t Master::Master()
+Submit-debug.so:00022104 t Master::~Master()
+Submit-debug.so:000220d0 t Master::~Master()
+Submit-debug.so:000220d0 t Master::~Master()
+Submit-debug.so:00019754 t Mix2ch::dataToJson()
+Submit-debug.so:0001973c t Mix2ch::dataFromJson(json_t*)
+Submit-debug.so:00019b00 t Mix2ch::process(VCVModuleWrapper::ProcessArgs const&)
+Submit-debug.so:0001b51c t Mix2ch::Mix2ch()
+Submit-debug.so:0001b51c t Mix2ch::Mix2ch()
+Submit-debug.so:000197a4 t Mix2ch::~Mix2ch()
+Submit-debug.so:00019770 t Mix2ch::~Mix2ch()
+Submit-debug.so:00019770 t Mix2ch::~Mix2ch()
+Submit-debug.so:000093fc t Drift13::dataToJson()
+Submit-debug.so:000093e4 t Drift13::dataFromJson(json_t*)
+Submit-debug.so:00009b00 t Drift13::process(VCVModuleWrapper::ProcessArgs const&)
+Submit-debug.so:0000bea8 t Drift13::Drift13()
+Submit-debug.so:0000bea8 t Drift13::Drift13()
+Submit-debug.so:0000944c t Drift13::~Drift13()
+Submit-debug.so:00009418 t Drift13::~Drift13()
+Submit-debug.so:00009418 t Drift13::~Drift13()
+Submit-debug.so:00024e8c t Squeeze::process(VCVModuleWrapper::ProcessArgs const&)
+Submit-debug.so:000255ac t Squeeze::Squeeze()
+Submit-debug.so:000255ac t Squeeze::Squeeze()
+Submit-debug.so:00024d74 t Squeeze::~Squeeze()
+Submit-debug.so:00024d40 t Squeeze::~Squeeze()
+Submit-debug.so:00024d40 t Squeeze::~Squeeze()
+Submit-debug.so:0002a570 T __cxxabiv1::__class_type_info::__do_catch(std::type_info const*, void**, unsigned int) const
+Submit-debug.so:0002a544 T __cxxabiv1::__class_type_info::__do_upcast(__cxxabiv1::__class_type_info const*, void const*, __cxxabiv1::__class_type_info::__upcast_result&) const
+Submit-debug.so:0002a418 T __cxxabiv1::__class_type_info::__do_upcast(__cxxabiv1::__class_type_info const*, void**) const
+Submit-debug.so:0002a4dc T __cxxabiv1::__class_type_info::__do_dyncast(int, __cxxabiv1::__class_type_info::__sub_kind, __cxxabiv1::__class_type_info const*, void const*, __cxxabiv1::__class_type_info const*, void const*, __cxxabiv1::__class_type_info::__dyncast_result&) const
+Submit-debug.so:0002a474 T __cxxabiv1::__class_type_info::__do_find_public_src(int, void const*, __cxxabiv1::__class_type_info const*, void const*) const
+Submit-debug.so:0002a78c T __cxxabiv1::__si_class_type_info::__do_upcast(__cxxabiv1::__class_type_info const*, void const*, __cxxabiv1::__class_type_info::__upcast_result&) const
+Submit-debug.so:0002a6b0 T __cxxabiv1::__si_class_type_info::__do_dyncast(int, __cxxabiv1::__class_type_info::__sub_kind, __cxxabiv1::__class_type_info const*, void const*, __cxxabiv1::__class_type_info const*, void const*, __cxxabiv1::__class_type_info::__dyncast_result&) const
+Submit-debug.so:0002a644 T __cxxabiv1::__si_class_type_info::__do_find_public_src(int, void const*, __cxxabiv1::__class_type_info const*, void const*) const
+Submit-debug.so:         U VCVModuleWrapper::get_output(int) const
+Submit-debug.so:         U VCVModuleWrapper::get_led_brightness(int) const
+Submit-debug.so:         U VCVModuleWrapper::get_param(int) const
+Submit-debug.so:0002a850 T std::type_info::__do_catch(std::type_info const*, void**, unsigned int) const
+Submit-debug.so:0002a7dc T std::type_info::__do_upcast(__cxxabiv1::__class_type_info const*, void**) const
+Submit-debug.so:0002a7d4 T std::type_info::__is_pointer_p() const
+Submit-debug.so:0002a7d4 T std::type_info::__is_function_p() const
+Submit-debug.so:0002a804 T std::type_info::__equal(std::type_info const&) const
+Submit-debug.so:0002a804 T std::type_info::operator==(std::type_info const&) const
+Submit-debug.so:0001e5b8 t std::_Sp_counted_ptr_inplace<ShapeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_destroy()
+Submit-debug.so:0001e44c t std::_Sp_counted_ptr_inplace<ShapeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_dispose()
+Submit-debug.so:0001e4e8 t std::_Sp_counted_ptr_inplace<ShapeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_get_deleter(std::type_info const&)
+Submit-debug.so:0001e45c t std::_Sp_counted_ptr_inplace<ShapeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:0001e448 t std::_Sp_counted_ptr_inplace<ShapeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:0001e448 t std::_Sp_counted_ptr_inplace<ShapeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:0001475c t std::_Sp_counted_ptr_inplace<ChronoWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_destroy()
+Submit-debug.so:0001441c t std::_Sp_counted_ptr_inplace<ChronoWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_dispose()
+Submit-debug.so:000144bc t std::_Sp_counted_ptr_inplace<ChronoWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_get_deleter(std::type_info const&)
+Submit-debug.so:0001442c t std::_Sp_counted_ptr_inplace<ChronoWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:00014418 t std::_Sp_counted_ptr_inplace<ChronoWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:00014418 t std::_Sp_counted_ptr_inplace<ChronoWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:0000f1b0 t std::_Sp_counted_ptr_inplace<ImpactWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_destroy()
+Submit-debug.so:0000eee4 t std::_Sp_counted_ptr_inplace<ImpactWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_dispose()
+Submit-debug.so:0000ef84 t std::_Sp_counted_ptr_inplace<ImpactWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_get_deleter(std::type_info const&)
+Submit-debug.so:0000eef8 t std::_Sp_counted_ptr_inplace<ImpactWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:0000eee0 t std::_Sp_counted_ptr_inplace<ImpactWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:0000eee0 t std::_Sp_counted_ptr_inplace<ImpactWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:00022370 t std::_Sp_counted_ptr_inplace<MasterWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_destroy()
+Submit-debug.so:00021c08 t std::_Sp_counted_ptr_inplace<MasterWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_dispose()
+Submit-debug.so:00022144 t std::_Sp_counted_ptr_inplace<MasterWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_get_deleter(std::type_info const&)
+Submit-debug.so:000220b8 t std::_Sp_counted_ptr_inplace<MasterWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:00021c04 t std::_Sp_counted_ptr_inplace<MasterWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:00021c04 t std::_Sp_counted_ptr_inplace<MasterWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:00019af8 t std::_Sp_counted_ptr_inplace<Mix2chWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_destroy()
+Submit-debug.so:00019744 t std::_Sp_counted_ptr_inplace<Mix2chWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_dispose()
+Submit-debug.so:000197e4 t std::_Sp_counted_ptr_inplace<Mix2chWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_get_deleter(std::type_info const&)
+Submit-debug.so:00019758 t std::_Sp_counted_ptr_inplace<Mix2chWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:00019740 t std::_Sp_counted_ptr_inplace<Mix2chWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:00019740 t std::_Sp_counted_ptr_inplace<Mix2chWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:000099e4 t std::_Sp_counted_ptr_inplace<Drift13Widget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_destroy()
+Submit-debug.so:000093ec t std::_Sp_counted_ptr_inplace<Drift13Widget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_dispose()
+Submit-debug.so:0000948c t std::_Sp_counted_ptr_inplace<Drift13Widget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_get_deleter(std::type_info const&)
+Submit-debug.so:00009400 t std::_Sp_counted_ptr_inplace<Drift13Widget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:000093e8 t std::_Sp_counted_ptr_inplace<Drift13Widget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:000093e8 t std::_Sp_counted_ptr_inplace<Drift13Widget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:00024e84 t std::_Sp_counted_ptr_inplace<SqueezeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_destroy()
+Submit-debug.so:00024d18 t std::_Sp_counted_ptr_inplace<SqueezeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_dispose()
+Submit-debug.so:00024db4 t std::_Sp_counted_ptr_inplace<SqueezeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::_M_get_deleter(std::type_info const&)
+Submit-debug.so:00024d28 t std::_Sp_counted_ptr_inplace<SqueezeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:00024d14 t std::_Sp_counted_ptr_inplace<SqueezeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:00024d14 t std::_Sp_counted_ptr_inplace<SqueezeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>::~_Sp_counted_ptr_inplace()
+Submit-debug.so:00012c5c t std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_assign(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+Submit-debug.so:00009a70 t std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0] [clone .isra.0]
+Submit-debug.so:00014764 t std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0] [clone .isra.0]
+Submit-debug.so:0001a0a0 t std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0] [clone .isra.0]
+Submit-debug.so:0000f1b8 t std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0] [clone .isra.0]
+Submit-debug.so:0002a7e4 T std::type_info::~type_info()
+Submit-debug.so:0002a7d0 T std::type_info::~type_info()
+Submit-debug.so:0002a7d0 T std::type_info::~type_info()
+Submit-debug.so:0002a5b8 T operator new(unsigned int)
+Submit-debug.so:0002b1b4 T std::get_new_handler()
+Submit-debug.so:0002b188 T std::set_new_handler(void (*)())
+Submit-debug.so:000083b0 T std::__throw_bad_cast()
+Submit-debug.so:000083a0 T std::__throw_bad_alloc()
+Submit-debug.so:000083b8 T std::__throw_bad_typeid()
+Submit-debug.so:000083c0 T std::__throw_logic_error(char const*)
+Submit-debug.so:000083f0 T std::__throw_range_error(char const*)
+Submit-debug.so:000083c8 T std::__throw_domain_error(char const*)
+Submit-debug.so:000083d8 T std::__throw_length_error(char const*)
+Submit-debug.so:000083e0 T std::__throw_out_of_range(char const*)
+Submit-debug.so:00008398 T std::__throw_bad_exception()
+Submit-debug.so:000083e8 T std::__throw_runtime_error(char const*)
+Submit-debug.so:000083f8 T std::__throw_overflow_error(char const*)
+Submit-debug.so:00008400 T std::__throw_underflow_error(char const*)
+Submit-debug.so:000083d0 T std::__throw_invalid_argument(char const*)
+Submit-debug.so:0002a854 T std::__throw_out_of_range_fmt(char const*, ...)
+Submit-debug.so:000083a8 T std::__throw_bad_array_new_length()
+Submit-debug.so:0002f8f0 R std::nothrow
+Submit-debug.so:00032210 d typeinfo for ShapeWidget
+Submit-debug.so:00031418 d typeinfo for TryMeButton
+Submit-debug.so:0003180c d typeinfo for ChronoSlider
+Submit-debug.so:00031824 d typeinfo for ChronoWidget
+Submit-debug.so:00031430 d typeinfo for ImpactWidget
+Submit-debug.so:000323b8 d typeinfo for MasterWidget
+Submit-debug.so:00031cb4 d typeinfo for Mix2chWidget
+Submit-debug.so:00031ca8 d typeinfo for ChainMMSlider
+Submit-debug.so:00030b24 d typeinfo for Drift13Widget
+Submit-debug.so:000327ac d typeinfo for SqueezeWidget
+Submit-debug.so:00031c90 d typeinfo for ChainMuteButton
+Submit-debug.so:000317f4 d typeinfo for ChronoBreakButton
+Submit-debug.so:000317e8 d typeinfo for ChronoSurgeButton
+Submit-debug.so:00031818 d typeinfo for ChronoSliderStepped
+Submit-debug.so:00032204 d typeinfo for Shape
+Submit-debug.so:00031800 d typeinfo for Chrono
+Submit-debug.so:00031424 d typeinfo for Impact
+Submit-debug.so:000323ac d typeinfo for Master
+Submit-debug.so:00031c9c d typeinfo for Mix2ch
+Submit-debug.so:00030b18 d typeinfo for Drift13
+Submit-debug.so:000327a0 d typeinfo for Squeeze
+Submit-debug.so:00032948 D typeinfo for __cxxabiv1::__class_type_info
+Submit-debug.so:00032980 D typeinfo for __cxxabiv1::__si_class_type_info
+Submit-debug.so:00030b00 d typeinfo for rack::componentlibrary::PJ301MPort
+Submit-debug.so:00030b54 d typeinfo for rack::componentlibrary::SmallLight<rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:000323dc d typeinfo for rack::componentlibrary::SmallLight<rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:00031cd8 d typeinfo for rack::componentlibrary::MediumLight<rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:00030b3c d typeinfo for rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >
+Submit-debug.so:00030af4 d typeinfo for rack::componentlibrary::RoundHugeBlackKnob
+Submit-debug.so:00031cc0 d typeinfo for rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >
+Submit-debug.so:00031400 d typeinfo for rack::componentlibrary::RoundLargeBlackKnob
+Submit-debug.so:00030ae8 d typeinfo for rack::componentlibrary::RoundSmallBlackKnob
+Submit-debug.so:00030b30 d typeinfo for rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget>
+Submit-debug.so:00030b0c d typeinfo for rack::componentlibrary::CKSS
+Submit-debug.so:0003140c d typeinfo for rack::componentlibrary::CKSSThree
+Submit-debug.so:00030adc d typeinfo for rack::componentlibrary::RoundKnob
+Submit-debug.so:000323c4 d typeinfo for rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >
+Submit-debug.so:00030b48 d typeinfo for rack::componentlibrary::TSvgLight<rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:00031ccc d typeinfo for rack::componentlibrary::TSvgLight<rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:000323d0 d typeinfo for rack::componentlibrary::TSvgLight<rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:         U typeinfo for rack::app::PortWidget
+Submit-debug.so:         U typeinfo for rack::app::ModuleWidget
+Submit-debug.so:         U typeinfo for rack::app::ModuleLightWidget
+Submit-debug.so:         U typeinfo for rack::app::SvgKnob
+Submit-debug.so:00030ad0 d typeinfo for rack::app::SvgPort
+Submit-debug.so:         U typeinfo for rack::app::SvgSlider
+Submit-debug.so:         U typeinfo for rack::app::SvgSwitch
+Submit-debug.so:         U typeinfo for rack::engine::Module
+Submit-debug.so:00030ac8 d typeinfo for rack::plugin::Model
+Submit-debug.so:00030aac V typeinfo for std::_Mutex_base<(__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:00030abc V typeinfo for std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:00030ab4 V typeinfo for std::_Sp_make_shared_tag
+Submit-debug.so:00032228 d typeinfo for std::_Sp_counted_ptr_inplace<ShapeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:0003183c d typeinfo for std::_Sp_counted_ptr_inplace<ChronoWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:00031448 d typeinfo for std::_Sp_counted_ptr_inplace<ImpactWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:000323f4 d typeinfo for std::_Sp_counted_ptr_inplace<MasterWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:00031cf0 d typeinfo for std::_Sp_counted_ptr_inplace<Mix2chWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:00030b6c d typeinfo for std::_Sp_counted_ptr_inplace<Drift13Widget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:000327c4 d typeinfo for std::_Sp_counted_ptr_inplace<SqueezeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:000329b8 D typeinfo for std::type_info
+Submit-debug.so:0003221c d typeinfo for rack::createModel<Shape, ShapeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:00031830 d typeinfo for rack::createModel<Chrono, ChronoWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:0003143c d typeinfo for rack::createModel<Impact, ImpactWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:000323e8 d typeinfo for rack::createModel<Master, MasterWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:00031ce4 d typeinfo for rack::createModel<Mix2ch, Mix2chWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:00030b60 d typeinfo for rack::createModel<Drift13, Drift13Widget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:000327b8 d typeinfo for rack::createModel<Squeeze, SqueezeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:0002d610 r typeinfo name for ShapeWidget
+Submit-debug.so:0002cc2c r typeinfo name for TryMeButton
+Submit-debug.so:0002cefc r typeinfo name for ChronoSlider
+Submit-debug.so:0002cf24 r typeinfo name for ChronoWidget
+Submit-debug.so:0002cc44 r typeinfo name for ImpactWidget
+Submit-debug.so:0002d73c r typeinfo name for MasterWidget
+Submit-debug.so:0002d340 r typeinfo name for Mix2chWidget
+Submit-debug.so:0002d330 r typeinfo name for ChainMMSlider
+Submit-debug.so:0002c6fc r typeinfo name for Drift13Widget
+Submit-debug.so:0002d9c4 r typeinfo name for SqueezeWidget
+Submit-debug.so:0002d314 r typeinfo name for ChainMuteButton
+Submit-debug.so:0002cee0 r typeinfo name for ChronoBreakButton
+Submit-debug.so:0002cecc r typeinfo name for ChronoSurgeButton
+Submit-debug.so:0002cf0c r typeinfo name for ChronoSliderStepped
+Submit-debug.so:0002d608 r typeinfo name for Shape
+Submit-debug.so:0002cef4 r typeinfo name for Chrono
+Submit-debug.so:0002cc3c r typeinfo name for Impact
+Submit-debug.so:0002d734 r typeinfo name for Master
+Submit-debug.so:0002d328 r typeinfo name for Mix2ch
+Submit-debug.so:0002c6f0 r typeinfo name for Drift13
+Submit-debug.so:0002d9b8 r typeinfo name for Squeeze
+Submit-debug.so:0002f5d8 R typeinfo name for __cxxabiv1::__class_type_info
+Submit-debug.so:0002f5fc R typeinfo name for __cxxabiv1::__si_class_type_info
+Submit-debug.so:0002c6a8 r typeinfo name for rack::componentlibrary::PJ301MPort
+Submit-debug.so:0002c838 r typeinfo name for rack::componentlibrary::SmallLight<rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:0002d820 r typeinfo name for rack::componentlibrary::SmallLight<rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:0002d438 r typeinfo name for rack::componentlibrary::MediumLight<rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:0002c75c r typeinfo name for rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >
+Submit-debug.so:0002c678 r typeinfo name for rack::componentlibrary::RoundHugeBlackKnob
+Submit-debug.so:0002d350 r typeinfo name for rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >
+Submit-debug.so:0002cbd8 r typeinfo name for rack::componentlibrary::RoundLargeBlackKnob
+Submit-debug.so:0002c648 r typeinfo name for rack::componentlibrary::RoundSmallBlackKnob
+Submit-debug.so:0002c70c r typeinfo name for rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget>
+Submit-debug.so:0002c6d0 r typeinfo name for rack::componentlibrary::CKSS
+Submit-debug.so:0002cc08 r typeinfo name for rack::componentlibrary::CKSSThree
+Submit-debug.so:0002c624 r typeinfo name for rack::componentlibrary::RoundKnob
+Submit-debug.so:0002d74c r typeinfo name for rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >
+Submit-debug.so:0002c7c0 r typeinfo name for rack::componentlibrary::TSvgLight<rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:0002d3bc r typeinfo name for rack::componentlibrary::TSvgLight<rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:0002d7ac r typeinfo name for rack::componentlibrary::TSvgLight<rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:0002c610 r typeinfo name for rack::app::SvgPort
+Submit-debug.so:0002c5f8 r typeinfo name for rack::plugin::Model
+Submit-debug.so:0002c57c V typeinfo name for std::_Mutex_base<(__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:0002c5c4 V typeinfo name for std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:0002c5ac V typeinfo name for std::_Sp_make_shared_tag
+Submit-debug.so:0002d690 r typeinfo name for std::_Sp_counted_ptr_inplace<ShapeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:0002cfa8 r typeinfo name for std::_Sp_counted_ptr_inplace<ChronoWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:0002ccc8 r typeinfo name for std::_Sp_counted_ptr_inplace<ImpactWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:0002d908 r typeinfo name for std::_Sp_counted_ptr_inplace<MasterWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:0002d52c r typeinfo name for std::_Sp_counted_ptr_inplace<Mix2chWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:0002c924 r typeinfo name for std::_Sp_counted_ptr_inplace<Drift13Widget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:0002da48 r typeinfo name for std::_Sp_counted_ptr_inplace<SqueezeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:0002f624 R typeinfo name for std::type_info
+Submit-debug.so:0002d620 r typeinfo name for rack::createModel<Shape, ShapeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:0002cf34 r typeinfo name for rack::createModel<Chrono, ChronoWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:0002cc54 r typeinfo name for rack::createModel<Impact, ImpactWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:0002d894 r typeinfo name for rack::createModel<Master, MasterWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:0002d4b8 r typeinfo name for rack::createModel<Mix2ch, Mix2chWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:0002c8b0 r typeinfo name for rack::createModel<Drift13, Drift13Widget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:0002d9d4 r typeinfo name for rack::createModel<Squeeze, SqueezeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:000322fc d vtable for ShapeWidget
+Submit-debug.so:000315bc d vtable for TryMeButton
+Submit-debug.so:00031a78 d vtable for ChronoSlider
+Submit-debug.so:00031be0 d vtable for ChronoWidget
+Submit-debug.so:00031738 d vtable for ImpactWidget
+Submit-debug.so:000324c8 d vtable for MasterWidget
+Submit-debug.so:00031f2c d vtable for Mix2chWidget
+Submit-debug.so:00031e78 d vtable for ChainMMSlider
+Submit-debug.so:00031070 d vtable for Drift13Widget
+Submit-debug.so:00032898 d vtable for SqueezeWidget
+Submit-debug.so:00031cfc d vtable for ChainMuteButton
+Submit-debug.so:000318fc d vtable for ChronoBreakButton
+Submit-debug.so:00031848 d vtable for ChronoSurgeButton
+Submit-debug.so:00031b2c d vtable for ChronoSliderStepped
+Submit-debug.so:00032234 d vtable for Shape
+Submit-debug.so:000319b0 d vtable for Chrono
+Submit-debug.so:00031670 d vtable for Impact
+Submit-debug.so:00032400 d vtable for Master
+Submit-debug.so:00031db0 d vtable for Mix2ch
+Submit-debug.so:00030fa8 d vtable for Drift13
+Submit-debug.so:000327d0 d vtable for Squeeze
+Submit-debug.so:00032954 D vtable for __cxxabiv1::__class_type_info
+Submit-debug.so:0003298c D vtable for __cxxabiv1::__si_class_type_info
+Submit-debug.so:00030e44 d vtable for rack::componentlibrary::PJ301MPort
+Submit-debug.so:00031348 d vtable for rack::componentlibrary::SmallLight<rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:000326e8 d vtable for rack::componentlibrary::SmallLight<rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:0003214c d vtable for rack::componentlibrary::MediumLight<rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:000311d8 d vtable for rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >
+Submit-debug.so:00030d90 d vtable for rack::componentlibrary::RoundHugeBlackKnob
+Submit-debug.so:00031fdc d vtable for rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >
+Submit-debug.so:00031454 d vtable for rack::componentlibrary::RoundLargeBlackKnob
+Submit-debug.so:00030cdc d vtable for rack::componentlibrary::RoundSmallBlackKnob
+Submit-debug.so:00031120 d vtable for rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget>
+Submit-debug.so:00030ef4 d vtable for rack::componentlibrary::CKSS
+Submit-debug.so:00031508 d vtable for rack::componentlibrary::CKSSThree
+Submit-debug.so:00030c28 d vtable for rack::componentlibrary::RoundKnob
+Submit-debug.so:00032578 d vtable for rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> >
+Submit-debug.so:00031290 d vtable for rack::componentlibrary::TSvgLight<rack::componentlibrary::TYellowLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:00032094 d vtable for rack::componentlibrary::TSvgLight<rack::componentlibrary::TRedGreenBlueLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:00032630 d vtable for rack::componentlibrary::TSvgLight<rack::componentlibrary::TRedLight<rack::componentlibrary::TGrayModuleLightWidget<rack::app::ModuleLightWidget> > >
+Submit-debug.so:         U vtable for rack::app::SvgKnob
+Submit-debug.so:00030b78 d vtable for rack::app::SvgPort
+Submit-debug.so:         U vtable for rack::engine::ParamQuantity
+Submit-debug.so:         U vtable for rack::engine::SwitchQuantity
+Submit-debug.so:         U vtable for rack::engine::PortInfo
+Submit-debug.so:00030928 d vtable for rack::plugin::Model
+Submit-debug.so:00030a28 d vtable for std::_Sp_counted_ptr_inplace<ShapeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:000309c0 d vtable for std::_Sp_counted_ptr_inplace<ChronoWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:0003098c d vtable for std::_Sp_counted_ptr_inplace<ImpactWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:00030a5c d vtable for std::_Sp_counted_ptr_inplace<MasterWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:000309f4 d vtable for std::_Sp_counted_ptr_inplace<Mix2chWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:00030958 d vtable for std::_Sp_counted_ptr_inplace<Drift13Widget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:00030a90 d vtable for std::_Sp_counted_ptr_inplace<SqueezeWidget, std::allocator<void>, (__gnu_cxx::_Lock_policy)0>
+Submit-debug.so:000329c0 D vtable for std::type_info
+Submit-debug.so:00030a10 d vtable for rack::createModel<Shape, ShapeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:000309a8 d vtable for rack::createModel<Chrono, ChronoWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:00030974 d vtable for rack::createModel<Impact, ImpactWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:00030a44 d vtable for rack::createModel<Master, MasterWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:000309dc d vtable for rack::createModel<Mix2ch, Mix2chWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:00030940 d vtable for rack::createModel<Drift13, Drift13Widget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:00030a78 d vtable for rack::createModel<Squeeze, SqueezeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT
+Submit-debug.so:00020690 t rack::createModel<Shape, ShapeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::createModule()
+Submit-debug.so:0002174c t rack::createModel<Shape, ShapeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::createModuleWidget(rack::engine::Module*)
+Submit-debug.so:0001e82c t rack::createModel<Shape, ShapeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:0001e5c0 t rack::createModel<Shape, ShapeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:0001e5c0 t rack::createModel<Shape, ShapeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:00019648 t rack::createModel<Chrono, ChronoWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::createModule()
+Submit-debug.so:00017594 t rack::createModel<Chrono, ChronoWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::createModuleWidget(rack::engine::Module*)
+Submit-debug.so:00015ce8 t rack::createModel<Chrono, ChronoWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:00015a7c t rack::createModel<Chrono, ChronoWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:00015a7c t rack::createModel<Chrono, ChronoWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:00014320 t rack::createModel<Impact, ImpactWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::createModule()
+Submit-debug.so:0001286c t rack::createModel<Impact, ImpactWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::createModuleWidget(rack::engine::Module*)
+Submit-debug.so:00010488 t rack::createModel<Impact, ImpactWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:0001021c t rack::createModel<Impact, ImpactWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:0001021c t rack::createModel<Impact, ImpactWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:00023f94 t rack::createModel<Master, MasterWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::createModule()
+Submit-debug.so:0002485c t rack::createModel<Master, MasterWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::createModuleWidget(rack::engine::Module*)
+Submit-debug.so:000225e4 t rack::createModel<Master, MasterWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:00022378 t rack::createModel<Master, MasterWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:00022378 t rack::createModel<Master, MasterWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:0001cbb8 t rack::createModel<Mix2ch, Mix2chWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::createModule()
+Submit-debug.so:0001df90 t rack::createModel<Mix2ch, Mix2chWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::createModuleWidget(rack::engine::Module*)
+Submit-debug.so:0001a39c t rack::createModel<Mix2ch, Mix2chWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:0001a130 t rack::createModel<Mix2ch, Mix2chWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:0001a130 t rack::createModel<Mix2ch, Mix2chWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:0000d21c t rack::createModel<Drift13, Drift13Widget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::createModule()
+Submit-debug.so:0000ea24 t rack::createModel<Drift13, Drift13Widget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::createModuleWidget(rack::engine::Module*)
+Submit-debug.so:0000ad24 t rack::createModel<Drift13, Drift13Widget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:0000a840 t rack::createModel<Drift13, Drift13Widget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:0000a840 t rack::createModel<Drift13, Drift13Widget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:00027088 t rack::createModel<Squeeze, SqueezeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::createModule()
+Submit-debug.so:00027a14 t rack::createModel<Squeeze, SqueezeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::createModuleWidget(rack::engine::Module*)
+Submit-debug.so:00025334 t rack::createModel<Squeeze, SqueezeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:000250c8 t rack::createModel<Squeeze, SqueezeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:000250c8 t rack::createModel<Squeeze, SqueezeWidget>(std::basic_string_view<char, std::char_traits<char> >)::ModelT::~ModelT()
+Submit-debug.so:0002cff8 r Chrono::process(VCVModuleWrapper::ProcessArgs const&)::spacingTable
+Submit-debug.so:00032d4c b Chrono::process(VCVModuleWrapper::ProcessArgs const&)::surgeBassTight
+Submit-debug.so:0002cd18 r Impact::process(VCVModuleWrapper::ProcessArgs const&)::inharmonic
+Submit-debug.so:00032d08 d Master::process(VCVModuleWrapper::ProcessArgs const&)::smoothGain
+Submit-debug.so:00032d00 d Master::process(VCVModuleWrapper::ProcessArgs const&)::limGain
+Submit-debug.so:0002c974 V std::_Sp_make_shared_tag::_S_ti()::__tag
+Submit-debug.so:         U abort
+Submit-debug.so:00027ef4 t cos
+Submit-debug.so:00029730 t cosf
+Submit-debug.so:000281e0 t exp
+Submit-debug.so:00029024 t exp2f
+Submit-debug.so:00028f18 t expf
+Submit-debug.so:00028b40 t expm1f
+Submit-debug.so:0002be18 t floor
+Submit-debug.so:00029a04 t floorf
+Submit-debug.so:00028e1c t fmaxf
+Submit-debug.so:00028e6c t fminf
+Submit-debug.so:0002803c t fmodf
+Submit-debug.so:         U free
+Submit-debug.so:00009210 T init
+Submit-debug.so:0002f8f8 r init_jk
+Submit-debug.so:         U json_object
+Submit-debug.so:         U malloc
+Submit-debug.so:00029b44 t memcpy
+Submit-debug.so:00029dcc t memmove
+Submit-debug.so:0002a230 t memset
+Submit-debug.so:00032d60 b modelChain
+Submit-debug.so:00032d48 b modelChrono
+Submit-debug.so:00032d20 b modelDrift
+Submit-debug.so:00032d34 b modelImpact
+Submit-debug.so:00032d98 b modelMaster
+Submit-debug.so:00032d94 b modelShape
+Submit-debug.so:00032dac b modelSqueeze
+Submit-debug.so:0002f638 r npio2_hw
+Submit-debug.so:         U nvgRGB
+Submit-debug.so:         U nvgRGBA
+Submit-debug.so:00032d18 d one
+Submit-debug.so:00032d1c b pluginInstance
+Submit-debug.so:000284d8 t pow
+Submit-debug.so:00029120 t powf
+Submit-debug.so:00029ac0 t roundf
+Submit-debug.so:0002bce0 t scalbn
+Submit-debug.so:00027f94 t sin
+Submit-debug.so:000294d8 t sinf
+Submit-debug.so:0002af60 T strcmp
+Submit-debug.so:0002a388 t strlen
+Submit-debug.so:000280a0 t tanhf
+Submit-debug.so:00032d10 d tiny
+Submit-debug.so:00032d14 d two
+Submit-debug.so:0002f6b8 r two_over_pi
+Submit-debug.so:000283e4 t with_errno
+Submit-debug.so:00029964 t with_errnof
+Submit-debug.so:00028408 t xflow
+Submit-debug.so:00029988 t xflowf
+Submit-debug.so:0002f7c0 r Zero

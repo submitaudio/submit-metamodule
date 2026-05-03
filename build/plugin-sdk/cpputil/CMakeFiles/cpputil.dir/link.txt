@@ -1,0 +1,2 @@
+/Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/bin/arm-none-eabi-gcc-ar qc libcpputil.a CMakeFiles/cpputil.dir/util/math_tables.cc.obj CMakeFiles/cpputil.dir/util/int_to_str.cc.obj
+/Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/bin/arm-none-eabi-ranlib libcpputil.a

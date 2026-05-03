@@ -1,0 +1,33 @@
+plugin-sdk/plugin-libc/CMakeFiles/libstdcpp98.dir/libstdc++-v3/src/c++98/bitmap_allocator.cc.obj: \
+ /Users/studio67/metamodule-plugin-sdk/plugin-libc/libstdc++-v3/src/c++98/bitmap_allocator.cc \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/ext/bitmap_allocator.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/utility \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/arm-none-eabi/thumb/v7ve+simd/hard/bits/c++config.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/arm-none-eabi/thumb/v7ve+simd/hard/bits/os_defines.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/arm-none-eabi/thumb/v7ve+simd/hard/bits/cpu_defines.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/bits/stl_relops.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/bits/stl_pair.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/type_traits \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/bits/move.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/bits/utility.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/initializer_list \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/bits/functexcept.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/bits/exception_defines.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/bits/stl_function.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/backward/binders.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/new \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/bits/exception.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/debug/debug.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/debug/assertions.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/ext/concurrence.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/exception \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/bits/exception_ptr.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/bits/cxxabi_init_exception.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/lib/gcc/arm-none-eabi/12.3.1/include/stddef.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/typeinfo \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/bits/hash_bytes.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/bits/nested_exception.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/arm-none-eabi/thumb/v7ve+simd/hard/bits/gthr.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/arm-none-eabi/thumb/v7ve+simd/hard/bits/gthr-default.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/bits/cpp_type_traits.h \
+ /Applications/ArmGNUToolchain/12.3.rel1/arm-none-eabi/arm-none-eabi/include/c++/12.3.1/ext/type_traits.h
