@@ -17,7 +17,9 @@ target_sources(Submit PRIVATE
     src/Impact.cpp
     src/Chrono.cpp
     src/Chain.cpp src/Shape.cpp src/Master.cpp
-    src/Squeeze.cpp)
+    src/Squeeze.cpp
+    src/Gain.cpp
+    src/Sweep.cpp)
 
 target_include_directories(Submit PRIVATE src)
 

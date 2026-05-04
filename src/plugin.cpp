@@ -19,4 +19,6 @@ void init(Plugin* p) {
 	p->addModel(modelSqueeze);
     p->addModel(modelShape);
     p->addModel(modelMaster);
+	p->addModel(modelGain);
+	p->addModel(modelSweep);
 }
