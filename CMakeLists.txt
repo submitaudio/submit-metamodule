@@ -13,6 +13,7 @@ add_library(Submit STATIC)
 
 target_sources(Submit PRIVATE
     src/plugin.cpp
+    src/Loop.cpp
     src/Drift13.cpp
     src/Impact.cpp
     src/Chrono.cpp
@@ -26,7 +27,7 @@ target_include_directories(Submit PRIVATE src)
 create_plugin(
     SOURCE_LIB      Submit
     PLUGIN_NAME     Submit
-    PLUGIN_JSON     ${CMAKE_CURRENT_LIST_DIR}/plugin.json
+    PLUGIN_JSON     $ENV{HOME}/Submit/plugin.json
     SOURCE_ASSETS   ${CMAKE_CURRENT_LIST_DIR}/assets
     DESTINATION     ${CMAKE_CURRENT_LIST_DIR}/metamodule-plugins
 )

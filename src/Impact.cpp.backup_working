@@ -94,8 +94,10 @@ struct Impact : Module {
     float fmPhase[3]  = {};
     float modPhase[3] = {};
 
-    float lpfL = 0.f;
-    float lpfR = 0.f;
+    float dcX = 0.f;
+    float dcY = 0.f;
+    float dcXR = 0.f;
+    float dcYR = 0.f;
 
     float pinkB0     = 0.f;
     float pinkB1     = 0.f;
@@ -123,22 +125,8 @@ struct Impact : Module {
     float dustLenR = 0.f;
     float dustGapR = 0.f;
 
-    dsp::SchmittTrigger trigIn;
+    float trigPrev = 0.f;
     dsp::PulseGenerator ledPulse;
-
-    // MM anti-click state
-    float lastOutL = 0.f;
-    float lastOutR = 0.f;
-    float mmClickFadeTime = 0.f;
-    float mmClickFadeDur = 0.0003f; // 0.3 ms
-    float mmClickFadeStartL = 0.f;
-    float mmClickFadeStartR = 0.f;
-    bool mmClickFadeActive = false;
-
-    float smoothStep01(float x) {
-        x = clamp(x, 0.f, 1.f);
-        return x * x * (3.f - 2.f * x);
-    }
 
     Impact() {
         config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
@@ -243,9 +231,16 @@ struct Impact : Module {
         return y / (1.f + amount * 1.5f);
     }
 
-    float lpfProcess(float x, float& state) {
-        state += 0.08f * (x - state);
-        return state;
+    float dcBlock(float x) {
+        dcY = x - dcX + 0.9995f * dcY;
+        dcX = x;
+        return dcY;
+    }
+
+    float dcBlockR(float x) {
+        dcYR = x - dcXR + 0.9995f * dcYR;
+        dcXR = x;
+        return dcYR;
     }
 
     void process(const ProcessArgs& args) override {
@@ -256,27 +251,23 @@ struct Impact : Module {
         float trigVoltage = inputs[TRIG_INPUT].getVoltage();
         if (tryMePressed) trigVoltage = 5.f;
 
-        if (trigIn.process(trigVoltage, 0.1f, 2.f)) {
+        bool triggered = (trigPrev < 0.1f && trigVoltage >= 0.1f);
+        trigPrev = trigVoltage;
+        if (triggered) {
             // Sla ACC niveau op bij trigger moment
             accLevel = (inputs[ACC_INPUT].isConnected() && inputs[ACC_INPUT].getVoltage() > 1.f) ? 1.5f : 1.f;
-            // Anti-click fade starten
-            mmClickFadeStartL = lastOutL;
-            mmClickFadeStartR = lastOutR;
-            mmClickFadeTime = 0.f;
-            mmClickFadeActive = true;
-            // Trigger reset
+            waitZero = false;
             active = true;
             t = 0.f;
             for (int i = 0; i < 6; i++) phase[i] = 0.f;
             for (int i = 0; i < 3; i++) { fmPhase[i] = 0.f; modPhase[i] = 0.f; }
-            // lpfL/lpfR NIET resetten — laat LPF overgang opvangen
+            pinkB0 = pinkB1 = pinkB2 = 0.f;
+            noisePrev = 0.f;
+            pinkB0R = pinkB1R = pinkB2R = noisePrevR = 0.f;
             dustLen = dustGap = dustAmp = 0.f;
             dustLenR = dustGapR = dustAmpR = 0.f;
             foldNoisePrev = foldNoisePrevR = 0.f;
             staticLfo = staticLfoR = staticPink = staticPinkR = 0.f;
-            pinkB0 = pinkB1 = pinkB2 = 0.f;
-            noisePrev = 0.f;
-            pinkB0R = pinkB1R = pinkB2R = noisePrevR = 0.f;
             ledPulse.trigger(0.05f);
         }
 
@@ -309,6 +300,7 @@ struct Impact : Module {
         if (phase[0] >= 1.f) phase[0] -= 1.f;
         float osc0now = morphWave(phase[0], morphKnob);
 
+        // waitZero uitgeschakeld voor MM block processing compatibiliteit
         prevOsc0 = osc0now;
 
         if (active) {
@@ -424,45 +416,25 @@ struct Impact : Module {
                 rawNoiseR = std::tanh(staticLfoR * 14.f) * 2.5f;
             }
 
-            float noiseOut  = fold(rawNoiseL * noiseEnv * noiseAmt, foldKnob);
-            float noiseOutR = fold(rawNoiseR * noiseEnv * noiseAmt, foldKnob);
+            float noiseFadeIn = clamp(t * 500.f, 0.f, 1.f);
+            float noiseOut  = fold(rawNoiseL * noiseEnv * noiseAmt * noiseFadeIn, foldKnob);
+            float noiseOutR = fold(rawNoiseR * noiseEnv * noiseAmt * noiseFadeIn, foldKnob);
             float bodyOut   = fold(sum, foldKnob);
 
             t += realSampleTime;
             if (t > 10.f) { active = false; }
+
             // Smooth accLevel — voorkomt tikken bij overgang
             accSmooth = accLevel;
-            float accentBodyL = lpfProcess(bodyOut * accSmooth + noiseOut, lpfL);
-            float accentBodyR = lpfProcess(bodyOut * accSmooth + noiseOutR, lpfR);
-            float outL = clamp(accentBodyL * 5.f, -10.f, 10.f);
-            float outR = clamp(accentBodyR * 5.f, -10.f, 10.f);
-
-            // Anti-click fade toepassen
-            if (mmClickFadeActive) {
-                mmClickFadeTime += realSampleTime;
-                float x = mmClickFadeTime / mmClickFadeDur;
-                if (x >= 1.f) {
-                    mmClickFadeActive = false;
-                } else {
-                    float a = smoothStep01(x);
-                    outL = mmClickFadeStartL + (outL - mmClickFadeStartL) * a;
-                    outR = mmClickFadeStartR + (outR - mmClickFadeStartR) * a;
-                }
-            }
-
-            lastOutL = outL;
-            lastOutR = outR;
-            outputs[OUT_L_OUTPUT].setVoltage(outL);
-            outputs[OUT_R_OUTPUT].setVoltage(outR);
+            float accentBodyL = dcBlock(bodyOut * accSmooth + noiseOut);
+            float accentBodyR = dcBlockR(bodyOut * accSmooth + noiseOutR);
+            outputs[OUT_L_OUTPUT].setVoltage(clamp(accentBodyL * 5.f, -10.f, 10.f));
+            outputs[OUT_R_OUTPUT].setVoltage(clamp(accentBodyR * 5.f, -10.f, 10.f));
         }
 
         if (!active) {
-            lastOutL *= 0.995f;
-            lastOutR *= 0.995f;
-            if (std::fabs(lastOutL) < 0.00001f) lastOutL = 0.f;
-            if (std::fabs(lastOutR) < 0.00001f) lastOutR = 0.f;
-            outputs[OUT_L_OUTPUT].setVoltage(lastOutL);
-            outputs[OUT_R_OUTPUT].setVoltage(lastOutR);
+            outputs[OUT_L_OUTPUT].setVoltage(0.f);
+            outputs[OUT_R_OUTPUT].setVoltage(0.f);
         }
 
         lights[TRIG_LIGHT].setBrightness(ledPulse.process(realSampleTime) ? 1.f : 0.f);

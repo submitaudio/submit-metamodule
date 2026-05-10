@@ -14,5 +14,5 @@ extern Model* modelChain;
 extern Model* modelSqueeze;
 extern Model* modelShape;
 extern Model* modelMaster;
-extern Model* modelSweep;
 extern Model* modelGain;
+extern Model* modelSweep;

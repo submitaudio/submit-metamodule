@@ -19,7 +19,7 @@ struct Drift13 : Module {
     enum LightId { CYCLE_LIGHT, ONSET_LIGHT, TIMBRE_LIGHT, LIGHTS_LEN };
 
     float phase=0.f;
-    enum SlopeStage { IDLE, RISE, SUSTAIN, FALL };
+    enum SlopeStage { IDLE, RISE, FALL };
     SlopeStage slopeStage=IDLE;
     float slopeValue=0.f, slopeTime=0.f, fallStartValue=1.f;
     float smoothedDynCV=0.f;
@@ -113,15 +113,8 @@ struct Drift13 : Module {
         bool gate=inputs[GATE_INPUT].getVoltage()>1.f;
         bool trig=inputs[TRIG_INPUT].getVoltage()>1.f;
         bool cycle=params[CYCLE_PARAM].getValue()>0.5f;
-        float sustainLevel = params[SUSTAIN_PARAM].getValue();
-        float sustain_hold = sustainLevel; // alias voor slope fase
-
         if ((gate&&!lastGate)||(trig&&!lastTrig)){slopeStage=RISE;slopeTime=0.f;onsetPulse.trigger(0.05f);}
-
-        // Gate release: start FALL vanaf huidige waarde
-        if (inputs[GATE_INPUT].isConnected()&&!gate&&lastGate&&(slopeStage==RISE||slopeStage==SUSTAIN||slopeValue>0.f)){
-            fallStartValue=slopeValue;slopeStage=FALL;slopeTime=0.f;
-        }
+        if (inputs[GATE_INPUT].isConnected()&&!gate&&lastGate&&(slopeStage==RISE||slopeValue>0.f)){fallStartValue=slopeValue;slopeStage=FALL;slopeTime=0.f;}
         lastGate=gate; lastTrig=trig;
         float tScale=params[TIME_PARAM].getValue();
         float riseT=params[RISE_PARAM].getValue()*tScale;
@@ -137,21 +130,7 @@ struct Drift13 : Module {
             slopeTime+=args.sampleTime;
             float t=clamp(slopeTime/riseT,0.f,1.f);
             slopeValue=applyCurve(t,logexp);
-            if (t>=1.f){
-                slopeValue=1.f;
-                // Als SUSTAIN > 0 en gate hoog → sustain fase
-                if (sustainLevel > 0.001f && gate && inputs[GATE_INPUT].isConnected()) {
-                    slopeStage=SUSTAIN;
-                } else {
-                    fallStartValue=slopeValue;slopeStage=FALL;slopeTime=0.f;
-                }
-            }
-        } else if (slopeStage==SUSTAIN){
-            // Blijf op sustain niveau zolang gate hoog is
-            slopeValue = sustain_hold;
-            if (!inputs[GATE_INPUT].isConnected()) {
-                fallStartValue=slopeValue;slopeStage=FALL;slopeTime=0.f;
-            }
+            if (t>=1.f){slopeValue=1.f;slopeStage=FALL;slopeTime=0.f;}
         } else if (slopeStage==FALL){
             slopeTime+=args.sampleTime;
             float t=clamp(slopeTime/fallT,0.f,1.f);
@@ -184,7 +163,7 @@ struct Drift13 : Module {
         float contourGateVal=inputs[CNTR_INPUT].isConnected()?inputs[CNTR_INPUT].getVoltage()/10.f:(contourGate?1.f:0.f);
 
         // Target: gate open = sustain niveau, gate dicht = 0
-        float contourTarget=contourGateVal>0.01f?1.0f:0.f;
+        float contourTarget=contourGateVal>0.01f?sustain:0.f;
 
         // Attack rate (ONSET knop: 0=instant, 1=langzaam)
         float attackT=onsetT*2.f; // 0 tot 2 seconden attack
@@ -212,7 +191,7 @@ struct Drift13 : Module {
         float baseSound=tri*0.5f+folded*0.5f+extIn;
 
         // 2. Timbre laag - echte wavefolder vervorming zoals 0-Coast
-        float sustainDrive=1.0f; // B versie: sustain beïnvloedt drive niet
+        float sustainDrive=1.0f+clamp(sustain,0.f,1.f)*0.3f;
         float timbreTemp=clamp(params[BALANCE_PARAM].getValue(),0.f,1.f);
         if (inputs[TIMBRE_INPUT].isConnected()) timbreTemp+=inputs[TIMBRE_INPUT].getVoltage()/5.f;
         timbreTemp=clamp(timbreTemp,0.f,1.f);
@@ -239,8 +218,9 @@ struct Drift13 : Module {
             float cvMod=inputs[TIMBRE_INPUT].getVoltage()/5.f;
             timbre=clamp(timbreMax*cvMod,0.f,timbreMax);
         }
-        // Vaste timbre boost
-        timbre=clamp(timbre+0.15f,0.f,1.f);
+        // Sustain beïnvloedt subtiel timbre en drive - hoog sustain = rijker karakter
+        float sustainMod=clamp(sustain,0.f,1.f);
+        timbre=clamp(timbre+sustainMod*0.2f,0.f,1.f);
         float shapedTimbre=timbre;
 
         // Sustain-gedreven dynamische drive - meer sustain = iets meer saturatie

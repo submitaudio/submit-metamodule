@@ -126,20 +126,6 @@ struct Impact : Module {
     dsp::SchmittTrigger trigIn;
     dsp::PulseGenerator ledPulse;
 
-    // MM anti-click state
-    float lastOutL = 0.f;
-    float lastOutR = 0.f;
-    float mmClickFadeTime = 0.f;
-    float mmClickFadeDur = 0.0003f; // 0.3 ms
-    float mmClickFadeStartL = 0.f;
-    float mmClickFadeStartR = 0.f;
-    bool mmClickFadeActive = false;
-
-    float smoothStep01(float x) {
-        x = clamp(x, 0.f, 1.f);
-        return x * x * (3.f - 2.f * x);
-    }
-
     Impact() {
         config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
         configParam(PITCH_PARAM,  30.f, 100.f, 55.f,  "Pitch", " Hz");
@@ -259,17 +245,13 @@ struct Impact : Module {
         if (trigIn.process(trigVoltage, 0.1f, 2.f)) {
             // Sla ACC niveau op bij trigger moment
             accLevel = (inputs[ACC_INPUT].isConnected() && inputs[ACC_INPUT].getVoltage() > 1.f) ? 1.5f : 1.f;
-            // Anti-click fade starten
-            mmClickFadeStartL = lastOutL;
-            mmClickFadeStartR = lastOutR;
-            mmClickFadeTime = 0.f;
-            mmClickFadeActive = true;
-            // Trigger reset
+            waitZero = false;
             active = true;
             t = 0.f;
             for (int i = 0; i < 6; i++) phase[i] = 0.f;
             for (int i = 0; i < 3; i++) { fmPhase[i] = 0.f; modPhase[i] = 0.f; }
-            // lpfL/lpfR NIET resetten — laat LPF overgang opvangen
+            lpfL = 0.f;
+            lpfR = 0.f;
             dustLen = dustGap = dustAmp = 0.f;
             dustLenR = dustGapR = dustAmpR = 0.f;
             foldNoisePrev = foldNoisePrevR = 0.f;
@@ -434,35 +416,13 @@ struct Impact : Module {
             accSmooth = accLevel;
             float accentBodyL = lpfProcess(bodyOut * accSmooth + noiseOut, lpfL);
             float accentBodyR = lpfProcess(bodyOut * accSmooth + noiseOutR, lpfR);
-            float outL = clamp(accentBodyL * 5.f, -10.f, 10.f);
-            float outR = clamp(accentBodyR * 5.f, -10.f, 10.f);
-
-            // Anti-click fade toepassen
-            if (mmClickFadeActive) {
-                mmClickFadeTime += realSampleTime;
-                float x = mmClickFadeTime / mmClickFadeDur;
-                if (x >= 1.f) {
-                    mmClickFadeActive = false;
-                } else {
-                    float a = smoothStep01(x);
-                    outL = mmClickFadeStartL + (outL - mmClickFadeStartL) * a;
-                    outR = mmClickFadeStartR + (outR - mmClickFadeStartR) * a;
-                }
-            }
-
-            lastOutL = outL;
-            lastOutR = outR;
-            outputs[OUT_L_OUTPUT].setVoltage(outL);
-            outputs[OUT_R_OUTPUT].setVoltage(outR);
+            outputs[OUT_L_OUTPUT].setVoltage(clamp(accentBodyL * 5.f, -10.f, 10.f));
+            outputs[OUT_R_OUTPUT].setVoltage(clamp(accentBodyR * 5.f, -10.f, 10.f));
         }
 
         if (!active) {
-            lastOutL *= 0.995f;
-            lastOutR *= 0.995f;
-            if (std::fabs(lastOutL) < 0.00001f) lastOutL = 0.f;
-            if (std::fabs(lastOutR) < 0.00001f) lastOutR = 0.f;
-            outputs[OUT_L_OUTPUT].setVoltage(lastOutL);
-            outputs[OUT_R_OUTPUT].setVoltage(lastOutR);
+            outputs[OUT_L_OUTPUT].setVoltage(0.f);
+            outputs[OUT_R_OUTPUT].setVoltage(0.f);
         }
 
         lights[TRIG_LIGHT].setBrightness(ledPulse.process(realSampleTime) ? 1.f : 0.f);
