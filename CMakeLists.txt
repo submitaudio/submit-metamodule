@@ -13,7 +13,6 @@ add_library(Submit STATIC)
 
 target_sources(Submit PRIVATE
     src/plugin.cpp
-    src/Loop.cpp
     src/Drift13.cpp
     src/Impact.cpp
     src/Chrono.cpp
