@@ -1,7 +1,7 @@
 {
   "slug": "Submit",
   "name": "Submit",
-  "version": "1.7",
+  "version": "1.8",
   "license": "proprietary",
   "brand": "Submit",
   "author": "Juan Jos\u00e9",
@@ -97,6 +97,9 @@
         "Filter",
         "Effect"
       ]
+    },
+    {
+      "slug": "Loop"
     }
   ]
 }

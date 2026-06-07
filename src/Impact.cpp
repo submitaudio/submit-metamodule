@@ -1,44 +1,4 @@
-// Copyright (c) 2025 Submit Audio (submitaudio.nl)
-// Licensed under GPL v3 — see LICENSE file for details
-// https://github.com/submitaudio/submit-vcv-modules
-
 #include "plugin.hpp"
-
-// ── Gedeelde knob structs ─────────────────────
-struct ImpactKnobMini : SvgKnob {
-    ImpactKnobMini() {
-        minAngle = -0.75 * M_PI;
-        maxAngle = 0.75 * M_PI;
-        setSvg(Svg::load(asset::plugin(pluginInstance, "res/ImpactKnobMini.svg")));
-        shadow->opacity = 0.f;
-    }
-};
-
-struct Drift13KnobMedium : SvgKnob {
-    Drift13KnobMedium() {
-        minAngle = -0.83 * M_PI;
-        maxAngle = 0.83 * M_PI;
-        setSvg(Svg::load(asset::plugin(pluginInstance, "res/Drift13KnobMedium.svg")));
-        shadow->opacity = 0.f;
-    }
-};
-
-struct Drift13KnobSmall : SvgKnob {
-    Drift13KnobSmall() {
-        minAngle = -0.83 * M_PI;
-        maxAngle = 0.83 * M_PI;
-        setSvg(Svg::load(asset::plugin(pluginInstance, "res/Drift13KnobSmall.svg")));
-        shadow->opacity = 0.f;
-    }
-};
-
-struct TryMeButton : SvgSwitch {
-    TryMeButton() {
-        momentary = true;
-        addFrame(Svg::load(asset::plugin(pluginInstance, "res/TryMe_0.svg")));
-        addFrame(Svg::load(asset::plugin(pluginInstance, "res/TryMe_1.svg")));
-    }
-};
 
 struct Impact : Module {
     enum ParamId {
@@ -49,7 +9,7 @@ struct Impact : Module {
         HARM_PARAM,
         FOLD_PARAM,
         NOISE_PARAM,
-        SPREAD_PARAM,
+        SNAP_PARAM,
         NLEN_PARAM,
         NTYPE_PARAM,
         MODE_PARAM,
@@ -88,14 +48,16 @@ struct Impact : Module {
     float t        = 0.f;
     bool  active   = false;
     bool  waitZero  = false;
-    float accLevel  = 1.f;  // opgeslagen bij trigger
-    float accSmooth = 1.f;  // gesmoothe versie
+    float accLevel  = 1.f;
+    float accSmooth = 1.f;
+    float attackT  = 0.f;
+    static constexpr float ATTACK_TIME = 0.00075f;
 
     float fmPhase[3]  = {};
     float modPhase[3] = {};
 
-    float lpfL = 0.f;
-    float lpfR = 0.f;
+    float dcX = 0.f;
+    float dcY = 0.f;
 
     float pinkB0     = 0.f;
     float pinkB1     = 0.f;
@@ -126,20 +88,6 @@ struct Impact : Module {
     dsp::SchmittTrigger trigIn;
     dsp::PulseGenerator ledPulse;
 
-    // MM anti-click state
-    float lastOutL = 0.f;
-    float lastOutR = 0.f;
-    float mmClickFadeTime = 0.f;
-    float mmClickFadeDur = 0.0003f; // 0.3 ms
-    float mmClickFadeStartL = 0.f;
-    float mmClickFadeStartR = 0.f;
-    bool mmClickFadeActive = false;
-
-    float smoothStep01(float x) {
-        x = clamp(x, 0.f, 1.f);
-        return x * x * (3.f - 2.f * x);
-    }
-
     Impact() {
         config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
         configParam(PITCH_PARAM,  30.f, 100.f, 55.f,  "Pitch", " Hz");
@@ -149,7 +97,7 @@ struct Impact : Module {
         configParam(HARM_PARAM,    0.f,   1.f,  0.1f, "Harm");
         configParam(FOLD_PARAM,    0.f,   1.f,  0.f,  "Fold");
         configParam(NOISE_PARAM,   0.f,   1.f,  0.15783f, "Noise");
-        configParam(SPREAD_PARAM,  0.f,   1.f,  0.f,  "Spread");
+        configParam(SNAP_PARAM,    0.f,   1.f,  0.25f, "Snap");
         configParam(NLEN_PARAM,    0.f,   1.f,  0.29036f, "Noise Length");
         configSwitch(NTYPE_PARAM,  0.f,   2.f,  0.f,  "Noise Type", {"Rumble", "Crunch", "Dust"});
         configSwitch(MODE_PARAM,   0.f,   1.f,  1.f,  "Mode", {"Harsh", "Pure"});
@@ -167,8 +115,8 @@ struct Impact : Module {
         configInput(NLEN_CV,     "Noise Length CV");
         configInput(FOLD_CV,     "Fold CV");
         configInput(ACC_INPUT,   "Accent");
-        configOutput(OUT_L_OUTPUT, "Audio Out L");
-        configOutput(OUT_R_OUTPUT, "Audio Out R");
+        configOutput(OUT_L_OUTPUT, "Out L");
+        configOutput(OUT_R_OUTPUT, "Out R");
     }
 
     uint32_t rng = 22317u;
@@ -243,33 +191,26 @@ struct Impact : Module {
         return y / (1.f + amount * 1.5f);
     }
 
-    float lpfProcess(float x, float& state) {
-        state += 0.08f * (x - state);
-        return state;
+    float dcBlock(float x) {
+        dcY = x - dcX + 0.9995f * dcY;
+        dcX = x;
+        return dcY;
     }
 
     void process(const ProcessArgs& args) override {
-        float realSampleTime = 1.f / args.sampleRate;
 
-        // TRY ME knop — stuurt interne trigger
         bool tryMePressed = params[TRYME_PARAM].getValue() > 0.5f;
         float trigVoltage = inputs[TRIG_INPUT].getVoltage();
         if (tryMePressed) trigVoltage = 5.f;
 
         if (trigIn.process(trigVoltage, 0.1f, 2.f)) {
-            // Sla ACC niveau op bij trigger moment
             accLevel = (inputs[ACC_INPUT].isConnected() && inputs[ACC_INPUT].getVoltage() > 1.f) ? 1.5f : 1.f;
-            // Anti-click fade starten
-            mmClickFadeStartL = lastOutL;
-            mmClickFadeStartR = lastOutR;
-            mmClickFadeTime = 0.f;
-            mmClickFadeActive = true;
-            // Trigger reset
+            waitZero = false;
             active = true;
             t = 0.f;
+            attackT = 0.f;
             for (int i = 0; i < 6; i++) phase[i] = 0.f;
             for (int i = 0; i < 3; i++) { fmPhase[i] = 0.f; modPhase[i] = 0.f; }
-            // lpfL/lpfR NIET resetten — laat LPF overgang opvangen
             dustLen = dustGap = dustAmp = 0.f;
             dustLenR = dustGapR = dustAmpR = 0.f;
             foldNoisePrev = foldNoisePrevR = 0.f;
@@ -305,7 +246,7 @@ struct Impact : Module {
         }
 
         float freq0 = clamp(baseFreq * pitchMult, 10.f, 20000.f);
-        phase[0] += freq0 * realSampleTime;
+        phase[0] += freq0 * args.sampleTime;
         if (phase[0] >= 1.f) phase[0] -= 1.f;
         float osc0now = morphWave(phase[0], morphKnob);
 
@@ -322,7 +263,7 @@ struct Impact : Module {
                 foldKnob = clamp(foldKnob + inputs[FOLD_CV].getVoltage() / 5.f * params[ATT_FOLD_PARAM].getValue(), 0.f, 1.f);
 
             float noiseKnob  = params[NOISE_PARAM].getValue();
-            float spreadKnob = params[SPREAD_PARAM].getValue();
+            float snapKnob   = params[SNAP_PARAM].getValue();
             float nlenKnob   = params[NLEN_PARAM].getValue();
             if (inputs[NLEN_CV].isConnected())
                 nlenKnob = clamp(nlenKnob + inputs[NLEN_CV].getVoltage() / 5.f * params[ATT_NOISE_PARAM].getValue(), 0.f, 1.f);
@@ -335,21 +276,17 @@ struct Impact : Module {
             float sum = 0.f;
 
             if (mode == 0) {
-                // ── PURE — additieve synthese ──────────
-                static const float inharmonic[NUM_OSC] = {
-                    1.0f, 2.83f, 5.24f, 8.66f, 13.4f, 20.1f
-                };
                 float totalAmp = 0.f;
                 for (int i = 0; i < NUM_OSC; i++) {
                     float harmonic = (float)(i + 1);
-                    float mult = harmonic + spreadKnob * (inharmonic[i] - harmonic);
+                    float mult = harmonic;
                     float freqMult = (i == 0) ? pitchMult : 1.f;
                     float freq = clamp(baseFreq * mult * freqMult, 10.f, 20000.f);
                     float wave = 0.f;
                     if (i == 0) {
                         wave = osc0now;
                     } else {
-                        phase[i] += freq * realSampleTime;
+                        phase[i] += freq * args.sampleTime;
                         if (phase[i] >= 1.f) phase[i] -= 1.f;
                         wave = morphWave(phase[i], morphKnob);
                     }
@@ -369,11 +306,10 @@ struct Impact : Module {
                 sum *= masterEnv;
 
             } else {
-                // ── HARSH — FM kick ────────────────────
-                float fmRatio = 0.5f + harmKnob * 1.5f + spreadKnob * 1.f;
+                float fmRatio = 0.5f + harmKnob * 1.5f;
                 float modFreq = clamp(baseFreq * 0.5f * fmRatio * pitchMult, 10.f, 20000.f);
                 float fmIndex = 2.f + morphKnob * 6.f;
-                fmPhase[0] += modFreq * realSampleTime;
+                fmPhase[0] += modFreq * args.sampleTime;
                 if (fmPhase[0] >= 1.f) fmPhase[0] -= 1.f;
                 float modSig   = std::sin(2.f * float(M_PI) * fmPhase[0]) * fmIndex;
                 float carPhase = phase[0] + modSig * 0.1f;
@@ -383,7 +319,6 @@ struct Impact : Module {
                 sum = clamp(sum, -1.f, 1.f);
             }
 
-            // ── Noise ──────────────────────────────
             float noiseDecayRate = std::pow(10.f, (1.f - nlenKnob) * 3.0f) * 0.05f + 0.003f;
             float noiseEnv  = std::exp(-t * noiseDecayRate);
             float noiseAmt  = std::pow(noiseKnob, 1.5f) * 1.4f;
@@ -392,28 +327,22 @@ struct Impact : Module {
             float rawNoiseR = 0.f;
 
             if (noiseType == 0) {
-                // DUST
-                rawNoiseL = nextRadioNoise(realSampleTime);
-                rawNoiseR = nextRadioNoiseR(realSampleTime);
-
+                rawNoiseL = nextRadioNoise(args.sampleTime);
+                rawNoiseR = nextRadioNoiseR(args.sampleTime);
             } else if (noiseType == 1) {
-                // CRUNCH
                 float w1 = nextWhite();
                 float w2 = nextWhite();
                 float n  = std::tanh((w1 + w2 * 0.5f) * 4.f);
                 float diff = n - foldNoisePrev;
                 foldNoisePrev = n;
                 rawNoiseL = std::tanh(diff * 6.f);
-
                 float w3 = nextWhite();
                 float w4 = nextWhite();
                 float nR = std::tanh((w3 + w4 * 0.5f) * 4.f);
                 float diffR = nR - foldNoisePrevR;
                 foldNoisePrevR = nR;
                 rawNoiseR = std::tanh(diffR * 6.f);
-
             } else {
-                // RUMBLE
                 float w  = nextWhite();
                 float wR = nextWhite();
                 staticPink  = 0.992f * staticPink  + w  * 0.008f;
@@ -427,48 +356,36 @@ struct Impact : Module {
             float noiseOut  = fold(rawNoiseL * noiseEnv * noiseAmt, foldKnob);
             float noiseOutR = fold(rawNoiseR * noiseEnv * noiseAmt, foldKnob);
             float bodyOut   = fold(sum, foldKnob);
+            float snapEnv = std::exp(-t * (1800.f + snapKnob * 2600.f));
+            float snapTone = std::sin(2.f * float(M_PI) * phase[0] * (7.f + snapKnob * 13.f));
+            float snapOut = snapTone * snapEnv * std::pow(snapKnob, 1.25f) * 0.65f;
 
-            t += realSampleTime;
+            t += args.sampleTime;
             if (t > 10.f) { active = false; }
-            // Smooth accLevel — voorkomt tikken bij overgang
+
             accSmooth = accLevel;
-            float accentBodyL = lpfProcess(bodyOut * accSmooth + noiseOut, lpfL);
-            float accentBodyR = lpfProcess(bodyOut * accSmooth + noiseOutR, lpfR);
-            float outL = clamp(accentBodyL * 5.f, -10.f, 10.f);
-            float outR = clamp(accentBodyR * 5.f, -10.f, 10.f);
-
-            // Anti-click fade toepassen
-            if (mmClickFadeActive) {
-                mmClickFadeTime += realSampleTime;
-                float x = mmClickFadeTime / mmClickFadeDur;
-                if (x >= 1.f) {
-                    mmClickFadeActive = false;
-                } else {
-                    float a = smoothStep01(x);
-                    outL = mmClickFadeStartL + (outL - mmClickFadeStartL) * a;
-                    outR = mmClickFadeStartR + (outR - mmClickFadeStartR) * a;
-                }
-            }
-
-            lastOutL = outL;
-            lastOutR = outR;
-            outputs[OUT_L_OUTPUT].setVoltage(outL);
-            outputs[OUT_R_OUTPUT].setVoltage(outR);
+            attackT += args.sampleTime;
+            float attackPhase = clamp(attackT / ATTACK_TIME, 0.f, 1.f);
+            float attackEnv = attackPhase * attackPhase * (3.f - 2.f * attackPhase);
+            float snapPhase = clamp(attackT / 0.00025f, 0.f, 1.f);
+            float snapAttack = snapPhase * snapPhase * (3.f - 2.f * snapPhase);
+            float outL = (bodyOut * accSmooth + noiseOut) * attackEnv + snapOut * snapAttack;
+            float outR = (bodyOut * accSmooth + noiseOutR) * attackEnv + snapOut * snapAttack;
+            outputs[OUT_L_OUTPUT].setVoltage(clamp(outL * 5.f, -10.f, 10.f));
+            outputs[OUT_R_OUTPUT].setVoltage(clamp(outR * 5.f, -10.f, 10.f));
         }
 
         if (!active) {
-            lastOutL *= 0.995f;
-            lastOutR *= 0.995f;
-            if (std::fabs(lastOutL) < 0.00001f) lastOutL = 0.f;
-            if (std::fabs(lastOutR) < 0.00001f) lastOutR = 0.f;
-            outputs[OUT_L_OUTPUT].setVoltage(lastOutL);
-            outputs[OUT_R_OUTPUT].setVoltage(lastOutR);
+            outputs[OUT_L_OUTPUT].setVoltage(0.f);
+            outputs[OUT_R_OUTPUT].setVoltage(0.f);
         }
 
-        lights[TRIG_LIGHT].setBrightness(ledPulse.process(realSampleTime) ? 1.f : 0.f);
-        // ACC LED — altijd checken ongeacht active
+        lights[TRIG_LIGHT].setBrightness(ledPulse.process(args.sampleTime) ? 1.f : 0.f);
         lights[ACC_LIGHT].setBrightness(accLevel > 1.f && active ? 1.f : 0.f);
     }
+
+    json_t* dataToJson() override { return json_object(); }
+    void dataFromJson(json_t* rootJ) override { (void)rootJ; }
 };
 
 struct ImpactWidget : ModuleWidget {
@@ -481,7 +398,7 @@ struct ImpactWidget : ModuleWidget {
         addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(34.48f, 29.50f)), module, Impact::DECAY_PARAM));
         addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(54.23f, 29.50f)), module, Impact::PUNCH_PARAM));
         addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(14.64f, 50.28f)), module, Impact::HARM_PARAM));
-        addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(34.48f, 50.28f)), module, Impact::SPREAD_PARAM));
+        addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(34.48f, 50.28f)), module, Impact::SNAP_PARAM));
         addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(54.23f, 50.28f)), module, Impact::FOLD_PARAM));
         addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(14.64f, 70.55f)), module, Impact::MORPH_PARAM));
         addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(34.40f, 70.64f)), module, Impact::NOISE_PARAM));
@@ -499,7 +416,7 @@ struct ImpactWidget : ModuleWidget {
         addParam(createParamCentered<CKSSThree>(mm2px(Vec(71.53f, 41.90f)), module, Impact::NTYPE_PARAM));
 
         // ── TRY ME knop ───────────────────────
-        addParam(createParamCentered<TryMeButton>(mm2px(Vec(75.06f, 58.65f)), module, Impact::TRYME_PARAM));
+        addParam(createParamCentered<VCVButton>(mm2px(Vec(75.06f, 58.65f)), module, Impact::TRYME_PARAM));
 
         // ── LEDs ──────────────────────────────
         addChild(createLightCentered<SmallLight<YellowLight>>(mm2px(Vec(7.19f, 109.53f)), module, Impact::TRIG_LIGHT));

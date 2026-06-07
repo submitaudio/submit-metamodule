@@ -15,6 +15,7 @@ target_sources(Submit PRIVATE
     src/plugin.cpp
     src/Drift13.cpp
     src/Impact.cpp
+    src/Loop.cpp
     src/Chrono.cpp
     src/Chain.cpp src/Shape.cpp src/Master.cpp
     src/Squeeze.cpp
