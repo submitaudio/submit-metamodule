@@ -28,6 +28,16 @@ static inline float wrapBufferPos(float pos) {
     return pos;
 }
 
+static inline float finiteOr(float value, float fallback = 0.f) {
+    return std::isfinite(value) ? value : fallback;
+}
+
+static inline float safeAudio(float value) {
+    if (!std::isfinite(value))
+        return 0.f;
+    return clamp(value, -12.f, 12.f);
+}
+
 struct Chrono : Module {
 
     enum ParamId {
@@ -195,6 +205,8 @@ struct Chrono : Module {
             float val = params[paramId].getValue();
             if (inputs[inputId].isConnected())
                 val += inputs[inputId].getVoltage() * scale;
+            if (!std::isfinite(val))
+                val = 0.f;
             return clamp(val, 0.f, 1.f);
         };
 
@@ -260,7 +272,8 @@ struct Chrono : Module {
         lights[BREAK_LIGHT].setBrightness(breakPressed ? 1.f : 0.f);
 
         // ── DIVISION ──────────────────────────
-        int divIndex = clamp((int)roundf(params[DIVISION_PARAM].getValue()), 0, NUM_DIVISIONS - 1);
+        float divRaw = finiteOr(params[DIVISION_PARAM].getValue(), 2.f);
+        int divIndex = clamp((int)roundf(divRaw), 0, NUM_DIVISIONS - 1);
         float ratio  = divisions[divIndex];
 
         // ── CLOCK / FREE MODE ─────────────────
@@ -297,6 +310,7 @@ struct Chrono : Module {
         float headsRaw = params[HEADS_PARAM].getValue()
             + (inputs[HEADS_CV_INPUT].isConnected()
                 ? inputs[HEADS_CV_INPUT].getVoltage() * 0.5f : 0.f);
+        headsRaw = finiteOr(headsRaw, 0.f);
         int headIndex = clamp((int)roundf(headsRaw), 0, 5);
 
         // Head tijden relatief aan delay tijd
@@ -317,6 +331,7 @@ struct Chrono : Module {
         float spacingRaw = params[SPACING_PARAM].getValue()
             + (inputs[SPACING_CV_INPUT].isConnected()
                 ? inputs[SPACING_CV_INPUT].getVoltage() * 0.4f : 0.f);
+        spacingRaw = finiteOr(spacingRaw, 3.f);
         int spacingIndex    = clamp((int)roundf(spacingRaw), 0, 4);
         float spacingFactor = spacingTable[spacingIndex];
         float spacingTarget = delaySamples * spacingFactor;
@@ -363,10 +378,12 @@ struct Chrono : Module {
 
             // Lineaire interpolatie
             float fpos = headReadPos[idx];
+            if (!std::isfinite(fpos))
+                fpos = headReadPos[idx] = target;
             int   pos0 = ((int)fpos) % MAX_BUFFER;
             int   pos1 = (pos0 + 1) % MAX_BUFFER;
             float frac = fpos - floorf(fpos);
-            return buffer[pos0] * (1.f - frac) + buffer[pos1] * frac;
+            return safeAudio(buffer[pos0] * (1.f - frac) + buffer[pos1] * frac);
         };
 
         float h0 = readHead(0, headTime[0]);
@@ -378,7 +395,7 @@ struct Chrono : Module {
         float w1 = headMix[headIndex][1];
         float w2 = headMix[headIndex][2];
         float wTotal = w0 + w1 + w2;
-        float delayed = (h0 * w0 + h1 * w1 + h2 * w2) / wTotal;
+        float delayed = safeAudio((h0 * w0 + h1 * w1 + h2 * w2) / wTotal);
 
         // ── FEEDBACK PATH ─────────────────────
         const float alpha = 0.1f + toneSmooth * 0.5f;
@@ -408,7 +425,7 @@ struct Chrono : Module {
         freezeHpState += 0.05f * (fb - freezeHpState);
 
         // Altijd dry + feedback — surge bevriest bovenop
-        buffer[writePos] = dry + fb;
+        buffer[writePos] = safeAudio(dry + fb);
         writePos++;
         if (writePos >= MAX_BUFFER)
             writePos = 0;
@@ -524,7 +541,7 @@ struct Chrono : Module {
         auto readSpread = [&](float offset) -> float {
             int pos = writePos - (int)clamp(offset, 1.f, (float)(MAX_BUFFER - 1));
             if (pos < 0) pos += MAX_BUFFER;
-            return buffer[pos];
+            return safeAudio(buffer[pos]);
         };
 
         // Wobble pitch effect — delayed leestijd schommelt
@@ -579,8 +596,8 @@ struct Chrono : Module {
         outL += bloom;
         outR += bloom;
 
-        outputs[AUDIO_L_OUTPUT].setVoltage(outL);
-        outputs[AUDIO_R_OUTPUT].setVoltage(outR);
+        outputs[AUDIO_L_OUTPUT].setVoltage(safeAudio(outL));
+        outputs[AUDIO_R_OUTPUT].setVoltage(safeAudio(outR));
     }
 };
 
