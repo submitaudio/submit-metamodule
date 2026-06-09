@@ -1,5 +1,13 @@
 #include "plugin.hpp"
 
+struct ImpactTryMeButton : SvgSwitch {
+    ImpactTryMeButton() {
+        momentary = true;
+        addFrame(Svg::load(asset::plugin(pluginInstance, "res/TryMe_0.png")));
+        addFrame(Svg::load(asset::plugin(pluginInstance, "res/TryMe_1.png")));
+    }
+};
+
 struct Impact : Module {
     enum ParamId {
         PITCH_PARAM,
@@ -416,7 +424,7 @@ struct ImpactWidget : ModuleWidget {
         addParam(createParamCentered<CKSSThree>(mm2px(Vec(71.53f, 41.90f)), module, Impact::NTYPE_PARAM));
 
         // ── TRY ME knop ───────────────────────
-        addParam(createParamCentered<VCVButton>(mm2px(Vec(75.06f, 58.65f)), module, Impact::TRYME_PARAM));
+        addParam(createParamCentered<ImpactTryMeButton>(mm2px(Vec(75.17f, 58.74f)), module, Impact::TRYME_PARAM));
 
         // ── LEDs ──────────────────────────────
         addChild(createLightCentered<SmallLight<YellowLight>>(mm2px(Vec(7.19f, 109.53f)), module, Impact::TRIG_LIGHT));
