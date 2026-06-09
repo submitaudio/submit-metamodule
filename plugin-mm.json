@@ -1,4 +1,49 @@
 {
   "MetaModuleBrandName": "Submit",
-  "version": "1.11"
+  "MetaModulePluginMaintainer": "Juan José",
+  "MetaModulePluginMaintainerEmail": "info@submitaudio.nl",
+  "MetaModuleDescription": "Submit Audio modules ported to MetaModule, including instruments, effects and a compact mixing/mastering chain.",
+  "version": "1.12",
+  "MetaModuleIncludedModules": [
+    {
+      "slug": "Drift",
+      "name": "Drift"
+    },
+    {
+      "slug": "Chrono",
+      "name": "Chrono"
+    },
+    {
+      "slug": "Impact",
+      "name": "Impact"
+    },
+    {
+      "slug": "Chain",
+      "name": "Chain"
+    },
+    {
+      "slug": "Squeeze",
+      "name": "Squeeze"
+    },
+    {
+      "slug": "Shape",
+      "name": "Shape"
+    },
+    {
+      "slug": "Master",
+      "name": "Master"
+    },
+    {
+      "slug": "Gain",
+      "name": "Gain"
+    },
+    {
+      "slug": "Sweep",
+      "name": "Sweep"
+    },
+    {
+      "slug": "Loop",
+      "name": "Loop"
+    }
+  ]
 }
