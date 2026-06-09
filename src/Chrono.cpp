@@ -1,4 +1,5 @@
 #include "plugin.hpp"
+#include <cmath>
 
 struct ChronoSurgeButton : SvgSwitch {
     ChronoSurgeButton() {
@@ -17,7 +18,15 @@ struct ChronoBreakButton : SvgSwitch {
 };
 #include <cstring>
 
-static const int MAX_BUFFER = 48000 * 2;
+static const int MAX_BUFFER = 48000 * 4;
+static constexpr float MAX_HEAD_MULTIPLIER = 1.5f;
+
+static inline float wrapBufferPos(float pos) {
+    pos = std::fmod(pos, (float)MAX_BUFFER);
+    if (pos < 0.f)
+        pos += (float)MAX_BUFFER;
+    return pos;
+}
 
 struct Chrono : Module {
 
@@ -277,11 +286,12 @@ struct Chrono : Module {
             targetDelaySamples = timeKnob * 2.f * args.sampleRate;
         }
 
-        targetDelaySamples = clamp(targetDelaySamples, 1.f, (float)(MAX_BUFFER - 1));
+        const float maxSafeDelaySamples = ((float)MAX_BUFFER - 2.f) / MAX_HEAD_MULTIPLIER;
+        targetDelaySamples = clamp(targetDelaySamples, 1.f, maxSafeDelaySamples);
         smoothedDelaySamples += (targetDelaySamples - smoothedDelaySamples) * 0.01f;
         // Bij brake: delay tijd wordt geleidelijk langer → pitch daalt
         float brakeMultiplier = 1.f + (1.f - brakeSpeedSmooth) * 4.f;
-        float delaySamples = clamp(smoothedDelaySamples * brakeMultiplier, 1.f, (float)(MAX_BUFFER - 1));
+        float delaySamples = clamp(smoothedDelaySamples * brakeMultiplier, 1.f, maxSafeDelaySamples);
 
         // ── HEADS ─────────────────────────────
         float headsRaw = params[HEADS_PARAM].getValue()
@@ -326,22 +336,20 @@ struct Chrono : Module {
         // Init lees posities op eerste run
         if (!headPosInit) {
             for (int i = 0; i < 3; i++) {
-                headReadPos[i] = (float)writePos - headTime[i];
-                if (headReadPos[i] < 0.f) headReadPos[i] += (float)MAX_BUFFER;
+                headReadPos[i] = wrapBufferPos((float)writePos - headTime[i]);
             }
             headPosInit = true;
         }
 
         auto readHead = [&](int idx, float offset) -> float {
             // Target: waar de head normaal zou staan
-            float target = (float)writePos - offset;
-            if (target < 0.f) target += (float)MAX_BUFFER;
+            offset = clamp(offset, 1.f, (float)MAX_BUFFER - 2.f);
+            float target = wrapBufferPos((float)writePos - offset);
 
             // Schuif lees positie op met brakeSpeedSmooth
             // 1.0 = normaal, 0.0 = stilstand
             headReadPos[idx] += brakeSpeedSmooth;
-            if (headReadPos[idx] >= (float)MAX_BUFFER)
-                headReadPos[idx] -= (float)MAX_BUFFER;
+            headReadPos[idx] = wrapBufferPos(headReadPos[idx]);
 
             // Bij normale speed: sync naar target als te ver af
             if (brakeSpeedSmooth > 0.95f) {
