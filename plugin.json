@@ -1,13 +1,13 @@
 {
   "slug": "Submit",
   "name": "Submit",
-  "version": "1.12",
+  "version": "2.16.0",
   "license": "proprietary",
   "brand": "Submit",
   "author": "Juan Jos\u00e9",
   "authorEmail": "",
   "authorUrl": "",
-  "pluginUrl": "",
+  "pluginUrl": "https://www.submitaudio.nl",
   "manualUrl": "",
   "sourceUrl": "",
   "donateUrl": "",
@@ -100,6 +100,27 @@
     },
     {
       "slug": "Loop"
+    },
+    {
+      "slug": "Clang",
+      "name": "Clang",
+      "description": "Techno percussion synth with Physical and FM engines, models and sound variations.",
+      "manualUrl": "https://www.submitaudio.nl/vcv-rack-modules-metamodule-plugins/clang/",
+      "tags": [
+        "Drum",
+        "Noise"
+      ]
+    },
+    {
+      "slug": "React",
+      "name": "React",
+      "description": "Four voice rhythm sequencer with genres, patterns, morph, drop, variation and kits.",
+      "manualUrl": "https://www.submitaudio.nl/vcv-rack-modules-metamodule-plugins/react/",
+      "tags": [
+        "Sequencer",
+        "Clock modulator",
+        "Drum"
+      ]
     }
   ]
 }

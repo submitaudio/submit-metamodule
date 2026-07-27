@@ -2,8 +2,9 @@
   "MetaModuleBrandName": "Submit",
   "MetaModulePluginMaintainer": "Juan José",
   "MetaModulePluginMaintainerEmail": "info@submitaudio.nl",
+  "MetaModulePluginMaintainerUrl": "https://www.submitaudio.nl",
   "MetaModuleDescription": "Submit Audio modules ported to MetaModule, including instruments, effects and a compact mixing/mastering chain.",
-  "version": "1.12",
+  "version": "2.16.0",
   "MetaModuleIncludedModules": [
     {
       "slug": "Drift",
@@ -44,6 +45,14 @@
     {
       "slug": "Loop",
       "name": "Loop"
+    },
+    {
+      "slug": "Clang",
+      "name": "Clang"
+    },
+    {
+      "slug": "React",
+      "name": "React"
     }
   ]
 }

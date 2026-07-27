@@ -1,9 +1,15 @@
 # Submit MetaModule — Release Workflow
 
 ## Bestandsnaam
-De plugin heet altijd: `Submit-v2.1.mmplugin`
-- `v2.1` = MetaModule SDK versie (verandert alleen bij SDK upgrade)
-- De bestandsnaam verandert NOOIT tenzij de SDK versie omhoog gaat
+De plugin gebruikt altijd de actuele pluginversie:
+
+`Submit-v<pluginversie>.mmplugin`
+
+Voor versie 2.16.0 is dit `Submit-v2.16.0.mmplugin`.
+
+- De pluginversie komt uit `plugin.json` en `plugin-mm.json`.
+- De SDK-versie staat in het pakket en hoeft bij stabiele firmware niet in de bestandsnaam.
+- De releaseworkflow haalt een eventuele voorloop-`v` automatisch uit de Git-tag.
 
 ---
 
@@ -21,9 +27,14 @@ Controleer ook altijd `plugin-mm.json`:
 ```json
 {
   "MetaModuleBrandName": "Submit",
-  "version": "1.9"
+  "version": "2.16.0",
+  "MetaModuleIncludedModules": []
 }
 ```
+
+`MetaModuleIncludedModules` moet de volledige lijst bevatten van alle modules
+die werkelijk in de MetaModule-plugin worden gebouwd, zoals vereist door de
+officiële MetaModule-releasehandleiding.
 
 ### Stap 2 — Releaseversie committen
 Als de MetaModule releaseversie verandert, update dan:
@@ -34,17 +45,17 @@ Daarna committen en pushen:
 ```bash
 cd ~/Submit-MM
 git add plugin.json plugin-mm.json
-git commit -m "Bump MetaModule version to 1.9"
+git commit -m "Release MetaModule plugin 2.16.0"
 git push origin master
 ```
 
 ### Stap 3 — Tag aanmaken en pushen
 ```bash
 cd ~/Submit-MM
-git tag 1.9
-git push origin 1.9
+git tag v2.16.0
+git push origin v2.16.0
 ```
-De tag is de MetaModule releaseversie (`1.8`, `1.9`, etc.) — dit staat los van de bestandsnaam.
+De tag is de pluginversie en bepaalt ook de versie in de bestandsnaam.
 
 ### Stap 4 — Workflow starten op GitHub
 1. Ga naar: github.com/submitaudio/submit-metamodule/actions
@@ -58,28 +69,27 @@ De tag is de MetaModule releaseversie (`1.8`, `1.9`, etc.) — dit staat los van
 ### Stap 5 — Controleren
 - Wacht 3-5 minuten
 - Groen = release staat op: github.com/submitaudio/submit-metamodule/releases
-- Download `Submit-v2.1.mmplugin` en test op MetaModule hardware
+- Download `Submit-v2.16.0.mmplugin` en test op MetaModule hardware
 
 ---
 
 ## Tag verwijderen en opnieuw aanmaken
 Als er iets fout ging en je de tag opnieuw wil aanmaken:
 ```bash
-git tag -d 1.9
-git push origin :refs/tags/1.9
-git tag 1.9
-git push origin 1.9
+git tag -d v2.16.0
+git push origin :refs/tags/v2.16.0
+git tag v2.16.0
+git push origin v2.16.0
 ```
 
 ---
 
 ## SDK versie upgrade
-Als de MetaModule SDK een nieuwe versie krijgt (bijv. v2.2):
-1. Update de bestandsnaam in `.github/workflows/build-metamodule-plugin.yml`
-   - Zoek: `Submit-v2.1.mmplugin`
-   - Vervang door: `Submit-v2.2.mmplugin`
-2. Update de SDK branch in de workflow indien nodig
-3. Commit, push en maak nieuwe release
+Als de MetaModule SDK een nieuwe stabiele versie krijgt:
+1. Update de SDK branch of tag in de workflow indien nodig.
+2. Verhoog ook de pluginversie, zodat gebruikers releases kunnen onderscheiden.
+3. Vermeld alleen bij developmentfirmware expliciet `-dev-Z` in de bestandsnaam.
+4. Commit, push en maak een nieuwe release.
 
 ---
 
@@ -96,5 +106,5 @@ Ga naar: github.com/submitaudio/submit-metamodule/settings/actions
 |---|---|---|
 | Repo | submit-vcv-modules | submit-metamodule |
 | Build | Automatisch bij push | Handmatig via Actions + tag |
-| Bestandsnaam | submit-VERSION-OS.zip | Submit-v2.1.mmplugin |
-| Versie in naam | Plugin versie | SDK versie |
+| Bestandsnaam | submit-VERSION-OS.zip | Submit-vVERSION.mmplugin |
+| Versie in naam | Plugin versie | Plugin versie |

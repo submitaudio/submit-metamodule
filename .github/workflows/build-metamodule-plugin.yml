@@ -58,8 +58,9 @@ jobs:
           cmake -B build -G Ninja -DMETAMODULE_SDK_DIR=${{ github.workspace }}/metamodule-plugin-sdk
           cmake --build build
           cd ${{ github.workspace }}/metamodule-plugins
+          release_version="${CI_REF_NAME#v}"
           for f in *.mmplugin; do
-            mv "$f" "Submit-v2.1.mmplugin"
+            mv "$f" "Submit-v${release_version}.mmplugin"
           done
 
       - name: Release

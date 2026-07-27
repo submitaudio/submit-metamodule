@@ -17,3 +17,5 @@ extern Model* modelMaster;
 extern Model* modelGain;
 extern Model* modelSweep;
 extern Model* modelLoop;
+extern Model* modelClang;
+extern Model* modelReact;

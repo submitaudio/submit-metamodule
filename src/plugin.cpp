@@ -23,4 +23,6 @@ void init(Plugin* p) {
     p->addModel(modelGain);
     p->addModel(modelSweep);
     p->addModel(modelLoop);
+    p->addModel(modelClang);
+    p->addModel(modelReact);
 }
