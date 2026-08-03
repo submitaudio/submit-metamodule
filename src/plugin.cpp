@@ -25,4 +25,7 @@ void init(Plugin* p) {
     p->addModel(modelLoop);
     p->addModel(modelClang);
     p->addModel(modelReact);
+    p->addModel(modelSync);
+    p->addModel(modelFlip);
+    p->addModel(modelOrbit);
 }

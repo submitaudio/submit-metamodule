@@ -804,6 +804,9 @@ struct React : Module {
     float clockTimer  = 0.f;
     float phaseDelta = 1.f / 44100.f;
     bool  clockRunning = false;
+	bool  quarterNoteClock = true;
+	bool  quarterPeriodValid = false;
+	bool  quarterResetPending = true;
     float subPhase  = 0.f;
     int   subCount  = 0;
 
@@ -912,10 +915,35 @@ struct React : Module {
         float clkIn = inputs[CLK_INPUT].getVoltage();
         bool clkRise = (clkIn >= 2.f && prevClk < 2.f);
         prevClk = clkIn;
+		const bool clockWasRunning = clockRunning;
+
+		// In 1-PPQN mode Reset prepares step 0 for the next quarter-note edge.
+		// Keeping the reset pending prevents a free-running subdivision from
+		// starting a new bar between two external clock pulses.
+		float resetIn = inputs[RESET_INPUT].getVoltage();
+		bool resetRise = (resetIn >= 2.f && prevReset < 2.f);
+		prevReset = resetIn;
+		if (resetRise && quarterNoteClock) {
+			subPhase = 0.f;
+			subCount = 0;
+			quarterPeriodValid = false;
+			quarterResetPending = true;
+		}
+
+		bool quarterEdgeTick = false;
 
         if (clkRise) {
             if (clockRunning && clockTimer > 0.f) {
-                clockPeriod = clockPeriod * 0.5f + clockTimer * 0.5f;
+				if (quarterNoteClock) {
+					// Measure the exact quarter note and derive its three internal
+					// sixteenths. Every external edge hard-reanchors the grid.
+					clockPeriod = std::max(1.f, clockTimer * 0.25f);
+					quarterPeriodValid = true;
+				}
+				else {
+					// Preserve the original 4-PPQN timing for legacy patches.
+					clockPeriod = clockPeriod * 0.5f + clockTimer * 0.5f;
+				}
                 phaseDelta = 1.f / clockPeriod;
                 // BPM = kwartsnoten per minuut
                 // clockPeriod = samples per 16th noot
@@ -924,14 +952,23 @@ struct React : Module {
             }
             clockTimer   = 0.f;
             clockRunning = true;
+
+			if (quarterNoteClock) {
+				// Quarter-note pattern steps are emitted on the clock edge itself.
+				// The first/reset edge is step 0; later edges are 4, 8, 12, 0.
+				if (!clockWasRunning || quarterResetPending)
+					subCount = 0;
+				else
+					subCount = (((subCount / 4) * 4) + 4) % 16;
+				subPhase = 0.f;
+				quarterResetPending = false;
+				quarterEdgeTick = true;
+			}
         }
         clockTimer += 1.f;
 
-        // --- Reset ---
-        float resetIn = inputs[RESET_INPUT].getVoltage();
-        bool resetRise = (resetIn >= 2.f && prevReset < 2.f);
-        prevReset = resetIn;
-        if (resetRise) {
+		// Keep simultaneous Reset/Clock behaviour unchanged in legacy mode.
+		if (resetRise && !quarterNoteClock) {
             subPhase = 0.f;
             subCount = 0;
         }
@@ -985,13 +1022,28 @@ struct React : Module {
         if (percKnob  == 0) percMorph  = pattern;
 
         // --- Subdivisions ---
-        subPhase += phaseDelta;
-        bool subTick = false;
-        if (subPhase >= 1.f) {
-            subPhase -= 1.f;
-            subCount = (subCount + 1) % 16;
-            subTick  = true;
-        }
+		bool subTick = quarterEdgeTick;
+		if (quarterNoteClock) {
+			// Only steps 1-3 inside a quarter are generated internally. The next
+			// quarter boundary is reserved for the real external clock edge.
+			if (!clkRise && quarterPeriodValid && (subCount % 4) < 3) {
+				subPhase += phaseDelta;
+				if (subPhase >= 1.f) {
+					subPhase -= 1.f;
+					subCount = (subCount + 1) % 16;
+					subTick = true;
+				}
+			}
+		}
+		else {
+			// Original 4-PPQN scheduler, retained for patch compatibility.
+			subPhase += phaseDelta;
+			if (subPhase >= 1.f) {
+				subPhase -= 1.f;
+				subCount = (subCount + 1) % 16;
+				subTick = true;
+			}
+		}
 
         // ALT wissel op bar begin
         if (subTick && subCount == 0 && altPending != altActive) {
@@ -1105,8 +1157,15 @@ struct React : Module {
     // Menu
     json_t* dataToJson() override {
         json_t* root = json_object();
+		json_object_set_new(root, "quarterNoteClock", json_boolean(quarterNoteClock));
         return root;
     }
+
+	void dataFromJson(json_t* root) override {
+		json_t* clockJson = json_object_get(root, "quarterNoteClock");
+		// Oude patches gebruikten één puls per zestiende (4 PPQN).
+		quarterNoteClock = clockJson ? json_boolean_value(clockJson) : false;
+	}
 };
 
 // ============================================================

@@ -7,7 +7,7 @@ else()
     include($ENV{HOME}/metamodule-plugin-sdk/plugin.cmake)
 endif()
 
-project(Submit VERSION 2.16.0 DESCRIPTION "Submit plugin for MetaModule" LANGUAGES C CXX ASM)
+project(Submit VERSION 2.17.0 DESCRIPTION "Submit plugin for MetaModule" LANGUAGES C CXX ASM)
 
 add_library(Submit STATIC)
 
@@ -22,7 +22,10 @@ target_sources(Submit PRIVATE
     src/Gain.cpp
     src/Sweep.cpp
     src/Clang.cpp
-    src/React.cpp)
+    src/React.cpp
+    src/Sync.cpp
+    src/Flip.cpp
+    src/Orbit.cpp)
 
 target_include_directories(Submit PRIVATE src)
 

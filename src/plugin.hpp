@@ -19,3 +19,6 @@ extern Model* modelSweep;
 extern Model* modelLoop;
 extern Model* modelClang;
 extern Model* modelReact;
+extern Model* modelSync;
+extern Model* modelFlip;
+extern Model* modelOrbit;

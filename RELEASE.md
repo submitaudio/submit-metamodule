@@ -3,9 +3,9 @@
 ## Bestandsnaam
 De plugin gebruikt altijd de actuele pluginversie:
 
-`Submit-v<pluginversie>.mmplugin`
+`Submit-v<releaseversie>.mmplugin`
 
-Voor versie 2.16.0 is dit `Submit-v2.16.0.mmplugin`.
+Voor versie 2.17.0 is dit `Submit-v2.17.mmplugin`.
 
 - De pluginversie komt uit `plugin.json` en `plugin-mm.json`.
 - De SDK-versie staat in het pakket en hoeft bij stabiele firmware niet in de bestandsnaam.
@@ -27,7 +27,7 @@ Controleer ook altijd `plugin-mm.json`:
 ```json
 {
   "MetaModuleBrandName": "Submit",
-  "version": "2.16.0",
+  "version": "2.17.0",
   "MetaModuleIncludedModules": []
 }
 ```
@@ -45,15 +45,15 @@ Daarna committen en pushen:
 ```bash
 cd ~/Submit-MM
 git add plugin.json plugin-mm.json
-git commit -m "Release MetaModule plugin 2.16.0"
+git commit -m "Release MetaModule plugin 2.17.0"
 git push origin master
 ```
 
 ### Stap 3 — Tag aanmaken en pushen
 ```bash
 cd ~/Submit-MM
-git tag v2.16.0
-git push origin v2.16.0
+git tag v2.17.0
+git push origin v2.17.0
 ```
 De tag is de pluginversie en bepaalt ook de versie in de bestandsnaam.
 
@@ -69,17 +69,17 @@ De tag is de pluginversie en bepaalt ook de versie in de bestandsnaam.
 ### Stap 5 — Controleren
 - Wacht 3-5 minuten
 - Groen = release staat op: github.com/submitaudio/submit-metamodule/releases
-- Download `Submit-v2.16.0.mmplugin` en test op MetaModule hardware
+- Download `Submit-v2.17.mmplugin` en test op MetaModule hardware
 
 ---
 
 ## Tag verwijderen en opnieuw aanmaken
 Als er iets fout ging en je de tag opnieuw wil aanmaken:
 ```bash
-git tag -d v2.16.0
-git push origin :refs/tags/v2.16.0
-git tag v2.16.0
-git push origin v2.16.0
+git tag -d v2.17.0
+git push origin :refs/tags/v2.17.0
+git tag v2.17.0
+git push origin v2.17.0
 ```
 
 ---

@@ -1,7 +1,7 @@
 {
   "slug": "Submit",
   "name": "Submit",
-  "version": "2.16.0",
+  "version": "2.17.0",
   "license": "proprietary",
   "brand": "Submit",
   "author": "Juan Jos\u00e9",
@@ -120,6 +120,36 @@
         "Sequencer",
         "Clock modulator",
         "Drum"
+      ]
+    },
+    {
+      "slug": "Sync",
+      "name": "Sync",
+      "description": "Compact internal and external clock with divide, multiply and reset outputs.",
+      "tags": [
+        "Clock generator",
+        "Clock modulator"
+      ]
+    },
+    {
+      "slug": "Flip",
+      "name": "Flip",
+      "description": "Stereo clock-synchronised reverse effect with continuous background capture, instant Flip, Freeze and rhythmic length control.",
+      "manualUrl": "https://www.submitaudio.nl/vcv-rack-modules-metamodule-plugins/flip/",
+      "tags": [
+        "Sampler",
+        "Effect"
+      ]
+    },
+    {
+      "slug": "Orbit",
+      "name": "Orbit",
+      "description": "Rhythmic relationship processor that derives Align, Between and Gap triggers plus Tension CV from two input rhythms, with clock-synchronised Hold.",
+      "manualUrl": "https://www.submitaudio.nl/vcv-rack-modules-metamodule-plugins/orbit/",
+      "tags": [
+        "Clock modulator",
+        "Logic",
+        "Utility"
       ]
     }
   ]

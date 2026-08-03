@@ -59,8 +59,12 @@ jobs:
           cmake --build build
           cd ${{ github.workspace }}/metamodule-plugins
           release_version="${CI_REF_NAME#v}"
+          case "$release_version" in
+            *.0) release_filename_version="${release_version%.0}" ;;
+            *) release_filename_version="$release_version" ;;
+          esac
           for f in *.mmplugin; do
-            mv "$f" "Submit-v${release_version}.mmplugin"
+            mv "$f" "Submit-v${release_filename_version}.mmplugin"
           done
 
       - name: Release
