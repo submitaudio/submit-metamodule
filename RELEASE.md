@@ -36,6 +36,28 @@ Controleer ook altijd `plugin-mm.json`:
 die werkelijk in de MetaModule-plugin worden gebouwd, zoals vereist door de
 officiële MetaModule-releasehandleiding.
 
+### Verplichte controle — MetaModule-modulelijst
+
+`plugin-mm.json` is een zelfstandig MetaModule-manifest. De modulelijst wordt
+daarom niet automatisch uit `plugin.json` overgenomen. Controleer vóór iedere
+MetaModule-release altijd expliciet dat `MetaModuleIncludedModules`:
+
+- aanwezig is en geen lege lijst bevat;
+- exact alle voor deze release goedgekeurde MetaModule-modules bevat;
+- geen lokale beta- of ontwikkelmodules bevat;
+- dezelfde slugs en namen gebruikt als de werkelijk gebouwde modules.
+
+Snelle controle:
+
+```bash
+cd /Users/studio67/SubmitAudio-Development/Projects/MetaModule
+jq '{version, module_count: (.MetaModuleIncludedModules | length), modules: [.MetaModuleIncludedModules[].slug]}' plugin-mm.json
+```
+
+Controleer deze uitvoer handmatig tegen de expliciet goedgekeurde releaselijst.
+Een geslaagde build of een aangemaakt `.mmplugin`-bestand vervangt deze controle
+niet.
+
 ### Stap 2 — Releaseversie committen
 Als de MetaModule releaseversie verandert, update dan:
 - `plugin.json`
