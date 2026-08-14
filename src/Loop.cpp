@@ -415,6 +415,15 @@ struct LoopResetButton : SvgSwitch {
     }
 };
 
+struct LoopSubmitKnobSmall : SvgKnob {
+    LoopSubmitKnobSmall() {
+        minAngle = -0.83 * M_PI;
+        maxAngle = 0.83 * M_PI;
+        setSvg(Svg::load(asset::plugin(pluginInstance, "res/SubmitKnobSmall.png")));
+        shadow->opacity = 0.f;
+    }
+};
+
 // Waveform display
 struct ReelDisplay : Widget {
     Reel* module;
@@ -426,13 +435,6 @@ struct ReelDisplay : Widget {
         nvgRoundedRect(args.vg, 0, 0, box.size.x, box.size.y, 3);
         nvgFillColor(args.vg, nvgRGB(0x45, 0x45, 0x21));
         nvgFill(args.vg);
-
-        // Border
-        nvgBeginPath(args.vg);
-        nvgRoundedRect(args.vg, 0, 0, box.size.x, box.size.y, 3);
-        nvgStrokeColor(args.vg, nvgRGB(50, 50, 70));
-        nvgStrokeWidth(args.vg, 1.0f);
-        nvgStroke(args.vg);
 
         if (!module || !module->fileLoaded) {
             nvgFontSize(args.vg, 9.f);
@@ -503,7 +505,7 @@ struct ReelDisplay : Widget {
 struct ReelWidget : ModuleWidget {
     ReelWidget(Reel* module) {
         setModule(module);
-        setPanel(createPanel(asset::plugin(pluginInstance, "res/Loop.svg")));
+        setPanel(createPanel(asset::plugin(pluginInstance, "res/Loop.png")));
 
         // Waveform display
         ReelDisplay* disp = createWidget<ReelDisplay>(mm2px(Vec(7.199f, 13.856f)));
@@ -512,10 +514,10 @@ struct ReelWidget : ModuleWidget {
         addChild(disp);
 
         // Knoppen
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(19.002f, 60.229f)), module, Reel::BARS_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(39.291f, 60.229f)), module, Reel::BARSHIFT_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(19.002f, 83.833f)), module, Reel::BPM_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(39.376f, 83.918f)), module, Reel::SPEED_PARAM));
+        addParam(createParamCentered<LoopSubmitKnobSmall>(mm2px(Vec(19.002f, 60.229f)), module, Reel::BARS_PARAM));
+        addParam(createParamCentered<LoopSubmitKnobSmall>(mm2px(Vec(39.291f, 60.229f)), module, Reel::BARSHIFT_PARAM));
+        addParam(createParamCentered<LoopSubmitKnobSmall>(mm2px(Vec(19.002f, 83.833f)), module, Reel::BPM_PARAM));
+        addParam(createParamCentered<LoopSubmitKnobSmall>(mm2px(Vec(39.376f, 83.918f)), module, Reel::SPEED_PARAM));
 
         // Schakelaars
         addParam(createParamCentered<CKSS>(mm2px(Vec(55.657f, 63.360f)), module, Reel::SYNC_PARAM));

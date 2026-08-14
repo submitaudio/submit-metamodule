@@ -7,6 +7,15 @@ struct ChainMuteButton : SvgSwitch {
     }
 };
 
+struct ChainSubmitKnobMini : SvgKnob {
+    ChainSubmitKnobMini() {
+        minAngle = -0.83 * M_PI;
+        maxAngle = 0.83 * M_PI;
+        setSvg(Svg::load(asset::plugin(pluginInstance, "res/SubmitKnobMini.png")));
+        shadow->opacity = 0.f;
+    }
+};
+
 struct Mix2ch : Module {
     enum ParamId {
         CH1_GAIN_PARAM,
@@ -295,55 +304,57 @@ struct ChainMMSlider : SvgSlider {
 struct Mix2chWidget : ModuleWidget {
     Mix2chWidget(Mix2ch* module) {
         setModule(module);
-        setPanel(createPanel(asset::plugin(pluginInstance, "res/Chain.svg")));
+        setPanel(createPanel(asset::plugin(pluginInstance, "res/Chain.png")));
 
         // ── KANAAL 1-2 ────────────────────────────
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(11.28f, 31.61f)), module, Mix2ch::CH1_GAIN_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(11.28f, 43.93f)), module, Mix2ch::CH1_PAN_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(37.43f, 31.61f)), module, Mix2ch::CH1_SEND1_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(37.43f, 43.93f)), module, Mix2ch::CH1_SEND2_PARAM));
-        addParam(createParam<ChainMMSlider>(mm2px(Vec(21.94f, 26.61f)), module, Mix2ch::CH1_VOL_PARAM));
-        addParam(createParamCentered<CKSS>(mm2px(Vec(37.44f, 55.92f)), module, Mix2ch::CH1_HPF_PARAM));
-        addParam(createParamCentered<ChainMuteButton>(mm2px(Vec(37.48f, 78.59f)), module, Mix2ch::CH1_MUTE_PARAM));
-        addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(mm2px(Vec(18.61f, 20.92f)), module, Mix2ch::CH1_PEAK_R_LIGHT));
+        addParam(createParamCentered<ChainSubmitKnobMini>(mm2px(Vec(11.259f, 31.558f)), module, Mix2ch::CH1_GAIN_PARAM));
+        addParam(createParamCentered<ChainSubmitKnobMini>(mm2px(Vec(11.259f, 43.866f)), module, Mix2ch::CH1_PAN_PARAM));
+        addParam(createParamCentered<ChainSubmitKnobMini>(mm2px(Vec(37.374f, 31.558f)), module, Mix2ch::CH1_SEND1_PARAM));
+        addParam(createParamCentered<ChainSubmitKnobMini>(mm2px(Vec(37.374f, 43.866f)), module, Mix2ch::CH1_SEND2_PARAM));
+        addParam(createParam<ChainMMSlider>(mm2px(Vec(20.94f, 26.61f)), module, Mix2ch::CH1_VOL_PARAM));
+        addParam(createParamCentered<CKSS>(mm2px(Vec(37.384f, 55.835f)), module, Mix2ch::CH1_HPF_PARAM));
+        addParam(createParamCentered<ChainMuteButton>(mm2px(Vec(37.420f, 78.468f)), module, Mix2ch::CH1_MUTE_PARAM));
+        // Peak indicator beside the CH 1-2 label, matching the VCV panel.
+        addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(mm2px(Vec(33.000f, 20.910f)), module, Mix2ch::CH1_PEAK_R_LIGHT));
 
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(11.46f, 56.86f)), module, Mix2ch::CH1_L_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(11.46f, 69.67f)), module, Mix2ch::CH1_R_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(24.58f, 85.10f)), module, Mix2ch::CH1_COMP_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(37.34f, 69.67f)), module, Mix2ch::CH1_MUTE_CV_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(11.439f, 56.773f)), module, Mix2ch::CH1_L_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(11.439f, 69.560f)), module, Mix2ch::CH1_R_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(24.542f, 84.976f)), module, Mix2ch::CH1_COMP_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(37.384f, 69.560f)), module, Mix2ch::CH1_MUTE_CV_INPUT));
 
         // ── KANAAL 3-4 ────────────────────────────
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(58.16f, 31.61f)), module, Mix2ch::CH2_GAIN_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(58.16f, 43.93f)), module, Mix2ch::CH2_PAN_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(84.31f, 31.61f)), module, Mix2ch::CH2_SEND1_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(84.31f, 43.93f)), module, Mix2ch::CH2_SEND2_PARAM));
-        addParam(createParam<ChainMMSlider>(mm2px(Vec(68.90f, 26.61f)), module, Mix2ch::CH2_VOL_PARAM));
-        addParam(createParamCentered<CKSS>(mm2px(Vec(84.14f, 55.92f)), module, Mix2ch::CH2_HPF_PARAM));
-        addParam(createParamCentered<ChainMuteButton>(mm2px(Vec(84.23f, 78.59f)), module, Mix2ch::CH2_MUTE_PARAM));
-        addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(mm2px(Vec(65.38f, 20.92f)), module, Mix2ch::CH2_PEAK_R_LIGHT));
+        addParam(createParamCentered<ChainSubmitKnobMini>(mm2px(Vec(58.074f, 31.558f)), module, Mix2ch::CH2_GAIN_PARAM));
+        addParam(createParamCentered<ChainSubmitKnobMini>(mm2px(Vec(58.074f, 43.866f)), module, Mix2ch::CH2_PAN_PARAM));
+        addParam(createParamCentered<ChainSubmitKnobMini>(mm2px(Vec(84.188f, 31.558f)), module, Mix2ch::CH2_SEND1_PARAM));
+        addParam(createParamCentered<ChainSubmitKnobMini>(mm2px(Vec(84.188f, 43.866f)), module, Mix2ch::CH2_SEND2_PARAM));
+        addParam(createParam<ChainMMSlider>(mm2px(Vec(67.90f, 26.61f)), module, Mix2ch::CH2_VOL_PARAM));
+        addParam(createParamCentered<CKSS>(mm2px(Vec(84.017f, 55.835f)), module, Mix2ch::CH2_HPF_PARAM));
+        addParam(createParamCentered<ChainMuteButton>(mm2px(Vec(84.100f, 78.468f)), module, Mix2ch::CH2_MUTE_PARAM));
+        // Peak indicator beside the CH 3-4 label, matching the VCV panel.
+        addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(mm2px(Vec(80.420f, 20.910f)), module, Mix2ch::CH2_PEAK_R_LIGHT));
 
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(58.17f, 56.86f)), module, Mix2ch::CH2_L_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(58.17f, 69.67f)), module, Mix2ch::CH2_R_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(71.39f, 85.10f)), module, Mix2ch::CH2_COMP_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(84.21f, 69.67f)), module, Mix2ch::CH2_MUTE_CV_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(58.087f, 56.773f)), module, Mix2ch::CH2_L_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(58.087f, 69.560f)), module, Mix2ch::CH2_R_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(71.282f, 84.976f)), module, Mix2ch::CH2_COMP_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(84.017f, 69.560f)), module, Mix2ch::CH2_MUTE_CV_INPUT));
 
         // ── CHAIN ─────────────────────────────────
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(11.03f, 102.73f)), module, Mix2ch::CHAIN_L_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(11.03f, 116.19f)), module, Mix2ch::CHAIN_R_INPUT));
-        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(84.94f, 102.73f)), module, Mix2ch::CHAIN_L_OUTPUT));
-        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(84.94f, 116.19f)), module, Mix2ch::CHAIN_R_OUTPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(11.016f, 102.575f)), module, Mix2ch::CHAIN_L_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(11.016f, 116.020f)), module, Mix2ch::CHAIN_R_INPUT));
+        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(84.809f, 102.575f)), module, Mix2ch::CHAIN_L_OUTPUT));
+        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(84.809f, 116.020f)), module, Mix2ch::CHAIN_R_OUTPUT));
 
         // ── FX1 ───────────────────────────────────
-        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(28.25f, 102.73f)), module, Mix2ch::SEND1_CHAIN_OUTPUT));
-        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(28.25f, 116.19f)), module, Mix2ch::SEND1R_CHAIN_OUTPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(38.79f, 102.73f)), module, Mix2ch::RETURN1_L_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(38.79f, 116.19f)), module, Mix2ch::RETURN1_R_INPUT));
+        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(28.211f, 102.575f)), module, Mix2ch::SEND1_CHAIN_OUTPUT));
+        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(28.211f, 116.020f)), module, Mix2ch::SEND1R_CHAIN_OUTPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(38.728f, 102.575f)), module, Mix2ch::RETURN1_L_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(38.728f, 116.020f)), module, Mix2ch::RETURN1_R_INPUT));
 
         // ── FX2 ───────────────────────────────────
-        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(56.46f, 102.73f)), module, Mix2ch::SEND2_CHAIN_OUTPUT));
-        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(56.46f, 116.19f)), module, Mix2ch::SEND2R_CHAIN_OUTPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(67.13f, 102.73f)), module, Mix2ch::RETURN2_L_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(67.13f, 116.19f)), module, Mix2ch::RETURN2_R_INPUT));
+        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(56.374f, 102.321f)), module, Mix2ch::SEND2_CHAIN_OUTPUT));
+        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(56.374f, 116.020f)), module, Mix2ch::SEND2R_CHAIN_OUTPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(67.029f, 102.575f)), module, Mix2ch::RETURN2_L_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(67.029f, 116.020f)), module, Mix2ch::RETURN2_R_INPUT));
     }
 };
 

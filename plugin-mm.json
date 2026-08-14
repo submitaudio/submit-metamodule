@@ -4,7 +4,7 @@
   "MetaModulePluginMaintainerEmail": "info@submitaudio.nl",
   "MetaModulePluginMaintainerUrl": "https://www.submitaudio.nl",
   "MetaModuleDescription": "Submit Audio modules ported to MetaModule, including instruments, effects and a compact mixing/mastering chain.",
-  "version": "2.17.0",
+  "version": "2.18.0",
   "MetaModuleIncludedModules": [
     {
       "slug": "Drift",

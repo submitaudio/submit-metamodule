@@ -8,6 +8,15 @@
 #include <span>
 #include <string>
 
+struct ClangSubmitKnobSmall : SvgKnob {
+	ClangSubmitKnobSmall() {
+		minAngle = -0.83 * M_PI;
+		maxAngle = 0.83 * M_PI;
+		setSvg(Svg::load(asset::plugin(pluginInstance, "res/SubmitKnobSmall.png")));
+		shadow->opacity = 0.f;
+	}
+};
+
 static constexpr int CLANG_MODELS = 8;
 static constexpr int CLANG_SOUNDS = 8;
 // Three overlapping voices balance natural tails with reliable MetaModule headroom.
@@ -1319,18 +1328,14 @@ struct ClangDisplay : Widget {
 struct ClangWidget : ModuleWidget {
 	ClangWidget(Clang* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/Clang.svg")));
+		setPanel(createPanel(asset::plugin(pluginInstance, "res/Clang.png")));
 
 		auto* display = createWidget<ClangDisplay>(Vec(18.274f, 38.988f));
 		display->module = module;
 		addChild(display);
 
 		auto addRoundKnob = [&](Vec center, int paramId) {
-			auto* knob = createParamCentered<RoundLargeBlackKnob>(center, module, paramId);
-	#ifdef METAMODULE
-			knob->box.size = knob->box.size.mult(0.90f);
-			knob->box.pos = center.minus(knob->box.size.div(2.f));
-	#endif
+			auto* knob = createParamCentered<ClangSubmitKnobSmall>(center, module, paramId);
 			addParam(knob);
 		};
 

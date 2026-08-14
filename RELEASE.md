@@ -5,7 +5,7 @@ De plugin gebruikt altijd de actuele pluginversie:
 
 `Submit-v<releaseversie>.mmplugin`
 
-Voor versie 2.17.0 is dit `Submit-v2.17.mmplugin`.
+Voor versie 2.18.0 is dit `Submit-v2.18.mmplugin`.
 
 - De pluginversie komt uit `plugin.json` en `plugin-mm.json`.
 - De SDK-versie staat in het pakket en hoeft bij stabiele firmware niet in de bestandsnaam.
@@ -18,8 +18,8 @@ Voor versie 2.17.0 is dit `Submit-v2.17.mmplugin`.
 ### Stap 1 — plugin.json synchroniseren
 Controleer of `plugin.json` in Submit-MM up-to-date is met de VCV versie:
 ```bash
-cp ~/Submit/plugin.json ~/Submit-MM/
-cd ~/Submit-MM && git add plugin.json && git commit -m "Sync plugin.json" && git push
+cp /Users/studio67/SubmitAudio-Development/Projects/VCV-Rack/plugin.json /Users/studio67/SubmitAudio-Development/Projects/MetaModule/
+cd /Users/studio67/SubmitAudio-Development/Projects/MetaModule && git add plugin.json && git commit -m "Sync plugin.json" && git push
 ```
 Alleen nodig als er modules zijn bijgekomen of het versienummer is veranderd.
 
@@ -27,7 +27,7 @@ Controleer ook altijd `plugin-mm.json`:
 ```json
 {
   "MetaModuleBrandName": "Submit",
-  "version": "2.17.0",
+  "version": "2.18.0",
   "MetaModuleIncludedModules": []
 }
 ```
@@ -43,17 +43,17 @@ Als de MetaModule releaseversie verandert, update dan:
 
 Daarna committen en pushen:
 ```bash
-cd ~/Submit-MM
+cd /Users/studio67/SubmitAudio-Development/Projects/MetaModule
 git add plugin.json plugin-mm.json
-git commit -m "Release MetaModule plugin 2.17.0"
+git commit -m "Release MetaModule plugin 2.18.0"
 git push origin master
 ```
 
 ### Stap 3 — Tag aanmaken en pushen
 ```bash
-cd ~/Submit-MM
-git tag v2.17.0
-git push origin v2.17.0
+cd /Users/studio67/SubmitAudio-Development/Projects/MetaModule
+git tag v2.18.0
+git push origin v2.18.0
 ```
 De tag is de pluginversie en bepaalt ook de versie in de bestandsnaam.
 
@@ -62,24 +62,24 @@ De tag is de pluginversie en bepaalt ook de versie in de bestandsnaam.
 2. Klik op "Build and release MetaModule plugin"
 3. Klik rechts op "Run workflow"
 4. Selecteer bij "Use workflow from": Tags → kies jouw tag
-5. SDK branch: main
+5. SDK tag: api-v2.3.0
 6. Vink "Create Release" aan
 7. Klik "Run workflow"
 
 ### Stap 5 — Controleren
 - Wacht 3-5 minuten
 - Groen = release staat op: github.com/submitaudio/submit-metamodule/releases
-- Download `Submit-v2.17.mmplugin` en test op MetaModule hardware
+- Download `Submit-v2.18.mmplugin` en test op MetaModule hardware
 
 ---
 
 ## Tag verwijderen en opnieuw aanmaken
 Als er iets fout ging en je de tag opnieuw wil aanmaken:
 ```bash
-git tag -d v2.17.0
-git push origin :refs/tags/v2.17.0
-git tag v2.17.0
-git push origin v2.17.0
+git tag -d v2.18.0
+git push origin :refs/tags/v2.18.0
+git tag v2.18.0
+git push origin v2.18.0
 ```
 
 ---

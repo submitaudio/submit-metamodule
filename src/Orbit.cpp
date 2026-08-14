@@ -4,12 +4,12 @@
 #include <cmath>
 #include <cstdint>
 
-// The Chain-style Orbit knob, kept compact so the scale remains visible.
+// The compact Submit knob keeps the rhythmic scale readable on the 5HP panel.
 struct OrbitKnob : SvgKnob {
 	OrbitKnob() {
 		minAngle = -0.83 * M_PI;
 		maxAngle = 0.83 * M_PI;
-		setSvg(Svg::load(asset::plugin(pluginInstance, "res/OrbitKnob.png")));
+		setSvg(Svg::load(asset::plugin(pluginInstance, "res/SubmitKnobTiny.png")));
 		shadow->opacity = 0.f;
 	}
 };
@@ -454,8 +454,8 @@ struct OrbitWidget : ModuleWidget {
 		setModule(module);
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/Orbit.png")));
 
-		// Exacte 1:1-posities uit Panel-design-Orbit-components.svg, plus
-		// uitsluitend de 3.327 px horizontale centreerruimte.
+		// Exacte centra uit Panel-componenets-Orbit-Meta.svg. Het 5HP-frame
+		// heeft 3.327 px horizontale middenruimte aan beide zijden.
 		addParam(createParamCentered<OrbitKnob>(Vec(22.045f, 90.620f), module, Orbit::POSITION_PARAM));
 		addParam(createParamCentered<OrbitKnob>(Vec(53.590f, 90.620f), module, Orbit::WINDOW_PARAM));
 		addParam(createParamCentered<OrbitKnob>(Vec(22.045f, 133.564f), module, Orbit::MEMORY_PARAM));
@@ -465,10 +465,12 @@ struct OrbitWidget : ModuleWidget {
 		addChild(createLightCentered<MediumLight<RedLight>>(Vec(37.679f, 173.225f), module, Orbit::HOLD_LIGHT));
 
 		addInput(createInputCentered<PJ301MPort>(Vec(21.594f, 219.189f), module, Orbit::A_INPUT));
-		addChild(createLightCentered<SmallLight<YellowLight>>(Vec(14.500f, 201.300f), module, Orbit::A_LIGHT));
+		// A/B status LEDs follow the component file directly. Unlike the jacks,
+		// they sit beside the printed labels, so do not apply the frame offset.
+		addChild(createLightCentered<SmallLight<YellowLight>>(Vec(9.357f, 201.291f), module, Orbit::A_LIGHT));
 		addOutput(createOutputCentered<PJ301MPort>(Vec(53.998f, 219.189f), module, Orbit::ALIGN_OUTPUT));
 		addInput(createInputCentered<PJ301MPort>(Vec(21.594f, 259.152f), module, Orbit::B_INPUT));
-		addChild(createLightCentered<SmallLight<YellowLight>>(Vec(14.500f, 241.300f), module, Orbit::B_LIGHT));
+		addChild(createLightCentered<SmallLight<YellowLight>>(Vec(9.357f, 241.890f), module, Orbit::B_LIGHT));
 		addOutput(createOutputCentered<PJ301MPort>(Vec(53.998f, 259.152f), module, Orbit::BETWEEN_OUTPUT));
 		addInput(createInputCentered<PJ301MPort>(Vec(21.594f, 302.037f), module, Orbit::CLOCK_INPUT));
 		addOutput(createOutputCentered<PJ301MPort>(Vec(53.998f, 302.037f), module, Orbit::GAP_OUTPUT));

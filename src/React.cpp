@@ -5,6 +5,24 @@
 #include <span>
 #include <string>
 
+#ifdef METAMODULE
+template <const char* AssetPath>
+struct ReactSubmitKnob : SvgKnob {
+    ReactSubmitKnob() {
+        minAngle = -0.83 * M_PI;
+        maxAngle = 0.83 * M_PI;
+        setSvg(Svg::load(asset::plugin(pluginInstance, AssetPath)));
+        shadow->opacity = 0.f;
+    }
+};
+
+static constexpr char REACT_KNOB_MEDIUM_ASSET[] = "res/SubmitKnobMedium.png";
+static constexpr char REACT_KNOB_SMALL_ASSET[] = "res/SubmitKnobSmall.png";
+
+using ReactSubmitKnobMedium = ReactSubmitKnob<REACT_KNOB_MEDIUM_ASSET>;
+using ReactSubmitKnobSmall = ReactSubmitKnob<REACT_KNOB_SMALL_ASSET>;
+#endif
+
 #ifndef METAMODULE
 struct ReactImpactPatternKnob : SvgKnob {
     ReactImpactPatternKnob() {
@@ -1262,8 +1280,8 @@ struct ReactWidget : ModuleWidget {
 
         // Main controls
 #ifdef METAMODULE
-        addParam(createParamCentered<RoundLargeBlackKnob>(Vec(34.448f, 129.956f), module, React::GENRE_PARAM));
-        addParam(createParamCentered<RoundHugeBlackKnob>(Vec(105.321f, 141.556f), module, React::PATTERN_PARAM));
+        addParam(createParamCentered<ReactSubmitKnobSmall>(Vec(34.448f, 129.956f), module, React::GENRE_PARAM));
+        addParam(createParamCentered<ReactSubmitKnobMedium>(Vec(105.321f, 141.556f), module, React::PATTERN_PARAM));
 #else
         addParam(createParamCentered<ReactImpactSmallKnob>(Vec(34.448f, 129.956f), module, React::GENRE_PARAM));
         addParam(createParamCentered<ReactImpactPatternKnob>(Vec(105.321f, 141.556f), module, React::PATTERN_PARAM));
@@ -1271,18 +1289,18 @@ struct ReactWidget : ModuleWidget {
         addInput(createInputCentered<PJ301MPort>(Vec(164.623f, 120.109f), module, React::MORPH_INPUT));
 
         // Free/Lock LEDs
-        addChild(createLightCentered<SmallLight<YellowLight>>(Vec(10.037f, 177.748f), module, React::LIGHT_SNARE_G));
-        addChild(createLightCentered<SmallLight<RedLight>>(Vec(10.037f, 177.748f), module, React::LIGHT_SNARE_R));
-        addChild(createLightCentered<SmallLight<YellowLight>>(Vec(74.770f, 177.748f), module, React::LIGHT_HIHAT_G));
-        addChild(createLightCentered<SmallLight<RedLight>>(Vec(74.770f, 177.748f), module, React::LIGHT_HIHAT_R));
-        addChild(createLightCentered<SmallLight<YellowLight>>(Vec(137.635f, 177.748f), module, React::LIGHT_PERC_G));
-        addChild(createLightCentered<SmallLight<RedLight>>(Vec(137.635f, 177.748f), module, React::LIGHT_PERC_R));
+        addChild(createLightCentered<SmallLight<YellowLight>>(Vec(15.037f, 177.748f), module, React::LIGHT_SNARE_G));
+        addChild(createLightCentered<SmallLight<RedLight>>(Vec(15.037f, 177.748f), module, React::LIGHT_SNARE_R));
+        addChild(createLightCentered<SmallLight<YellowLight>>(Vec(79.770f, 177.748f), module, React::LIGHT_HIHAT_G));
+        addChild(createLightCentered<SmallLight<RedLight>>(Vec(79.770f, 177.748f), module, React::LIGHT_HIHAT_R));
+        addChild(createLightCentered<SmallLight<YellowLight>>(Vec(142.635f, 177.748f), module, React::LIGHT_PERC_G));
+        addChild(createLightCentered<SmallLight<RedLight>>(Vec(142.635f, 177.748f), module, React::LIGHT_PERC_R));
 
         // Part lock controls
 #ifdef METAMODULE
-        addParam(createParamCentered<RoundLargeBlackKnob>(Vec(34.448f, 206.469f), module, React::SNARE_PARAM));
-        addParam(createParamCentered<RoundLargeBlackKnob>(Vec(96.734f, 206.469f), module, React::HIHAT_PARAM));
-        addParam(createParamCentered<RoundLargeBlackKnob>(Vec(159.020f, 206.469f), module, React::PERC_PARAM));
+        addParam(createParamCentered<ReactSubmitKnobSmall>(Vec(34.448f, 206.469f), module, React::SNARE_PARAM));
+        addParam(createParamCentered<ReactSubmitKnobSmall>(Vec(96.734f, 206.469f), module, React::HIHAT_PARAM));
+        addParam(createParamCentered<ReactSubmitKnobSmall>(Vec(159.020f, 206.469f), module, React::PERC_PARAM));
 #else
         addParam(createParamCentered<ReactImpactSmallKnob>(Vec(34.448f, 206.469f), module, React::SNARE_PARAM));
         addParam(createParamCentered<ReactImpactSmallKnob>(Vec(96.734f, 206.469f), module, React::HIHAT_PARAM));
@@ -1301,7 +1319,8 @@ struct ReactWidget : ModuleWidget {
 
         // Outputs + LEDs
         const float outXs[4] = { 29.324f, 74.424f, 119.524f, 164.623f };
-        const float ledXs[4] = { 9.787f, 51.419f, 97.612f, 143.806f };
+        // Keep the trigger LEDs visually paired with the labels above each output.
+        const float ledXs[4] = { 14.787f, 56.419f, 102.612f, 148.806f };
         for (int i = 0; i < 4; i++) {
             addOutput(createOutputCentered<PJ301MPort>(Vec(outXs[i], 342.966f), module,
                       React::OutputId(React::OUT_A + i)));

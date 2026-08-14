@@ -3,6 +3,15 @@
 #include <cmath>
 #include <cstdio>
 
+struct SyncSubmitKnobCompact : SvgKnob {
+	SyncSubmitKnobCompact() {
+		minAngle = -0.83 * M_PI;
+		maxAngle = 0.83 * M_PI;
+		setSvg(Svg::load(asset::plugin(pluginInstance, "res/SubmitKnobCompact.png")));
+		shadow->opacity = 0.f;
+	}
+};
+
 struct Sync : Module {
 	enum ParamId {
 		BPM_PARAM,
@@ -242,25 +251,28 @@ struct SyncWidget : ModuleWidget {
 		setModule(module);
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/Sync.png")));
 
-		// Exacte 1:1-posities uit de components-SVG, plus dezelfde 3.327 px offset.
-		auto* display = createWidget<SyncDisplay>(Vec(14.113f, 40.484f));
+		// Exacte centra uit Panel-components-Sync-META-V2.svg. Het 5HP-frame
+		// heeft 3.327 px horizontale middenruimte aan beide zijden.
+		constexpr float panelXOffset = 3.327f;
+		auto* display = createWidget<SyncDisplay>(Vec(10.786f + panelXOffset, 40.484f));
 		display->box.size = Vec(47.037f, 29.523f);
 		display->module = module;
 		addChild(display);
 
-		const Vec tempoCenter(37.599f, 122.310f);
-		addParam(createParamCentered<RoundLargeBlackKnob>(tempoCenter, module, Sync::BPM_PARAM));
-		addParam(createParamCentered<LEDButton>(Vec(20.685f, 186.312f), module, Sync::RUN_PARAM));
-		addChild(createLightCentered<MediumLight<GreenLight>>(Vec(20.685f, 186.312f), module, Sync::RUN_LIGHT));
-		addParam(createParamCentered<LEDButton>(Vec(54.023f, 186.312f), module, Sync::RESET_PARAM));
-		addChild(createLightCentered<MediumLight<RedLight>>(Vec(54.023f, 186.312f), module, Sync::RESET_LIGHT));
+		// Small optical correction: the compact artwork reads slightly right-heavy.
+		const Vec tempoCenter(34.272f + panelXOffset - 2.5f, 122.310f);
+		addParam(createParamCentered<SyncSubmitKnobCompact>(tempoCenter, module, Sync::BPM_PARAM));
+		addParam(createParamCentered<LEDButton>(Vec(17.358f + panelXOffset, 186.312f), module, Sync::RUN_PARAM));
+		addChild(createLightCentered<MediumLight<GreenLight>>(Vec(17.358f + panelXOffset, 186.312f), module, Sync::RUN_LIGHT));
+		addParam(createParamCentered<LEDButton>(Vec(50.696f + panelXOffset, 186.312f), module, Sync::RESET_PARAM));
+		addChild(createLightCentered<MediumLight<RedLight>>(Vec(50.696f + panelXOffset, 186.312f), module, Sync::RESET_LIGHT));
 
-		addInput(createInputCentered<PJ301MPort>(Vec(21.594f, 249.791f), module, Sync::EXT_INPUT));
-		addInput(createInputCentered<PJ301MPort>(Vec(53.998f, 249.791f), module, Sync::RST_INPUT));
-		addOutput(createOutputCentered<PJ301MPort>(Vec(21.594f, 302.037f), module, Sync::CLOCK_OUTPUT));
-		addOutput(createOutputCentered<PJ301MPort>(Vec(53.998f, 302.037f), module, Sync::MULT2_OUTPUT));
-		addOutput(createOutputCentered<PJ301MPort>(Vec(21.594f, 342.001f), module, Sync::DIV2_OUTPUT));
-		addOutput(createOutputCentered<PJ301MPort>(Vec(53.998f, 342.001f), module, Sync::RESET_OUTPUT));
+		addInput(createInputCentered<PJ301MPort>(Vec(18.267f + panelXOffset, 249.791f), module, Sync::EXT_INPUT));
+		addInput(createInputCentered<PJ301MPort>(Vec(50.671f + panelXOffset, 249.791f), module, Sync::RST_INPUT));
+		addOutput(createOutputCentered<PJ301MPort>(Vec(18.267f + panelXOffset, 302.037f), module, Sync::CLOCK_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(Vec(50.671f + panelXOffset, 302.037f), module, Sync::MULT2_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(Vec(18.267f + panelXOffset, 342.001f), module, Sync::DIV2_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(Vec(50.671f + panelXOffset, 342.001f), module, Sync::RESET_OUTPUT));
 	}
 };
 

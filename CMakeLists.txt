@@ -7,7 +7,7 @@ else()
     include($ENV{HOME}/metamodule-plugin-sdk/plugin.cmake)
 endif()
 
-project(Submit VERSION 2.17.0 DESCRIPTION "Submit plugin for MetaModule" LANGUAGES C CXX ASM)
+project(Submit VERSION 2.18.0 DESCRIPTION "Submit plugin for MetaModule" LANGUAGES C CXX ASM)
 
 add_library(Submit STATIC)
 

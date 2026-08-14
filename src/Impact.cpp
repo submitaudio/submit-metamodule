@@ -8,6 +8,24 @@ struct ImpactTryMeButton : SvgSwitch {
     }
 };
 
+template <const char* AssetPath>
+struct ImpactSubmitKnob : SvgKnob {
+    ImpactSubmitKnob() {
+        minAngle = -0.83 * M_PI;
+        maxAngle = 0.83 * M_PI;
+        setSvg(Svg::load(asset::plugin(pluginInstance, AssetPath)));
+        shadow->opacity = 0.f;
+    }
+};
+
+static constexpr char IMPACT_KNOB_MEDIUM_ASSET[] = "res/SubmitKnobMedium.png";
+static constexpr char IMPACT_KNOB_SMALL_ASSET[] = "res/SubmitKnobSmall.png";
+static constexpr char IMPACT_KNOB_MINI_ASSET[] = "res/SubmitKnobMini.png";
+
+using ImpactSubmitKnobMedium = ImpactSubmitKnob<IMPACT_KNOB_MEDIUM_ASSET>;
+using ImpactSubmitKnobSmall = ImpactSubmitKnob<IMPACT_KNOB_SMALL_ASSET>;
+using ImpactSubmitKnobMini = ImpactSubmitKnob<IMPACT_KNOB_MINI_ASSET>;
+
 struct Impact : Module {
     enum ParamId {
         PITCH_PARAM,
@@ -399,52 +417,52 @@ struct Impact : Module {
 struct ImpactWidget : ModuleWidget {
     ImpactWidget(Impact* module) {
         setModule(module);
-        setPanel(createPanel(asset::plugin(pluginInstance, "res/Impact.svg")));
+        setPanel(createPanel(asset::plugin(pluginInstance, "res/Impact.png")));
 
         // ── Knoppen ──────────────────────────
-        addParam(createParamCentered<RoundHugeBlackKnob>(mm2px(Vec(14.59f, 27.06f)), module, Impact::PITCH_PARAM));
-        addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(34.48f, 29.50f)), module, Impact::DECAY_PARAM));
-        addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(54.23f, 29.50f)), module, Impact::PUNCH_PARAM));
-        addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(14.64f, 50.28f)), module, Impact::HARM_PARAM));
-        addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(34.48f, 50.28f)), module, Impact::SNAP_PARAM));
-        addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(54.23f, 50.28f)), module, Impact::FOLD_PARAM));
-        addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(14.64f, 70.55f)), module, Impact::MORPH_PARAM));
-        addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(34.40f, 70.64f)), module, Impact::NOISE_PARAM));
-        addParam(createParamCentered<RoundLargeBlackKnob>(mm2px(Vec(54.23f, 70.64f)), module, Impact::NLEN_PARAM));
+        addParam(createParamCentered<ImpactSubmitKnobMedium>(mm2px(Vec(14.609f, 27.097f)), module, Impact::PITCH_PARAM));
+        addParam(createParamCentered<ImpactSubmitKnobSmall>(mm2px(Vec(34.533f, 29.549f)), module, Impact::DECAY_PARAM));
+        addParam(createParamCentered<ImpactSubmitKnobSmall>(mm2px(Vec(54.307f, 29.549f)), module, Impact::PUNCH_PARAM));
+        addParam(createParamCentered<ImpactSubmitKnobSmall>(mm2px(Vec(14.667f, 50.359f)), module, Impact::HARM_PARAM));
+        addParam(createParamCentered<ImpactSubmitKnobSmall>(mm2px(Vec(34.533f, 50.359f)), module, Impact::SNAP_PARAM));
+        addParam(createParamCentered<ImpactSubmitKnobSmall>(mm2px(Vec(54.307f, 50.359f)), module, Impact::FOLD_PARAM));
+        addParam(createParamCentered<ImpactSubmitKnobSmall>(mm2px(Vec(14.667f, 70.660f)), module, Impact::MORPH_PARAM));
+        addParam(createParamCentered<ImpactSubmitKnobSmall>(mm2px(Vec(34.448f, 70.745f)), module, Impact::NOISE_PARAM));
+        addParam(createParamCentered<ImpactSubmitKnobSmall>(mm2px(Vec(54.307f, 70.745f)), module, Impact::NLEN_PARAM));
 
         // ── Attenuverters ─────────────────────
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(12.84f, 86.11f)), module, Impact::ATT_DECAY_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(27.82f, 86.11f)), module, Impact::ATT_PUNCH_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(43.20f, 86.11f)), module, Impact::ATT_MORPH_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(58.38f, 86.11f)), module, Impact::ATT_FOLD_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(73.92f, 86.11f)), module, Impact::ATT_NOISE_PARAM));
+        addParam(createParamCentered<ImpactSubmitKnobMini>(mm2px(Vec(12.857f, 86.243f)), module, Impact::ATT_DECAY_PARAM));
+        addParam(createParamCentered<ImpactSubmitKnobMini>(mm2px(Vec(27.857f, 86.243f)), module, Impact::ATT_PUNCH_PARAM));
+        addParam(createParamCentered<ImpactSubmitKnobMini>(mm2px(Vec(43.266f, 86.243f)), module, Impact::ATT_MORPH_PARAM));
+        addParam(createParamCentered<ImpactSubmitKnobMini>(mm2px(Vec(58.466f, 86.243f)), module, Impact::ATT_FOLD_PARAM));
+        addParam(createParamCentered<ImpactSubmitKnobMini>(mm2px(Vec(74.032f, 86.243f)), module, Impact::ATT_NOISE_PARAM));
 
         // ── Schakelaars ───────────────────────
-        addParam(createParamCentered<CKSS>(mm2px(Vec(71.53f, 26.18f)), module, Impact::MODE_PARAM));
-        addParam(createParamCentered<CKSSThree>(mm2px(Vec(71.53f, 41.90f)), module, Impact::NTYPE_PARAM));
+        addParam(createParamCentered<CKSS>(mm2px(Vec(71.635f, 26.219f)), module, Impact::MODE_PARAM));
+        addParam(createParamCentered<CKSSThree>(mm2px(Vec(71.635f, 41.959f)), module, Impact::NTYPE_PARAM));
 
         // ── TRY ME knop ───────────────────────
-        addParam(createParamCentered<ImpactTryMeButton>(mm2px(Vec(75.17f, 58.74f)), module, Impact::TRYME_PARAM));
+        addParam(createParamCentered<ImpactTryMeButton>(mm2px(Vec(76.485f, 59.371f)), module, Impact::TRYME_PARAM));
 
         // ── LEDs ──────────────────────────────
-        addChild(createLightCentered<SmallLight<YellowLight>>(mm2px(Vec(7.19f, 109.53f)), module, Impact::TRIG_LIGHT));
-        addChild(createLightCentered<SmallLight<YellowLight>>(mm2px(Vec(38.27f, 109.53f)), module, Impact::ACC_LIGHT));
+        addChild(createLightCentered<SmallLight<YellowLight>>(mm2px(Vec(8.048f, 109.698f)), module, Impact::TRIG_LIGHT));
+        addChild(createLightCentered<SmallLight<YellowLight>>(mm2px(Vec(39.176f, 109.698f)), module, Impact::ACC_LIGHT));
 
         // ── CV Inputs ─────────────────────────
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(12.61f, 100.76f)), module, Impact::DECAY_CV));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(27.69f, 100.76f)), module, Impact::PUNCH_CV));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(43.20f, 100.76f)), module, Impact::MORPH_CV));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(58.38f, 100.76f)), module, Impact::FOLD_CV));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(73.95f, 100.76f)), module, Impact::NLEN_CV));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(12.632f, 100.916f)), module, Impact::DECAY_CV));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(27.730f, 100.916f)), module, Impact::PUNCH_CV));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(43.266f, 100.916f)), module, Impact::MORPH_CV));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(58.466f, 100.916f)), module, Impact::FOLD_CV));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(74.063f, 100.916f)), module, Impact::NLEN_CV));
 
         // ── Trigger / Pitch / Accent ──────────
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(12.61f, 116.19f)), module, Impact::TRIG_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(27.69f, 116.19f)), module, Impact::VOCT_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(43.20f, 116.19f)), module, Impact::ACC_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(12.632f, 116.367f)), module, Impact::TRIG_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(27.730f, 116.367f)), module, Impact::VOCT_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(43.266f, 116.367f)), module, Impact::ACC_INPUT));
 
         // ── Outputs ───────────────────────────
-        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(58.38f, 116.19f)), module, Impact::OUT_L_OUTPUT));
-        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(73.95f, 116.19f)), module, Impact::OUT_R_OUTPUT));
+        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(58.466f, 116.367f)), module, Impact::OUT_L_OUTPUT));
+        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(74.063f, 116.367f)), module, Impact::OUT_R_OUTPUT));
     }
 };
 

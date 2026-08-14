@@ -4,6 +4,21 @@
 #include "plugin.hpp"
 #include <cmath>
 
+template <const char* AssetPath>
+struct SweepSubmitKnob : SvgKnob {
+    SweepSubmitKnob() {
+        minAngle = -0.83 * M_PI;
+        maxAngle = 0.83 * M_PI;
+        setSvg(Svg::load(asset::plugin(pluginInstance, AssetPath)));
+        shadow->opacity = 0.f;
+    }
+};
+
+static constexpr char SWEEP_KNOB_MEDIUM_ASSET[] = "res/SubmitKnobMedium.png";
+static constexpr char SWEEP_KNOB_SMALL_ASSET[] = "res/SubmitKnobSmall.png";
+using SweepSubmitKnobMedium = SweepSubmitKnob<SWEEP_KNOB_MEDIUM_ASSET>;
+using SweepSubmitKnobSmall = SweepSubmitKnob<SWEEP_KNOB_SMALL_ASSET>;
+
 struct SweepMuteButton : SvgSwitch {
     SweepMuteButton() {
         momentary = true;
@@ -112,33 +127,34 @@ struct SweepModule : Module {
         float inL = inputs[CHAIN_L_INPUT].getVoltage();
         float inR = inputs[CHAIN_R_INPUT].isConnected() ? inputs[CHAIN_R_INPUT].getVoltage() : inL;
 
-        float deadzone = 0.01f;
-        if (std::abs(smoothSweep - 0.5f) < deadzone) {
-            outputs[CHAIN_L_OUTPUT].setVoltage(inL);
-            outputs[CHAIN_R_OUTPUT].setVoltage(inR);
-            lpL.reset(); lpR.reset();
-            hpL.reset(); hpR.reset();
-            lights[RESET_LIGHT].setBrightness(resetActive ? 1.f : 0.f);
-            return;
-        }
-
         float q = 0.707f + smoothRes * 4.f;
+        constexpr float centerFadeWidth = 0.03f;
+        float distanceFromCenter = std::abs(smoothSweep - 0.5f);
+        float filterMix = clamp(distanceFromCenter / centerFadeWidth, 0.f, 1.f);
+        // Smoothstep keeps the transition into the centre bypass click-free.
+        filterMix = filterMix * filterMix * (3.f - 2.f * filterMix);
+
+        float filteredL = inL;
+        float filteredR = inR;
 
         if (smoothSweep < 0.5f) {
             float t = smoothSweep * 2.f;
             float freq = clamp(20.f * std::pow(1000.f, t), 20.f, 20000.f);
             lpL.setLP(freq, q, args.sampleRate);
             lpR.setLP(freq, q, args.sampleRate);
-            outputs[CHAIN_L_OUTPUT].setVoltage(lpL.process(inL));
-            outputs[CHAIN_R_OUTPUT].setVoltage(lpR.process(inR));
+            filteredL = lpL.process(inL);
+            filteredR = lpR.process(inR);
         } else {
             float t = (smoothSweep - 0.5f) * 2.f;
             float freq = clamp(20.f * std::pow(1000.f, t), 20.f, 20000.f);
             hpL.setHP(freq, q, args.sampleRate);
             hpR.setHP(freq, q, args.sampleRate);
-            outputs[CHAIN_L_OUTPUT].setVoltage(hpL.process(inL));
-            outputs[CHAIN_R_OUTPUT].setVoltage(hpR.process(inR));
+            filteredL = hpL.process(inL);
+            filteredR = hpR.process(inR);
         }
+
+        outputs[CHAIN_L_OUTPUT].setVoltage(inL + (filteredL - inL) * filterMix);
+        outputs[CHAIN_R_OUTPUT].setVoltage(inR + (filteredR - inR) * filterMix);
 
         lights[RESET_LIGHT].setBrightness(resetActive ? 1.f : 0.f);
     }
@@ -152,8 +168,8 @@ struct SweepWidget : ModuleWidget {
         setModule(module);
         setPanel(createPanel(asset::plugin(pluginInstance, "res/Sweep.svg")));
 
-        addParam(createParamCentered<RoundBigBlackKnob>(mm2px(Vec(26.83f, 35.00f)), module, SweepModule::SWEEP_KNOB_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(26.75f, 58.94f)), module, SweepModule::RES_PARAM));
+        addParam(createParamCentered<SweepSubmitKnobMedium>(mm2px(Vec(26.83f, 35.00f)), module, SweepModule::SWEEP_KNOB_PARAM));
+        addParam(createParamCentered<SweepSubmitKnobSmall>(mm2px(Vec(26.75f, 58.94f)), module, SweepModule::RES_PARAM));
         addParam(createParamCentered<SweepMuteButton>(mm2px(Vec(26.91f, 75.59f)), module, SweepModule::RESET_PARAM));
 
         addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8.33f, 35.37f)), module, SweepModule::SWEEP_CV_INPUT));

@@ -6,11 +6,20 @@
 
 // ── CUSTOM KNOP via asset::plugin() ──────────────────────────────────────────
 
-struct GainKnobLarge : SvgKnob {
-    GainKnobLarge() {
+struct GainKnobMedium : SvgKnob {
+    GainKnobMedium() {
         minAngle = -0.83 * M_PI;
         maxAngle = 0.83 * M_PI;
-        setSvg(Svg::load(asset::plugin(pluginInstance, "assets/GainKnob.png")));
+        setSvg(Svg::load(asset::plugin(pluginInstance, "res/SubmitKnobMedium.png")));
+        shadow->opacity = 0.f;
+    }
+};
+
+struct GainKnobMini : SvgKnob {
+    GainKnobMini() {
+        minAngle = -0.83 * M_PI;
+        maxAngle = 0.83 * M_PI;
+        setSvg(Svg::load(asset::plugin(pluginInstance, "res/SubmitKnobMini.png")));
         shadow->opacity = 0.f;
     }
 };
@@ -196,10 +205,10 @@ struct GainWidget : ModuleWidget {
         setPanel(createPanel(asset::plugin(pluginInstance, "res/Gain.svg")));
 
         // GAIN knop groot — custom via asset::plugin()
-        addParam(createParamCentered<RoundBigBlackKnob>(mm2px(Vec(44.90f, 39.24f)), module, GainModule::GAIN_PARAM));
+        addParam(createParamCentered<GainKnobMedium>(mm2px(Vec(44.90f, 39.24f)), module, GainModule::GAIN_PARAM));
 
         // FX1 knop klein
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(11.31f, 31.61f)), module, GainModule::SEND1_PARAM));
+        addParam(createParamCentered<GainKnobMini>(mm2px(Vec(11.31f, 31.61f)), module, GainModule::SEND1_PARAM));
 
         // Fader
         addParam(createParam<GainMMSlider>(mm2px(Vec(21.94f, 26.61f)), module, GainModule::VOL_PARAM));
@@ -230,7 +239,7 @@ struct GainWidget : ModuleWidget {
         addInput(createInputCentered<PJ301MPort>(mm2px(Vec(35.21f, 116.19f)), module, GainModule::RETURN1_R_INPUT));
 
         // Peak LED
-        addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(mm2px(Vec(30.29f, 20.92f)), module, GainModule::PEAK_R_LIGHT));
+        addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(mm2px(Vec(31.29f, 20.92f)), module, GainModule::PEAK_R_LIGHT));
     }
 };
 

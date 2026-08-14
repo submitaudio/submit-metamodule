@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       SDK_branch:
-        description: 'MetaModule SDK branch'
+        description: 'MetaModule SDK tag'
         required: true
         type: choice
-        default: main
+        default: api-v2.3.0
         options:
-          - main
+          - api-v2.3.0
       do_release:
         description: 'Create Release (must also select Tag above!)'
         required: true

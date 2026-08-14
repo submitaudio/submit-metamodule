@@ -16,6 +16,24 @@ struct ChronoBreakButton : SvgSwitch {
         addFrame(Svg::load(asset::plugin(pluginInstance, "res/ChronoBreak_1.png")));
     }
 };
+
+struct ChronoSubmitKnobMedium : SvgKnob {
+    ChronoSubmitKnobMedium() {
+        minAngle = -0.83 * M_PI;
+        maxAngle = 0.83 * M_PI;
+        setSvg(Svg::load(asset::plugin(pluginInstance, "res/SubmitKnobMedium.png")));
+        shadow->opacity = 0.f;
+    }
+};
+
+struct ChronoSubmitKnobSmall : SvgKnob {
+    ChronoSubmitKnobSmall() {
+        minAngle = -0.83 * M_PI;
+        maxAngle = 0.83 * M_PI;
+        setSvg(Svg::load(asset::plugin(pluginInstance, "res/SubmitKnobSmall.png")));
+        shadow->opacity = 0.f;
+    }
+};
 #include <cstring>
 
 static const int MAX_BUFFER = 48000 * 4;
@@ -116,6 +134,13 @@ struct Chrono : Module {
     float brakeSpeed       = 1.f;
     float brakeSpeedSmooth = 1.f;
 
+    // Momentary smooth bypass: 0 = Chrono mix, 1 = direct dry signal.
+    float dryFade = 0.f;
+
+    // New modules use Time as an extra clocked ratio. Legacy patches retain
+    // the original clocked behavior when loaded.
+    bool clockedTimeEnabled = true;
+
     // Drijvende lees posities per head
     float headReadPos[3] = {0.f, 0.f, 0.f};
     bool  headPosInit    = false;
@@ -176,7 +201,7 @@ struct Chrono : Module {
         paramQuantities[SPACING_PARAM]->snapEnabled = true;
         configParam(SPREAD_PARAM,   0.f, 1.f, 1.f,  "Spread");
         configParam(SURGE_PARAM,    0.f, 1.f, 0.f,  "Surge");
-        configParam(BREAK_PARAM,    0.f, 1.f, 0.f,  "Break");
+        configParam(BREAK_PARAM,    0.f, 1.f, 0.f,  "Dry");
 
         configInput(AUDIO_L_INPUT,    "Audio L/Mono");
         configInput(AUDIO_R_INPUT,    "Audio R");
@@ -190,12 +215,31 @@ struct Chrono : Module {
         configInput(SPACING_CV_INPUT, "Offset CV");
         configInput(SPREAD_CV_INPUT,  "Spread CV");
         configInput(SURGE_CV_INPUT,   "Surge Gate");
-        configInput(BREAK_CV_INPUT,   "Break Gate");
+        configInput(BREAK_CV_INPUT,   "Dry Gate");
 
         configOutput(AUDIO_L_OUTPUT, "Audio L");
         configOutput(AUDIO_R_OUTPUT, "Audio R");
 
         std::memset(buffer, 0, sizeof(buffer));
+    }
+
+    json_t* dataToJson() override {
+        json_t* rootJ = json_object();
+        json_object_set_new(rootJ, "clockedTimeVersion", json_integer(1));
+        json_object_set_new(rootJ, "clockedTimeEnabled", json_boolean(clockedTimeEnabled));
+        return rootJ;
+    }
+
+    void dataFromJson(json_t* rootJ) override {
+        if (json_t* enabledJ = json_object_get(rootJ, "clockedTimeEnabled"))
+            clockedTimeEnabled = json_boolean_value(enabledJ);
+    }
+
+    void fromJson(json_t* rootJ) override {
+        json_t* dataJ = json_object_get(rootJ, "data");
+        if (!dataJ || !json_object_get(dataJ, "clockedTimeVersion"))
+            clockedTimeEnabled = false;
+        Module::fromJson(rootJ);
     }
 
     void process(const ProcessArgs& args) override {
@@ -219,25 +263,28 @@ struct Chrono : Module {
         float fbRaw = clamp(params[FEEDBACK_PARAM].getValue()
             + (inputs[FEEDBACK_CV_INPUT].isConnected()
                 ? inputs[FEEDBACK_CV_INPUT].getVoltage() * 0.1f : 0.f), 0.f, 1.f);
-        float feedback = clamp(fbRaw * 0.98f, 0.f, 0.999f);
+        // Subtle perceptual lift in the middle while preserving both endpoints.
+        float feedbackCurve = 1.f + 0.12f * (4.f * fbRaw * (1.f - fbRaw));
+        float feedback = clamp(fbRaw * feedbackCurve * 0.98f, 0.f, 0.999f);
 
         // ── SURGE — FREEZE ────────────────────
         bool surgePressed = params[SURGE_PARAM].getValue() > 0.5f
             || (inputs[SURGE_CV_INPUT].isConnected() && inputs[SURGE_CV_INPUT].getVoltage() > 1.f);
 
         float freezeTarget = surgePressed ? 1.f : 0.f;
-        float fadeOutSpeed;
         if (surgePressed) {
-            fadeOutSpeed = feedback < 0.5f ? 0.001f + (feedback / 0.5f) * 0.004f : 0.005f;
+            float fadeInSpeed = feedback < 0.5f ? 0.001f + (feedback / 0.5f) * 0.004f : 0.005f;
+            freezeGain += (freezeTarget - freezeGain) * fadeInSpeed;
         } else {
-            fadeOutSpeed = feedback < 0.5f ? 0.0001f + (feedback / 0.5f) * 0.0002f : 0.0003f + (feedback - 0.5f) * 0.0012f;
+            // Exact linear release: a fully developed Surge reaches zero in 3 s.
+            freezeGain = fmaxf(0.f, freezeGain - 1.f / (3.f * args.sampleRate));
         }
-        freezeGain += (freezeTarget - freezeGain) * fadeOutSpeed;
 
-        // Bij surge: minimum feedback
-        float fbUsed = surgePressed ? fmaxf(feedback + 0.08f, 0.85f) : feedback;
+        // Let Surge feedback and drive follow the same three-second release.
+        float surgeFeedback = fmaxf(feedback + 0.08f, 0.90f);
+        float fbUsed = feedback + (surgeFeedback - feedback) * freezeGain;
         fbUsed = clamp(fbUsed, 0.f, 0.990f);
-        float driveUsed = surgePressed ? drive + 0.25f : drive;
+        float driveUsed = drive + 0.30f * freezeGain;
 
         fbSmooth    += (fbUsed    - fbSmooth)    * 0.008f;
         driveSmooth += (driveUsed - driveSmooth) * 0.008f;
@@ -246,30 +293,20 @@ struct Chrono : Module {
         driveSmooth = clamp(driveSmooth, 0.f, 2.f);
         toneSmooth  = clamp(toneSmooth,  0.f, 1.f);
 
-        // ── BREAK — tape stop ─────────────────
-        bool breakPressed = params[BREAK_PARAM].getValue() > 0.5f
+        // ── DRY — smooth momentary bypass ─────
+        bool dryPressed = params[BREAK_PARAM].getValue() > 0.5f
             || (inputs[BREAK_CV_INPUT].isConnected() && inputs[BREAK_CV_INPUT].getVoltage() > 1.f);
 
-        // Motor vertraagt bij indrukken, versnelt bij loslaten
-        if (breakPressed) {
-            // Heel langzaam afremmen — zoals een bandmachine
-            brakeSpeed *= 0.99985f;
-            brakeSpeed  = fmaxf(brakeSpeed, 0.f);
-        } else {
-            // Heel langzaam opstarten
-            brakeSpeed += (1.f - brakeSpeed) * 0.0001f;
-            brakeSpeed  = fminf(brakeSpeed, 1.f);
-        }
-
-        // Smooth de brakeSpeed — zeer langzaam voor tikloze overgang
-        brakeSpeedSmooth += (brakeSpeed - brakeSpeedSmooth) * 0.0015f;
-
-        // Feedback uitschakelen bij stilstand
-        if (brakeSpeedSmooth < 0.01f) fbSmooth = 0.f;
+        const float dryFadeInStep  = 1.f / args.sampleRate;
+        const float dryFadeOutStep = 1.f / args.sampleRate;
+        if (dryPressed)
+            dryFade = fminf(1.f, dryFade + dryFadeInStep);
+        else
+            dryFade = fmaxf(0.f, dryFade - dryFadeOutStep);
 
         // ── LEDs ──────────────────────────────
         lights[SURGE_LIGHT].setBrightness(surgePressed ? 1.f : 0.f);
-        lights[BREAK_LIGHT].setBrightness(breakPressed ? 1.f : 0.f);
+        lights[BREAK_LIGHT].setBrightness(dryPressed ? 1.f : 0.f);
 
         // ── DIVISION ──────────────────────────
         float divRaw = finiteOr(params[DIVISION_PARAM].getValue(), 2.f);
@@ -293,7 +330,28 @@ struct Chrono : Module {
             lastClockHigh = clockHigh;
             clockSampleCount++;
             if (clockInterval > 0) {
-                targetDelaySamples = (float)clockInterval * ratio;
+                float clockedTimeRatio = 1.f;
+                if (clockedTimeEnabled) {
+                    static const float positions[9] = {
+                        0.f, 0.075f, 0.15f, 0.225f, 0.30f,
+                        0.475f, 0.65f, 0.825f, 1.f
+                    };
+                    static const float ratios[9] = {
+                        0.25f, 1.f / 3.f, 0.5f, 2.f / 3.f, 1.f,
+                        4.f / 3.f, 1.5f, 2.f, 4.f
+                    };
+                    int nearest = 0;
+                    float nearestDistance = fabsf(timeKnob - positions[0]);
+                    for (int i = 1; i < 9; ++i) {
+                        float distance = fabsf(timeKnob - positions[i]);
+                        if (distance < nearestDistance) {
+                            nearest = i;
+                            nearestDistance = distance;
+                        }
+                    }
+                    clockedTimeRatio = ratios[nearest];
+                }
+                targetDelaySamples = (float)clockInterval * ratio * clockedTimeRatio;
             }
         } else {
             targetDelaySamples = timeKnob * 2.f * args.sampleRate;
@@ -592,9 +650,13 @@ struct Chrono : Module {
         float outR = (dryR * dryGain + wetDrivenR * wetGain) * brakeSpeedSmooth;
 
         // Surge bloom
-        float bloom = delayed * freezeGain * mix * 1.2f;
+        float bloom = delayed * freezeGain * mix * 1.3f;
         outL += bloom;
         outR += bloom;
+
+        // Keep Chrono running behind Dry and only crossfade its output.
+        outL += (dryL - outL) * dryFade;
+        outR += (dryR - outR) * dryFade;
 
         outputs[AUDIO_L_OUTPUT].setVoltage(safeAudio(outL));
         outputs[AUDIO_R_OUTPUT].setVoltage(safeAudio(outR));
@@ -627,47 +689,47 @@ struct ChronoSliderStepped : SvgSlider {
 struct ChronoWidget : ModuleWidget {
     ChronoWidget(Chrono* module) {
         setModule(module);
-        setPanel(createPanel(asset::plugin(pluginInstance, "res/Chrono.svg")));
+        setPanel(createPanel(asset::plugin(pluginInstance, "res/Chrono.png")));
 
         // ── Knoppen ──────────────────────────
-        addParam(createParamCentered<RoundHugeBlackKnob>(mm2px(Vec(20.21f, 35.16f)), module, Chrono::TIME_PARAM));
-        addParam(createParamCentered<RoundHugeBlackKnob>(mm2px(Vec(20.21f, 63.09f)), module, Chrono::FEEDBACK_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(11.55f, 89.32f)), module, Chrono::DIVISION_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(29.72f, 89.41f)), module, Chrono::SPACING_PARAM));
-        addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(48.06f, 89.41f)), module, Chrono::SPREAD_PARAM));
+        addParam(createParamCentered<ChronoSubmitKnobMedium>(mm2px(Vec(20.212f, 35.157f)), module, Chrono::TIME_PARAM));
+        addParam(createParamCentered<ChronoSubmitKnobMedium>(mm2px(Vec(20.212f, 63.087f)), module, Chrono::FEEDBACK_PARAM));
+        addParam(createParamCentered<ChronoSubmitKnobSmall>(mm2px(Vec(11.549f, 89.325f)), module, Chrono::DIVISION_PARAM));
+        addParam(createParamCentered<ChronoSubmitKnobSmall>(mm2px(Vec(29.721f, 89.409f)), module, Chrono::SPACING_PARAM));
+        addParam(createParamCentered<ChronoSubmitKnobSmall>(mm2px(Vec(48.061f, 89.409f)), module, Chrono::SPREAD_PARAM));
 
         // ── Sliders ───────────────────────────
-        addParam(createParam<ChronoSlider>(mm2px(Vec(42.29f - 3.5f, 27.29f)), module, Chrono::MIX_PARAM));
-        addParam(createParam<ChronoSlider>(mm2px(Vec(54.72f - 3.5f, 27.29f)), module, Chrono::DRIVE_PARAM));
-        addParam(createParam<ChronoSlider>(mm2px(Vec(67.25f - 3.5f, 27.29f)), module, Chrono::TAPE_PARAM));
-        addParam(createParam<ChronoSliderStepped>(mm2px(Vec(79.75f - 3.5f, 27.29f)), module, Chrono::HEADS_PARAM));
+        addParam(createParam<ChronoSlider>(mm2px(Vec(42.228f - 3.5f, 27.249f)), module, Chrono::MIX_PARAM));
+        addParam(createParam<ChronoSlider>(mm2px(Vec(54.633f - 3.5f, 27.249f)), module, Chrono::DRIVE_PARAM));
+        addParam(createParam<ChronoSlider>(mm2px(Vec(67.147f - 3.5f, 27.249f)), module, Chrono::TAPE_PARAM));
+        addParam(createParam<ChronoSliderStepped>(mm2px(Vec(79.633f - 3.5f, 27.249f)), module, Chrono::HEADS_PARAM));
 
         // ── Momentary knoppen ─────────────────
-        addParam(createParamCentered<ChronoSurgeButton>(mm2px(Vec(66.12f, 89.58f)), module, Chrono::SURGE_PARAM));
-        addParam(createParamCentered<ChronoBreakButton>(mm2px(Vec(84.13f, 89.58f)), module, Chrono::BREAK_PARAM));
+        addParam(createParamCentered<ChronoSurgeButton>(mm2px(Vec(66.121f, 89.582f)), module, Chrono::SURGE_PARAM));
+        addParam(createParamCentered<ChronoBreakButton>(mm2px(Vec(84.134f, 89.582f)), module, Chrono::BREAK_PARAM));
 
         // ── LEDs ──────────────────────────────
-        addChild(createLightCentered<SmallLight<YellowLight>>(mm2px(Vec(59.88f, 79.53f)), module, Chrono::SURGE_LIGHT));
-        addChild(createLightCentered<SmallLight<YellowLight>>(mm2px(Vec(77.95f, 79.53f)), module, Chrono::BREAK_LIGHT));
+        addChild(createLightCentered<SmallLight<YellowLight>>(mm2px(Vec(60.558f, 79.530f)), module, Chrono::SURGE_LIGHT));
+        addChild(createLightCentered<SmallLight<YellowLight>>(mm2px(Vec(80.297f, 79.530f)), module, Chrono::BREAK_LIGHT));
 
         // ── CV Inputs ─────────────────────────
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(7.22f, 21.51f)), module, Chrono::TIME_CV_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(7.22f, 49.00f)), module, Chrono::FEEDBACK_CV_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(41.98f, 68.46f)), module, Chrono::MIX_CV_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(54.40f, 68.46f)), module, Chrono::DRIVE_CV_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(66.84f, 68.46f)), module, Chrono::TAPE_CV_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(79.83f, 68.46f)), module, Chrono::HEADS_CV_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(11.53f, 101.43f)), module, Chrono::CLOCK_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(29.72f, 101.43f)), module, Chrono::SPACING_CV_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(47.81f, 101.43f)), module, Chrono::SPREAD_CV_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(66.01f, 101.43f)), module, Chrono::SURGE_CV_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(84.20f, 101.43f)), module, Chrono::BREAK_CV_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(7.051f, 25.908f)), module, Chrono::TIME_CV_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(7.051f, 53.396f)), module, Chrono::FEEDBACK_CV_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(41.978f, 68.461f)), module, Chrono::MIX_CV_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(54.401f, 68.461f)), module, Chrono::DRIVE_CV_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(66.843f, 68.461f)), module, Chrono::TAPE_CV_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(79.826f, 68.461f)), module, Chrono::HEADS_CV_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(11.531f, 101.434f)), module, Chrono::CLOCK_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(29.721f, 101.434f)), module, Chrono::SPACING_CV_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(47.811f, 101.434f)), module, Chrono::SPREAD_CV_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(66.013f, 101.434f)), module, Chrono::SURGE_CV_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(84.199f, 101.434f)), module, Chrono::BREAK_CV_INPUT));
 
         // ── Audio I/O ─────────────────────────
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(11.63f, 116.19f)), module, Chrono::AUDIO_L_INPUT));
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(29.54f, 116.19f)), module, Chrono::AUDIO_R_INPUT));
-        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(47.81f, 116.19f)), module, Chrono::AUDIO_L_OUTPUT));
-        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(66.12f, 116.19f)), module, Chrono::AUDIO_R_OUTPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(11.632f, 116.192f)), module, Chrono::AUDIO_L_INPUT));
+        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(29.536f, 116.192f)), module, Chrono::AUDIO_R_INPUT));
+        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(47.811f, 116.192f)), module, Chrono::AUDIO_L_OUTPUT));
+        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(66.120f, 116.192f)), module, Chrono::AUDIO_R_OUTPUT));
     }
 };
 

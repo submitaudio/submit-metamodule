@@ -3,6 +3,15 @@
 
 #include <cmath>
 
+struct FlipSubmitKnobCompact : SvgKnob {
+	FlipSubmitKnobCompact() {
+		minAngle = -0.83 * M_PI;
+		maxAngle = 0.83 * M_PI;
+		setSvg(Svg::load(asset::plugin(pluginInstance, "res/SubmitKnobCompactFlip.png")));
+		shadow->opacity = 0.f;
+	}
+};
+
 struct Flip : Module {
 	enum ParamId {
 		GATE_BUTTON_PARAM,
@@ -292,28 +301,29 @@ struct FlipWidget : ModuleWidget {
 		setModule(module);
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/Flip.png")));
 
-		// Exacte posities uit Panel-design-Flip-componenets.svg, met alleen
-		// de 3.327 px horizontale centreerruimte van het 5HP-frame erbij.
-		addInput(createInputCentered<PJ301MPort>(Vec(36.078f, 81.807f), module, Flip::CLOCK_INPUT));
+		// Exacte centra uit Panel-componenets-Flip-Meta kopie.svg. Het 5HP-frame
+		// heeft 3.327 px horizontale middenruimte aan beide zijden.
+		constexpr float panelXOffset = 3.327f;
+		addInput(createInputCentered<PJ301MPort>(Vec(32.751f + panelXOffset, 81.807f), module, Flip::CLOCK_INPUT));
 
-		addParam(createParamCentered<VCVLatch>(Vec(23.033f, 129.515f), module, Flip::GATE_BUTTON_PARAM));
-		addChild(createLightCentered<MediumLight<RedLight>>(Vec(23.033f, 129.515f), module, Flip::FLIP_LIGHT));
-		addInput(createInputCentered<PJ301MPort>(Vec(51.662f, 129.515f), module, Flip::GATE_INPUT));
+		addParam(createParamCentered<VCVLatch>(Vec(19.706f + panelXOffset, 129.515f), module, Flip::GATE_BUTTON_PARAM));
+		addChild(createLightCentered<MediumLight<RedLight>>(Vec(19.706f + panelXOffset, 129.515f), module, Flip::FLIP_LIGHT));
+		addInput(createInputCentered<PJ301MPort>(Vec(48.335f + panelXOffset, 129.515f), module, Flip::GATE_INPUT));
 
-		addParam(createParamCentered<VCVLatch>(Vec(23.033f, 188.861f), module, Flip::FREEZE_PARAM));
-		addChild(createLightCentered<MediumLight<GreenLight>>(Vec(23.033f, 188.861f), module, Flip::FREEZE_LIGHT));
-		addInput(createInputCentered<PJ301MPort>(Vec(51.662f, 188.861f), module, Flip::FREEZE_INPUT));
+		addParam(createParamCentered<VCVLatch>(Vec(19.706f + panelXOffset, 188.861f), module, Flip::FREEZE_PARAM));
+		addChild(createLightCentered<MediumLight<GreenLight>>(Vec(19.706f + panelXOffset, 188.861f), module, Flip::FREEZE_LIGHT));
+		addInput(createInputCentered<PJ301MPort>(Vec(48.335f + panelXOffset, 188.861f), module, Flip::FREEZE_INPUT));
 
-		// Kept compact so the rhythmic scale remains visible on the 5HP panel.
-		auto* lengthKnob = createParamCentered<RoundBlackKnob>(
-			Vec(36.593f, 242.016f), module, Flip::LENGTH_PARAM);
+		// Flip-specific 28 px version, centered on the component guide.
+		auto* lengthKnob = createParamCentered<FlipSubmitKnobCompact>(
+			Vec(33.266f + panelXOffset, 242.016f), module, Flip::LENGTH_PARAM);
 		lengthKnob->snap = true;
 		addParam(lengthKnob);
 
-		addInput(createInputCentered<PJ301MPort>(Vec(21.594f, 302.037f), module, Flip::AUDIO_L_INPUT));
-		addOutput(createOutputCentered<PJ301MPort>(Vec(53.998f, 302.037f), module, Flip::AUDIO_L_OUTPUT));
-		addInput(createInputCentered<PJ301MPort>(Vec(21.594f, 342.001f), module, Flip::AUDIO_R_INPUT));
-		addOutput(createOutputCentered<PJ301MPort>(Vec(53.998f, 342.001f), module, Flip::AUDIO_R_OUTPUT));
+		addInput(createInputCentered<PJ301MPort>(Vec(18.267f + panelXOffset, 302.037f), module, Flip::AUDIO_L_INPUT));
+		addOutput(createOutputCentered<PJ301MPort>(Vec(50.671f + panelXOffset, 302.037f), module, Flip::AUDIO_L_OUTPUT));
+		addInput(createInputCentered<PJ301MPort>(Vec(18.267f + panelXOffset, 342.001f), module, Flip::AUDIO_R_INPUT));
+		addOutput(createOutputCentered<PJ301MPort>(Vec(50.671f + panelXOffset, 342.001f), module, Flip::AUDIO_R_OUTPUT));
 	}
 };
 

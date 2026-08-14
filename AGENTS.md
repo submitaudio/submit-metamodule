@@ -23,13 +23,17 @@ Lees vóór elke nieuwe conversie of layoutaanpassing van VCV Rack naar MetaModu
 
 `VCV_TO_METAMODULE.md`
 
+Lees vóór paneel-, component-, custom-knop-, SDK- of simulatorassetwerk ook altijd volledig:
+
+`METAMODULE_WORKFLOW.md`
+
 Volg die handleiding ook wanneer een bestaande MetaModule-module opnieuw wordt uitgelijnd, wanneer een faceplate wordt vervangen of wanneer componentposities worden aangepast.
 
 ## Scheiding van repositories
 
-- VCV Rack bron: `/Users/studio67/Submit`
-- MetaModule bron: `/Users/studio67/Submit-MM`
-- MetaModule simulator: `/Users/studio67/metamodule-main-git/simulator`
+- VCV Rack bron: `/Users/studio67/SubmitAudio-Development/Projects/VCV-Rack`
+- MetaModule bron: `/Users/studio67/SubmitAudio-Development/Projects/MetaModule`
+- MetaModule simulator: `/Users/studio67/SubmitAudio-Development/Toolchains/MetaModule-Platform/simulator`
 
 Wijzig VCV Rack en MetaModule niet tegelijk, tenzij José dat expliciet vraagt.
 
@@ -40,6 +44,6 @@ Een MetaModule-aanpassing is pas klaar nadat de plugin en simulator opnieuw zijn
 Start de simulator standaard met audio-uitgang 1:
 
 ```sh
-cd /Users/studio67/metamodule-main-git/simulator
+cd /Users/studio67/SubmitAudio-Development/Toolchains/MetaModule-Platform/simulator
 ./build/simulator --audioout 1
 ```

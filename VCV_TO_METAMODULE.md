@@ -2,16 +2,24 @@
 
 Deze handleiding is verplicht voor iedere Submit Audio-conversie van VCV Rack naar MetaModule. Het doel is dat panel, bediening, DSP en assets bij de eerste simulatorbuild correct overeenkomen met de VCV-module.
 
+Lees daarnaast vóór panel-, component- of custom-knopwerk altijd volledig:
+
+`METAMODULE_WORKFLOW.md`
+
+Dat document is de actuele praktische bron voor de centrale ontwerpbestanden,
+Submit-knoppen, uniforme VCV-naar-MetaModule-schaal, paneelexport, SDK-pinning,
+builds en simulatorasset-cache.
+
 ## Bronnen
 
-- Gebruik `/Users/studio67/Submit` als bron voor de actuele VCV Rack-module.
-- Bouw de MetaModule-versie in `/Users/studio67/Submit-MM`.
+- Gebruik `/Users/studio67/SubmitAudio-Development/Projects/VCV-Rack` als bron voor de actuele VCV Rack-module.
+- Bouw de MetaModule-versie in `/Users/studio67/SubmitAudio-Development/Projects/MetaModule`.
 - Controleer altijd de modulecode, het panel-SVG en het losse component-SVG voordat posities worden ingevoerd.
-- Gebruik `/Users/studio67/Submit/metamodule` niet voor actief MetaModule-werk.
+- Gebruik `/Users/studio67/SubmitAudio-Development/Projects/VCV-Rack/metamodule` niet voor actief MetaModule-werk.
 
 ## Verplichte manifests en modulelijst
 
-Een MetaModule-plugin moet in de root van `/Users/studio67/Submit-MM` beide manifestbestanden bevatten:
+Een MetaModule-plugin moet in de root van `/Users/studio67/SubmitAudio-Development/Projects/MetaModule` beide manifestbestanden bevatten:
 
 - `plugin.json`: algemene plugininformatie en de VCV/Rack-modulemetadata die de MetaModule-build nodig heeft.
 - `plugin-mm.json`: MetaModule-specifieke informatie voor de officiële pluginlijst.
@@ -42,7 +50,8 @@ Een lege `diff` betekent dat beide sluglijsten gelijk zijn. Als de MetaModule-pl
 
 - Gebruik standaard ronde MetaModule-knoppen.
 - Gebruik normaal `RoundSmallBlackKnob`, `RoundLargeBlackKnob`, `RoundBigBlackKnob` of `RoundHugeBlackKnob`, passend bij de cirkelmaat in het component-SVG.
-- Gebruik geen custom knopafbeeldingen of eigen `SvgKnob`-klassen, tenzij José dit expliciet vraagt.
+- Gebruik de centrale custom Submit-knoppen wanneer José voor de nieuwe Submit-stijl kiest. Volg dan exact de bronlocaties, schaal- en PNG-exportregels uit `METAMODULE_WORKFLOW.md`.
+- Gebruik geen andere custom knopafbeeldingen of eigen `SvgKnob`-klassen zonder expliciet overleg.
 - Kies de maat op basis van de componentcirkel en controleer het resultaat visueel in de simulator.
 
 ## Component-SVG en schaal
@@ -115,7 +124,7 @@ Gebruik de speciale MetaModule-faceplate niet automatisch voor VCV Rack. De VCV-
 
 Voor een eigen lettertype:
 
-- Lever het originele `.ttf`- of `.otf`-bestand mee in `/Users/studio67/Submit-MM/assets`.
+- Lever het originele `.ttf`- of `.otf`-bestand mee in `/Users/studio67/SubmitAudio-Development/Projects/MetaModule/assets`.
 - Lever ook de bijbehorende licentietekst mee.
 - Laad het font in de displaywidget met `APP->window->loadFont(asset::plugin(pluginInstance, "res/Fontnaam.ttf"))`.
 - Bewaar de geladen `std::shared_ptr<window::Font>` als lid van de widget, zodat het font tijdens tekenen beschikbaar blijft.
@@ -146,14 +155,14 @@ geen vervanging voor de pluginversie in de bestandsnaam.
 Bouw eerst de MetaModule-plugin:
 
 ```sh
-cd /Users/studio67/Submit-MM
+cd /Users/studio67/SubmitAudio-Development/Projects/MetaModule
 cmake --build build -j4
 ```
 
-Bouw daarna de simulator opnieuw, omdat deze `/Users/studio67/Submit-MM` via `ext-plugins.cmake` gebruikt:
+Bouw daarna de simulator opnieuw, omdat deze `/Users/studio67/SubmitAudio-Development/Projects/MetaModule` via `ext-plugins.cmake` gebruikt:
 
 ```sh
-cd /Users/studio67/metamodule-main-git/simulator
+cd /Users/studio67/SubmitAudio-Development/Toolchains/MetaModule-Platform/simulator
 cmake --build build -j4
 ```
 
@@ -164,17 +173,17 @@ Wanneer panel- of andere assets zijn veranderd, vernieuw ook de simulatorassets 
 Start altijd met José's audiokaart op uitgang 1:
 
 ```sh
-cd /Users/studio67/metamodule-main-git/simulator
+cd /Users/studio67/SubmitAudio-Development/Toolchains/MetaModule-Platform/simulator
 ./build/simulator --audioout 1
 ```
 
 Wanneer de simulator buiten deze werkmap wordt gestart, bijvoorbeeld met `launchctl`, geef dan altijd het absolute assetpad mee. Zonder dit pad kunnen alle faceplates ontbreken:
 
 ```sh
-/Users/studio67/metamodule-main-git/simulator/build/simulator \
+/Users/studio67/SubmitAudio-Development/Toolchains/MetaModule-Platform/simulator/build/simulator \
   --audioout 1 \
   --zoom 100 \
-  --assets /Users/studio67/metamodule-main-git/simulator/build/assets.uimg
+  --assets /Users/studio67/SubmitAudio-Development/Toolchains/MetaModule-Platform/simulator/build/assets.uimg
 ```
 
 Controleer dat slechts één actuele simulatorinstantie draait, zodat geen oude build of oud venster met de nieuwe versie wordt verward.
